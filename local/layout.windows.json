@@ -1,0 +1,113 @@
+{
+  "version": "1.1.1",
+  "windows": {
+    "main": {
+      "main": true,
+      "url": "app://editor/index.html",
+      "windowType": "dockable",
+      "x": 0,
+      "y": 23,
+      "width": 1868,
+      "height": 1056,
+      "layout": {
+        "children": [
+          {
+            "children": [
+              {
+                "active": 0,
+                "children": [
+                  "hierarchy"
+                ],
+                "height": 489.984375,
+                "type": "panel",
+                "width": 302
+              },
+              {
+                "active": 0,
+                "children": [
+                  "assets"
+                ],
+                "height": 472,
+                "type": "panel",
+                "width": 302
+              }
+            ],
+            "height": 965,
+            "type": "dock-v",
+            "width": 302
+          },
+          {
+            "children": [
+              {
+                "active": 0,
+                "children": [
+                  "scene"
+                ],
+                "height": 727,
+                "type": "panel",
+                "width": 1111
+              },
+              {
+                "active": 0,
+                "children": [
+                  "console",
+                  "timeline"
+                ],
+                "height": 235,
+                "type": "panel",
+                "width": 1111
+              }
+            ],
+            "height": 965,
+            "type": "dock-v",
+            "width": 1111
+          },
+          {
+            "active": 0,
+            "children": [
+              "inspector"
+            ],
+            "height": 965,
+            "type": "panel",
+            "width": 443
+          }
+        ],
+        "type": "dock-h"
+      },
+      "panels": [
+        "console",
+        "inspector",
+        "hierarchy",
+        "assets",
+        "scene",
+        "timeline"
+      ]
+    }
+  },
+  "panels": {
+    "project-settings": {
+      "x": 602,
+      "y": 198,
+      "width": 660,
+      "height": 607
+    },
+    "preferences": {
+      "x": 672,
+      "y": 240,
+      "width": 580,
+      "height": 565
+    },
+    "sprite-editor": {
+      "x": 832,
+      "y": 219,
+      "width": 516,
+      "height": 539
+    },
+    "builder": {
+      "x": 687,
+      "y": 167,
+      "width": 500,
+      "height": 722
+    }
+  }
+}

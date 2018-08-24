@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "translucent_3",
+    "texture": "c1073807-c80f-46d8-84f7-361fa2c63c12",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      1334,
+      110
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      1334,
+      110
+    ]
+  }
+}
