@@ -1,6 +1,6 @@
 "use strict";
 cc._RF.push(module, '33ad7W4Sq9CJ4BpgZFyxICj', 'TankCtrl');
-// Scripts/TankCtrl.ts
+// Scripts/Parts/TankCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
 // Learn TypeScript:

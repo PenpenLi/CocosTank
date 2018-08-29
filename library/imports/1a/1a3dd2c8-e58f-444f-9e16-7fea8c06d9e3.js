@@ -1,6 +1,6 @@
 "use strict";
 cc._RF.push(module, '1a3ddLI5Y9ET54Wf+qMBtnj', 'CellCtrl');
-// Scripts/CellCtrl.ts
+// Scripts/Parts/CellCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
 // Learn TypeScript:

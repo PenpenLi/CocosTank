@@ -129,7 +129,7 @@
     "bullet": true
   },
   {
-    "__type__": "cc.PhysicsPolygonCollider",
+    "__type__": "cc.PhysicsBoxCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -147,88 +147,11 @@
       "x": 0,
       "y": 0
     },
-    "points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -30,
-        "y": -44
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -17,
-        "y": -46
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -17,
-        "y": -40
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 14,
-        "y": -40
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 17,
-        "y": -47
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 30,
-        "y": -46
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 31,
-        "y": 28
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 20,
-        "y": 32
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 17,
-        "y": 25
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 4,
-        "y": 25
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 3,
-        "y": 43
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": 42
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -6,
-        "y": 21
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -15,
-        "y": 26
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -18,
-        "y": 30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -29,
-        "y": 30
-      }
-    ]
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 63,
+      "height": 90
+    }
   },
   {
     "__type__": "cc.PrefabInfo",

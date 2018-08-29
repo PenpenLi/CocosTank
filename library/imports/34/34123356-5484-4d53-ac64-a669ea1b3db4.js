@@ -1,6 +1,6 @@
 "use strict";
 cc._RF.push(module, '34123NWVIRNU6xkpmnqGz20', 'HomePageCtrl');
-// Scripts/HomePageCtrl.ts
+// Scripts/Page/HomePageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var WebSocketManage_1 = require("./WebSocketManage");

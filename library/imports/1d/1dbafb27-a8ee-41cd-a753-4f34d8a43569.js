@@ -1,6 +1,6 @@
 "use strict";
 cc._RF.push(module, '1dbafsnqO5BzadTTzTYpDVp', 'MatchingCtrl');
-// Scripts/MatchingCtrl.ts
+// Scripts/Page/MatchingCtrl.ts
 
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html

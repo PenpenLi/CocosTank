@@ -1,52 +1,52 @@
-2018-08-24T09:08:59.779Z - normal: Load ~/.CocosCreator/settings.json
-2018-08-24T09:08:59.782Z - normal: checking language setting...
-2018-08-24T09:08:59.783Z - normal: Language: zh
-2018-08-24T09:09:00.836Z - success: protocol editor-framework registered
-2018-08-24T09:09:00.837Z - success: protocol app registered
-2018-08-24T09:09:00.837Z - success: protocol theme registered
-2018-08-24T09:09:00.837Z - success: protocol packages registered
-2018-08-24T09:09:00.838Z - success: protocol unpack registerred
-2018-08-24T09:09:00.838Z - success: protocol disable-commonjs registerred
-2018-08-24T09:09:01.115Z - normal: connected!
-2018-08-24T09:09:01.116Z - normal: Check project /private/var/root/Git-Repositpory/CocosTank
-2018-08-24T09:09:01.117Z - normal: Initializing Cocos2d
-2018-08-24T09:09:01.586Z - normal: Initializing Asset Database
-2018-08-24T09:09:01.644Z - success: protocol uuid registerred
-2018-08-24T09:09:01.645Z - success: protocol db registerred
-2018-08-24T09:09:01.645Z - success: protocol thumbnail registerred
-2018-08-24T09:09:01.645Z - normal: Loading editor/builtin packages
-2018-08-24T09:09:01.666Z - success: anysdk loaded
-2018-08-24T09:09:01.786Z - success: assets loaded
-2018-08-24T09:09:01.790Z - success: builder loaded
-2018-08-24T09:09:01.792Z - success: cocos-analytics loaded
-2018-08-24T09:09:01.798Z - success: console loaded
-2018-08-24T09:09:01.802Z - success: hierarchy loaded
-2018-08-24T09:09:01.807Z - success: inspector loaded
-2018-08-24T09:09:01.809Z - success: keystore loaded
-2018-08-24T09:09:01.814Z - success: node-library loaded
-2018-08-24T09:09:01.816Z - success: package-asset loaded
-2018-08-24T09:09:01.818Z - success: preferences loaded
-2018-08-24T09:09:01.821Z - success: project-exporter loaded
-2018-08-24T09:09:01.840Z - success: project-importer loaded
-2018-08-24T09:09:01.844Z - success: project-settings loaded
-2018-08-24T09:09:01.848Z - success: ui-kit loaded
-2018-08-24T09:09:01.860Z - success: ui-grid loaded
-2018-08-24T09:09:01.864Z - success: scene loaded
-2018-08-24T09:09:01.866Z - success: sprite-editor loaded
-2018-08-24T09:09:01.871Z - success: store loaded
-2018-08-24T09:09:01.877Z - success: timeline loaded
-2018-08-24T09:09:01.877Z - normal: Loading builtin packages
-2018-08-24T09:09:01.881Z - success: asset-db-debugger loaded
-2018-08-24T09:09:01.882Z - success: color-picker loaded
-2018-08-24T09:09:01.886Z - success: package-manager loaded
-2018-08-24T09:09:01.891Z - success: sdkbox loaded
-2018-08-24T09:09:01.896Z - success: tester loaded
-2018-08-24T09:09:01.906Z - success: ui-kit-preview-extra loaded
-2018-08-24T09:09:01.910Z - success: ui-kit-preview loaded
-2018-08-24T09:09:01.914Z - success: ui-tree loaded
-2018-08-24T09:09:03.109Z - normal: Initializing project /private/var/root/Git-Repositpory/CocosTank
-2018-08-24T09:09:03.136Z - normal: Loading packages
-2018-08-24T09:09:03.141Z - normal: Watching packages
-2018-08-24T09:09:03.155Z - normal: Run Application
-2018-08-24T09:09:04.525Z - success: preview server running at http://localhost:7456
-2018-08-24T09:09:11.168Z - normal: 1.8.1
+2018-08-29T06:49:53.057Z - normal: Load ~/.CocosCreator/settings.json
+2018-08-29T06:49:53.061Z - normal: checking language setting...
+2018-08-29T06:49:53.061Z - normal: Language: zh
+2018-08-29T06:49:54.434Z - success: protocol editor-framework registered
+2018-08-29T06:49:54.435Z - success: protocol app registered
+2018-08-29T06:49:54.435Z - success: protocol theme registered
+2018-08-29T06:49:54.435Z - success: protocol packages registered
+2018-08-29T06:49:54.435Z - success: protocol unpack registerred
+2018-08-29T06:49:54.435Z - success: protocol disable-commonjs registerred
+2018-08-29T06:49:54.705Z - normal: connected!
+2018-08-29T06:49:54.706Z - normal: Check project /private/var/root/Git-Repositpory/CocosTank
+2018-08-29T06:49:54.707Z - normal: Initializing Cocos2d
+2018-08-29T06:49:55.410Z - normal: Initializing Asset Database
+2018-08-29T06:49:55.447Z - success: protocol uuid registerred
+2018-08-29T06:49:55.447Z - success: protocol db registerred
+2018-08-29T06:49:55.447Z - success: protocol thumbnail registerred
+2018-08-29T06:49:55.448Z - normal: Loading editor/builtin packages
+2018-08-29T06:49:55.473Z - success: anysdk loaded
+2018-08-29T06:49:55.620Z - success: assets loaded
+2018-08-29T06:49:55.623Z - success: builder loaded
+2018-08-29T06:49:55.626Z - success: cocos-analytics loaded
+2018-08-29T06:49:55.631Z - success: console loaded
+2018-08-29T06:49:55.636Z - success: hierarchy loaded
+2018-08-29T06:49:55.641Z - success: inspector loaded
+2018-08-29T06:49:55.642Z - success: keystore loaded
+2018-08-29T06:49:55.647Z - success: node-library loaded
+2018-08-29T06:49:55.649Z - success: package-asset loaded
+2018-08-29T06:49:55.651Z - success: preferences loaded
+2018-08-29T06:49:55.654Z - success: project-exporter loaded
+2018-08-29T06:49:55.679Z - success: project-importer loaded
+2018-08-29T06:49:55.683Z - success: project-settings loaded
+2018-08-29T06:49:55.688Z - success: ui-kit loaded
+2018-08-29T06:49:55.693Z - success: ui-grid loaded
+2018-08-29T06:49:55.705Z - success: scene loaded
+2018-08-29T06:49:55.706Z - success: sprite-editor loaded
+2018-08-29T06:49:55.711Z - success: store loaded
+2018-08-29T06:49:55.717Z - success: timeline loaded
+2018-08-29T06:49:55.717Z - normal: Loading builtin packages
+2018-08-29T06:49:55.722Z - success: asset-db-debugger loaded
+2018-08-29T06:49:55.722Z - success: color-picker loaded
+2018-08-29T06:49:55.726Z - success: package-manager loaded
+2018-08-29T06:49:55.732Z - success: sdkbox loaded
+2018-08-29T06:49:55.736Z - success: tester loaded
+2018-08-29T06:49:55.747Z - success: ui-kit-preview-extra loaded
+2018-08-29T06:49:55.751Z - success: ui-kit-preview loaded
+2018-08-29T06:49:55.755Z - success: ui-tree loaded
+2018-08-29T06:49:57.014Z - normal: Initializing project /private/var/root/Git-Repositpory/CocosTank
+2018-08-29T06:49:57.016Z - normal: Loading packages
+2018-08-29T06:49:57.022Z - normal: Watching packages
+2018-08-29T06:49:57.037Z - normal: Run Application
+2018-08-29T06:50:00.456Z - success: preview server running at http://localhost:7456
+2018-08-29T06:50:07.586Z - normal: 1.8.1

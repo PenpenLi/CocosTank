@@ -1,8 +1,9 @@
 "use strict";
-cc._RF.push(module, '8be5etHjxBFJ7oy5iXmUq28', 'LobbyPageCtrl');
-// Scripts/Page/LobbyPageCtrl.ts
+cc._RF.push(module, 'd2df5VGenVNoJazyDhc4uYt', 'LoginPageCtrl');
+// Scripts/Page/LoginPageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var WebSocketManage_1 = require("../WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -17,28 +18,30 @@ var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.matchingPanel = null;
+        _this.userName = null;
+        _this.WebScoketNode = null;
+        _this.BattlePage = null;
         return _this;
     }
-    /**
-     * 点击返回按钮
-     */
-    NewClass.prototype.onClickBackButton = function () {
-        this.node.destroy();
-    };
-    /**
-     * 点击在线匹配
-     */
-    NewClass.prototype.onClickMatching = function () {
-        var matchingPanel = cc.instantiate(this.matchingPanel);
-        matchingPanel.parent = this.node.parent;
-        this.enabled = false;
-    };
     NewClass.prototype.start = function () {
     };
+    NewClass.prototype.onLogin = function () {
+        var userName = this.userName.getComponent(cc.EditBox).string;
+        var webscoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
+        webscoket.sendMessage({ name: userName });
+        var battlePage = cc.instantiate(this.BattlePage);
+        battlePage.parent = this.node.parent;
+        this.enabled = false;
+    };
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "userName", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "WebScoketNode", void 0);
     __decorate([
         property(cc.Prefab)
-    ], NewClass.prototype, "matchingPanel", void 0);
+    ], NewClass.prototype, "BattlePage", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);
