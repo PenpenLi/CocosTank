@@ -1,4 +1,5 @@
-import { Prefab, Node } from '../../creator';
+import HomePageCtrl from './HomePageCtrl'
+import { SpriteFrame } from '../../../creator';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -9,12 +10,18 @@ import { Prefab, Node } from '../../creator';
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
-    @property (cc.Prefab)
+    @property(cc.Prefab)
     matchingPanel: cc.Prefab = null;
+    @property(cc.Node)
+    headImg: cc.Node = null;
+    @property(cc.Node)
+    userName: cc.Node = null;
+
+    private HomePage: cc.Node = null;
     /**
      * 点击返回按钮
      */
@@ -29,7 +36,13 @@ export default class NewClass extends cc.Component {
         matchingPanel.parent = this.node.parent;
         this.enabled = false;
     }
-    start () {
-
+    start() {
+        var self = this;
+        this.HomePage = cc.find('Canvas/HomePagePanel');
+        var homePage = this.HomePage.getComponent(HomePageCtrl).UserData;
+        this.userName.getComponent(cc.Label).string = homePage.nickname;
+        cc.loader.load({url: homePage.headimgurl, type: 'png'}, function(err, texture){
+            self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+        })
     }
 }

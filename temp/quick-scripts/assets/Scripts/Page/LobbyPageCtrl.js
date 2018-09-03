@@ -3,6 +3,7 @@ cc._RF.push(module, '8be5etHjxBFJ7oy5iXmUq28', 'LobbyPageCtrl', __filename);
 // Scripts/Page/LobbyPageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var HomePageCtrl_1 = require("./HomePageCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -18,6 +19,9 @@ var NewClass = /** @class */ (function (_super) {
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.matchingPanel = null;
+        _this.headImg = null;
+        _this.userName = null;
+        _this.HomePage = null;
         return _this;
     }
     /**
@@ -35,10 +39,23 @@ var NewClass = /** @class */ (function (_super) {
         this.enabled = false;
     };
     NewClass.prototype.start = function () {
+        var self = this;
+        this.HomePage = cc.find('Canvas/HomePagePanel');
+        var homePage = this.HomePage.getComponent(HomePageCtrl_1.default).UserData;
+        this.userName.getComponent(cc.Label).string = homePage.nickname;
+        cc.loader.load({ url: homePage.headimgurl, type: 'png' }, function (err, texture) {
+            self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+        });
     };
     __decorate([
         property(cc.Prefab)
     ], NewClass.prototype, "matchingPanel", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "headImg", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "userName", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

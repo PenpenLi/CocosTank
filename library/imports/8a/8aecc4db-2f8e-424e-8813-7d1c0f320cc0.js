@@ -3,15 +3,25 @@ cc._RF.push(module, '8aeccTbL45CTogTfRwPMgzA', 'WebSocketManage');
 // Scripts/WebSocketManage.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var BattleCatrl_1 = require("./Page/BattleCatrl");
+var PlayerOperationCtrl_1 = require("./PlayerOperationCtrl");
+var HomePageCtrl_1 = require("./Page/HomePageCtrl");
+var MatchingCtrl_1 = require("./Page/MatchingCtrl");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var WebSocketManage = /** @class */ (function (_super) {
     __extends(WebSocketManage, _super);
     function WebSocketManage() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.BattlePage = null;
+        _this.Operation = null;
+        _this.HomePage = null;
+        _this.MatchingPage = null;
+        return _this;
     }
     WebSocketManage.prototype.start = function () {
         var self = this;
         this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
         };
@@ -23,26 +33,41 @@ var WebSocketManage = /** @class */ (function (_super) {
         };
         // 监听消息接收
         this.ws.onmessage = function (event) {
-            if (self.callbackObj != null) {
-                self.callbackObj(event);
+            // console.log('接受消息，当前执行回调函数=>', self.callbackObj)
+            // if (self.callbackObj != null) {
+            //     self.callbackObj(event)
+            // }
+            var response = JSON.parse(event.data);
+            if (response.dataMessage === '-1') {
+                self.HomePage = cc.find('Canvas/HomePagePanel');
+                self.HomePage.getComponent(HomePageCtrl_1.default).getUserData(response);
+            }
+            // 生成地图
+            if (response.dataMessage === '0') {
+                // self.BattlePage = cc.find('Canvas/BattlePagePanel');
+                // self.BattlePage.getComponent(BattleCtrl).sendCallBackFor0();
+                self.HomePage = cc.find('Canvas/HomePagePanel');
+                self.HomePage.getComponent(HomePageCtrl_1.default).enemyUserData = response.enemyData;
+                self.MatchingPage = cc.find('Canvas/MatchingPagePanel');
+                self.MatchingPage.getComponent(MatchingCtrl_1.default).setBattelData(response);
+            }
+            // 传输地图
+            if (response.dataMessage === '1') {
+                self.BattlePage = cc.find('Canvas/BattlePagePanel');
+                self.BattlePage.getComponent(BattleCatrl_1.default).sendCallBackFor1(response);
+            }
+            // 位置联机
+            if (response.dataMessage === '2') {
+                self.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
+                self.Operation.getComponent(PlayerOperationCtrl_1.default).setOtherTankDataFor2(response);
+            }
+            if (response.dataMessage === '3') {
+                self.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
+                self.Operation.getComponent(PlayerOperationCtrl_1.default).generateReceiveButtle(response);
             }
         };
     };
-    // public sendMessage(JSONmessage) {
-    //     let message = JSON.stringify(JSONmessage);
-    //     this.ws.send(message);
-    // }
-    /**
-     *
-     * @param JSONmessage 消息内容
-     * @param callbackObj 回调对象
-     * @param funName 回调方法名
-     */
-    WebSocketManage.prototype.sendMessage = function (JSONmessage, callbackObj) {
-        if (callbackObj === void 0) { callbackObj = null; }
-        //获得回调对象和回调方法名
-        this.callbackObj = callbackObj;
-        //转为字符串
+    WebSocketManage.prototype.sendMessage = function (JSONmessage) {
         var message = JSON.stringify(JSONmessage);
         //发送消息
         this.ws.send(message);

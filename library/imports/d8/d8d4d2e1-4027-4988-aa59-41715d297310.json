@@ -484,7 +484,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Icon",
+    "_name": "headImg",
     "_objFlags": 0,
     "_parent": {
       "__id__": 12
@@ -602,7 +602,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "userName",
     "_objFlags": 0,
     "_parent": {
       "__id__": 11
@@ -1548,6 +1548,12 @@
     "_enabled": true,
     "matchingPanel": {
       "__uuid__": "17c4513f-22db-41c8-807e-8aa5ec2374d9"
+    },
+    "headImg": {
+      "__id__": 13
+    },
+    "userName": {
+      "__id__": 18
     }
   },
   {

@@ -5,9 +5,9 @@
       "main": true,
       "url": "app://editor/index.html",
       "windowType": "dockable",
-      "x": 0,
+      "x": 448,
       "y": 23,
-      "width": 1868,
+      "width": 1424,
       "height": 1056,
       "layout": {
         "children": [
@@ -20,7 +20,7 @@
                 ],
                 "height": 489.984375,
                 "type": "panel",
-                "width": 302
+                "width": 215
               },
               {
                 "active": 0,
@@ -29,12 +29,12 @@
                 ],
                 "height": 472,
                 "type": "panel",
-                "width": 302
+                "width": 215
               }
             ],
             "height": 965,
             "type": "dock-v",
-            "width": 302
+            "width": 215
           },
           {
             "children": [
@@ -45,7 +45,7 @@
                 ],
                 "height": 727,
                 "type": "panel",
-                "width": 1111
+                "width": 893
               },
               {
                 "active": 0,
@@ -55,12 +55,12 @@
                 ],
                 "height": 235,
                 "type": "panel",
-                "width": 1111
+                "width": 893
               }
             ],
             "height": 965,
             "type": "dock-v",
-            "width": 1111
+            "width": 893
           },
           {
             "active": 0,
@@ -69,7 +69,7 @@
             ],
             "height": 965,
             "type": "panel",
-            "width": 443
+            "width": 304
           }
         ],
         "type": "dock-h"
@@ -86,8 +86,8 @@
   },
   "panels": {
     "project-settings": {
-      "x": 602,
-      "y": 198,
+      "x": 778,
+      "y": 176,
       "width": 660,
       "height": 607
     },
@@ -98,14 +98,14 @@
       "height": 565
     },
     "sprite-editor": {
-      "x": 832,
-      "y": 219,
+      "x": 561,
+      "y": 251,
       "width": 516,
       "height": 539
     },
     "builder": {
-      "x": 687,
-      "y": 167,
+      "x": 486,
+      "y": 77,
       "width": 500,
       "height": 722
     }

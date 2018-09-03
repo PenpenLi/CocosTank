@@ -3,7 +3,7 @@ cc._RF.push(module, '34123NWVIRNU6xkpmnqGz20', 'HomePageCtrl');
 // Scripts/Page/HomePageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var WebSocketManage_1 = require("./WebSocketManage");
+var WebSocketManage_1 = require("../WebSocketManage");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
@@ -12,18 +12,21 @@ var NewClass = /** @class */ (function (_super) {
         _this.lobbyPanel = null;
         _this.openSoundSprite = null;
         _this.closeSoundSprite = null;
-        _this.webSocketManage = null;
         _this.bgSound = null;
         _this.IsSound = true; //是否开启音效
+        _this.UserData = {};
+        _this.enemyUserData = {};
+        _this.WebScoketNode = null;
         return _this;
     }
+    NewClass.prototype.start = function () {
+    };
     /**
      * 点击开始
      */
     NewClass.prototype.OnClickStartButton = function () {
-        var lobbyPanelPage = cc.instantiate(this.lobbyPanel);
-        lobbyPanelPage.parent = this.node.parent;
-        this.enabled = false;
+        var webscoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
+        webscoket.sendMessage({ msg: 1 });
     };
     /**
      * 点击声音按钮
@@ -32,6 +35,12 @@ var NewClass = /** @class */ (function (_super) {
         this.IsSound = !this.IsSound;
         var buttonSprite = event.target.getComponent(cc.Sprite);
         this.IsSound ? (buttonSprite.spriteFrame = this.openSoundSprite, this.bgSound.resume()) : (buttonSprite.spriteFrame = this.closeSoundSprite, this.bgSound.pause());
+    };
+    NewClass.prototype.getUserData = function (response) {
+        this.UserData = response.data;
+        var lobbyPanelPage = cc.instantiate(this.lobbyPanel);
+        lobbyPanelPage.parent = this.node.parent;
+        this.enabled = false;
     };
     __decorate([
         property(cc.Prefab)
@@ -43,11 +52,11 @@ var NewClass = /** @class */ (function (_super) {
         property(cc.SpriteFrame)
     ], NewClass.prototype, "closeSoundSprite", void 0);
     __decorate([
-        property(WebSocketManage_1.default)
-    ], NewClass.prototype, "webSocketManage", void 0);
-    __decorate([
         property(cc.AudioSource)
     ], NewClass.prototype, "bgSound", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "WebScoketNode", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

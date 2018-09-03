@@ -271,7 +271,7 @@
       }
     ],
     "_tag": -1,
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 30
@@ -1039,9 +1039,11 @@
     "closeSoundSprite": {
       "__uuid__": "cf29c677-bb4d-475f-9051-3d20c10c1f4a"
     },
-    "webSocketManage": null,
     "bgSound": {
       "__id__": 3
+    },
+    "WebScoketNode": {
+      "__id__": 4
     }
   },
   {
@@ -1074,7 +1076,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 43

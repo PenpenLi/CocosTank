@@ -21,11 +21,7 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.start = function () {
         var manager = cc.director.getCollisionManager();
         manager.enabled = true;
-        manager.enabledDebugDraw = true;
         manager.enabledDrawBoundingBox = true;
-    };
-    NewClass.prototype.onCollisionEnter = function (other, self) {
-        console.log('11111');
     };
     NewClass = __decorate([
         ccclass

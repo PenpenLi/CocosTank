@@ -1,5 +1,6 @@
 import LinkedMap from '../Unit/LinkedMap';
 import WebSocketManage from '../WebSocketManage';
+import HomePageCtrl from '.                                   /Page/HomePageCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -14,6 +15,7 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class BattleCtrl extends cc.Component {
+
     @property(cc.Prefab)
     private wall_column_1: cc.Prefab = null;
     @property(cc.Prefab)
@@ -52,27 +54,87 @@ export default class BattleCtrl extends cc.Component {
     private horn_2: cc.SpriteFrame = null;
     @property(cc.SpriteFrame)
     private horn_3: cc.SpriteFrame = null;
-
     private webScoket: WebSocketManage = null;
     // 战斗数据
     private battleData = [
         { row: 3, column: 7, scale: 1 },
         { row: 4, column: 9, scale: 0.775 },
         { row: 5, column: 11, scale: 0.645 },
-        { row: 6, column: 13, scale: 0.539 },
-        { row: 7, column: 15, scale: 0.484 }
+        // { row: 6, column: 13, scale: 0.539 },
+        // { row: 7, column: 15, scale: 0.484 }
     ]
     private activeBattleData = null;
     private cells = 0;
     private externalResources = [];
     private activeExternalData = null;
     private linkedMap = {};
-    private player = []
-
+    private player = [];
+    private Exterrandom = 0;
     public playerName = 'tank_1'
+
+    @property(cc.Node)
+    private MainPlayerHeadImg: cc.Node = null;
+    @property(cc.Node)
+    private MainPlayerName: cc.Node = null;
+    @property(cc.Node)
+    private MainPlayerScore: cc.Node = null;
+    @property (cc.Node)
+    private VicePlayerHeadImg: cc.Node = null;
+    @property(cc.Node)
+    private VicePlayerName: cc.Node = null;
+    @property(cc.Node)
+    private VicePlayerScore: cc.Node = null;
+    
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
+    }
+    initScore(type) {
+        var self = this;
+        var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl);
+        var userData = homePageCtrl.UserData;
+        var enemyUserData = homePageCtrl.enemyUserData;
+        // 该玩家是主玩家
+        if(type === 0) {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        } else {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
+
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        }
+    }
+    public restart(type) {
+        if(type === 0) {
+            var score = this.MainPlayerScore.getComponent(cc.Label).string;
+            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        } else {
+            var score = this.VicePlayerScore.getComponent(cc.Label).string;
+            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        }
+
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
+
+        if (this.playerName !== 'tank_2') {
+            this.initBattleData();
+            this.sendCallBackFor0();
+        }
     }
     initBattleData() {
         let self = this;
@@ -85,49 +147,44 @@ export default class BattleCtrl extends cc.Component {
         var random = Math.random() * this.battleData.length >> 0;
         this.activeBattleData = this.battleData[random]
         // 地图修饰随机
-        random = Math.random() * this.externalResources.length >> 0;
-        this.activeExternalData = this.externalResources[random];
+        this.Exterrandom = Math.random() * this.externalResources.length >> 0;
+        this.activeExternalData = this.externalResources[this.Exterrandom];
         this.cells = this.activeBattleData.column * this.activeBattleData.row
         this.initPlayerPoint();
-        this.webScoket.sendMessage({ msg: 2 }, function(response) {
-            response = JSON.parse(response.data);
-            console.log(response)
+    }
+    public sendCallBackFor0() {
+        var self = this;
+        self.linkedMap = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
+        self.externalCell();
+        for (let i = 0; i < self.cells; i++) {
+            self.generateRegion(i);
+        }
+        self.webScoket.sendMessage({
+            msg: 21,
+            data: {
+                battleData: [{
+                    column: self.activeBattleData.column,
+                    row: self.activeBattleData.row,
+                    scale: self.activeBattleData.scale
+                }],
+                player: self.player,
+                externaData: this.Exterrandom,
+                linkedMap: self.linkedMap
+            }
         })
-        // this.webScoket.ws.onmessage = function (response) {
-        //     response = JSON.parse(response.data)
-        //     if (response.dataMessage === '0') {
-        //         if (response.data.mainPlays === '1') {
-        //             self.linkedMap = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
-        //             self.webScoket.sendMessage({
-        //                 msg: 21,
-        //                 data: {
-        //                     battleData: [{
-        //                         column: self.activeBattleData.column,
-        //                         row: self.activeBattleData.row,
-        //                         scale: self.activeBattleData.scale
-        //                     }],
-        //                     player: self.player,
-        //                     externaData: random,
-        //                     linkedMap: self.linkedMap
-        //                 }
-        //             })
-        //             self.externalCell();
-        //             for (let i = 0; i < self.cells; i++) {
-        //                 self.generateRegion(i)
-        //             }
-        //         }
-        //     } else if (response.dataMessage === '1') {
-        //         self.playerName = 'tank_2'
-        //         self.linkedMap = response.data.linkedMap;
-        //         self.player = response.data.player;
-        //         self.activeExternalData = self.externalResources[response.data.externaData];
-        //         self.activeBattleData = response.data.battleData[0];
-        //         var cells = self.activeBattleData.column * self.activeBattleData.row
-        //         self.externalCell();
-        //         for (let i = 0; i < cells; i++) {
-        //             self.generateRegion(i)
-        //         }
-        // }
+    }
+    public sendCallBackFor1(response) {
+        var self = this
+        self.playerName = 'tank_2'
+        self.linkedMap = response.data.linkedMap;
+        self.player = response.data.player;
+        self.activeExternalData = self.externalResources[response.data.externaData];
+        self.activeBattleData = response.data.battleData[0];
+        var cells = self.activeBattleData.column * self.activeBattleData.row
+        self.externalCell();
+        for (let i = 0; i < cells; i++) {
+            self.generateRegion(i)
+        }
     }
     // 双方玩家位置随机
     initPlayerPoint() {
