@@ -15,8 +15,8 @@ export default class WebSocketManage extends cc.Component {
     private MatchingPage: cc.Node =null;
     start() {
         let self = this;
-        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
-        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
+        this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
         }

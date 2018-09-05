@@ -20,13 +20,18 @@ export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     private Buttle: cc.Prefab = null;
 
+    // 当前玩家控制节点
     private player: cc.Node = null;
-
+    // 旋转状态控制
     private rotationStatus = 0;
+    // 移动状态控制
     private moveStatus = 0;
+    // 战斗区域脚本
     private BattleCtrl: BattleCtrl = null;
+    // webScoket脚本
     private WebScoket: WebSocketManage = null;
 
+    // 用于控制坦克子弹的生成控制
     private i = 0;
 
     private correct = -1;
@@ -126,13 +131,11 @@ export default class NewClass extends cc.Component {
     public generateReceiveButtle(response) {
         this.getPlayer(this.BattleCtrl.playerName);
         var buttle = cc.instantiate(this.Buttle);
-        console.log(buttle.name)
         buttle.name = response.data.buttleName;
         buttle.scale = response.data.scale;
         buttle.rotation = response.data.rotation;
         buttle.setPosition(response.data.x, response.data.y);
         var tank = 'tank_2'
-        console.log(this.player)
         if(this.player.name === 'tank_2'){
             tank = 'tank_1';
         }
@@ -206,6 +209,7 @@ export default class NewClass extends cc.Component {
     }
     public setOtherTankDataFor2(response){
         var player: cc.Node = null;
+        console.log(response.data);
         if (response.dataMessage === '2') {
             player = this.getTankName(response.data.tankName);
         }

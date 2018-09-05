@@ -3,12 +3,13 @@
   "appSecret": "",
   "encryptJs": true,
   "excludeScenes": [],
+  "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
   "jailbreakPlatform": false,
-  "md5Cache": false,
+  "md5Cache": true,
   "mergeStartScene": false,
   "oauthLoginServer": "",
   "optimizeHotUpdate": false,
@@ -20,13 +21,17 @@
   },
   "packageName": "org.cocos2d.Tank",
   "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
   "renderMode": "0",
   "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
   "title": "Tank",
   "webOrientation": "landscape",
   "wechatgame": {
-    "appid": "",
-    "orientation": "portrait"
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
   },
   "xxteaKey": "c5422112-fb87-41",
   "zipCompressJs": true

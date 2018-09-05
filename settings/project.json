@@ -8,12 +8,28 @@
   },
   "collision-matrix": [
     [
+      false,
+      false,
+      true,
+      true
+    ],
+    [
+      false,
+      false,
       true,
       true
     ],
     [
       true,
+      true,
+      false,
       true
+    ],
+    [
+      true,
+      true,
+      true,
+      false
     ]
   ],
   "design-resolution-height": 750,
@@ -23,7 +39,9 @@
   "fit-width": false,
   "group-list": [
     "Tank_1",
-    "Tank_2"
+    "Tank_2",
+    "wall",
+    "buttle"
   ],
   "simulator-orientation": false,
   "simulator-resolution": {
@@ -31,6 +49,5 @@
     "width": 960
   },
   "use-customize-simulator": false,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }

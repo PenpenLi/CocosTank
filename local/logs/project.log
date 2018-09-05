@@ -1,52 +1,851 @@
-2018-09-03T09:20:56.908Z - normal: Load ~/.CocosCreator/settings.json
-2018-09-03T09:20:56.914Z - normal: checking language setting...
-2018-09-03T09:20:56.914Z - normal: Language: zh
-2018-09-03T09:20:58.074Z - success: protocol editor-framework registered
-2018-09-03T09:20:58.074Z - success: protocol app registered
-2018-09-03T09:20:58.074Z - success: protocol theme registered
-2018-09-03T09:20:58.074Z - success: protocol packages registered
-2018-09-03T09:20:58.075Z - success: protocol unpack registerred
-2018-09-03T09:20:58.075Z - success: protocol disable-commonjs registerred
-2018-09-03T09:20:58.327Z - normal: connected!
-2018-09-03T09:20:58.331Z - normal: Check project /private/var/root/Git-Repositpory/CocosTank
-2018-09-03T09:20:58.347Z - normal: Initializing Cocos2d
-2018-09-03T09:20:58.591Z - normal: Initializing Asset Database
-2018-09-03T09:20:58.675Z - success: protocol uuid registerred
-2018-09-03T09:20:58.675Z - success: protocol db registerred
-2018-09-03T09:20:58.675Z - success: protocol thumbnail registerred
-2018-09-03T09:20:58.676Z - normal: Loading editor/builtin packages
-2018-09-03T09:20:58.700Z - success: anysdk loaded
-2018-09-03T09:20:58.842Z - success: assets loaded
-2018-09-03T09:20:58.848Z - success: builder loaded
-2018-09-03T09:20:58.850Z - success: cocos-analytics loaded
-2018-09-03T09:20:58.855Z - success: console loaded
-2018-09-03T09:20:58.860Z - success: hierarchy loaded
-2018-09-03T09:20:58.867Z - success: inspector loaded
-2018-09-03T09:20:58.868Z - success: keystore loaded
-2018-09-03T09:20:58.874Z - success: node-library loaded
-2018-09-03T09:20:58.875Z - success: package-asset loaded
-2018-09-03T09:20:58.877Z - success: preferences loaded
-2018-09-03T09:20:58.883Z - success: project-exporter loaded
-2018-09-03T09:20:58.903Z - success: project-importer loaded
-2018-09-03T09:20:58.907Z - success: project-settings loaded
-2018-09-03T09:20:58.911Z - success: ui-kit loaded
-2018-09-03T09:20:58.924Z - success: ui-grid loaded
-2018-09-03T09:20:58.929Z - success: scene loaded
-2018-09-03T09:20:58.931Z - success: sprite-editor loaded
-2018-09-03T09:20:58.936Z - success: store loaded
-2018-09-03T09:20:58.944Z - success: timeline loaded
-2018-09-03T09:20:58.944Z - normal: Loading builtin packages
-2018-09-03T09:20:58.950Z - success: asset-db-debugger loaded
-2018-09-03T09:20:58.951Z - success: color-picker loaded
-2018-09-03T09:20:58.956Z - success: package-manager loaded
-2018-09-03T09:20:58.962Z - success: sdkbox loaded
-2018-09-03T09:20:58.968Z - success: tester loaded
-2018-09-03T09:20:58.978Z - success: ui-kit-preview-extra loaded
-2018-09-03T09:20:58.985Z - success: ui-kit-preview loaded
-2018-09-03T09:20:58.988Z - success: ui-tree loaded
-2018-09-03T09:21:00.528Z - normal: Initializing project /private/var/root/Git-Repositpory/CocosTank
-2018-09-03T09:21:00.541Z - normal: Loading packages
-2018-09-03T09:21:00.548Z - normal: Watching packages
-2018-09-03T09:21:00.565Z - normal: Run Application
-2018-09-03T09:21:01.988Z - success: preview server running at http://localhost:7457
-2018-09-03T09:21:09.913Z - normal: 1.8.1
+2018-09-05T06:35:55.957Z - normal: Load ~/.CocosCreator/settings.json
+2018-09-05T06:35:55.963Z - normal: checking language setting...
+2018-09-05T06:35:55.964Z - normal: Language: zh
+2018-09-05T06:36:31.960Z - success: protocol editor-framework registered
+2018-09-05T06:36:31.960Z - success: protocol app registered
+2018-09-05T06:36:31.960Z - success: protocol theme registered
+2018-09-05T06:36:31.960Z - success: protocol packages registered
+2018-09-05T06:36:31.960Z - success: protocol unpack registerred
+2018-09-05T06:36:31.960Z - success: protocol disable-commonjs registerred
+2018-09-05T06:36:32.196Z - normal: connected!
+2018-09-05T06:36:32.198Z - normal: Check project D:\Git_rep\CocosTank
+2018-09-05T06:36:32.199Z - normal: Initializing Cocos2d
+2018-09-05T06:36:32.374Z - normal: Initializing Asset Database
+2018-09-05T06:36:32.641Z - success: protocol uuid registerred
+2018-09-05T06:36:32.641Z - success: protocol db registerred
+2018-09-05T06:36:32.641Z - success: protocol thumbnail registerred
+2018-09-05T06:36:32.641Z - normal: Loading editor/builtin packages
+2018-09-05T06:36:32.720Z - success: anysdk loaded
+2018-09-05T06:36:32.846Z - success: assets loaded
+2018-09-05T06:36:32.850Z - success: builder loaded
+2018-09-05T06:36:32.853Z - success: cocos-analytics loaded
+2018-09-05T06:36:32.859Z - success: console loaded
+2018-09-05T06:36:32.952Z - success: fb-instant-games loaded
+2018-09-05T06:36:33.004Z - success: hierarchy loaded
+2018-09-05T06:36:33.031Z - success: inspector loaded
+2018-09-05T06:36:33.065Z - success: keystore loaded
+2018-09-05T06:36:33.168Z - success: node-library loaded
+2018-09-05T06:36:33.216Z - success: package-asset loaded
+2018-09-05T06:36:33.267Z - success: preferences loaded
+2018-09-05T06:36:33.316Z - success: project-exporter loaded
+2018-09-05T06:36:33.652Z - success: project-importer loaded
+2018-09-05T06:36:33.653Z - success: project-settings loaded
+2018-09-05T06:36:33.693Z - success: ui-kit loaded
+2018-09-05T06:36:33.767Z - success: ui-grid loaded
+2018-09-05T06:36:33.818Z - success: scene loaded
+2018-09-05T06:36:33.819Z - success: sprite-editor loaded
+2018-09-05T06:36:33.860Z - success: store loaded
+2018-09-05T06:36:33.886Z - success: timeline loaded
+2018-09-05T06:36:33.886Z - normal: Loading builtin packages
+2018-09-05T06:36:33.913Z - success: asset-db-debugger loaded
+2018-09-05T06:36:33.946Z - success: code-editor loaded
+2018-09-05T06:36:34.083Z - success: color-picker loaded
+2018-09-05T06:36:34.086Z - success: package-manager loaded
+2018-09-05T06:36:34.171Z - success: sdkbox loaded
+2018-09-05T06:36:34.185Z - success: tester loaded
+2018-09-05T06:36:34.189Z - success: ui-kit-preview-extra loaded
+2018-09-05T06:36:34.203Z - success: ui-kit-preview loaded
+2018-09-05T06:36:34.211Z - success: ui-tree loaded
+2018-09-05T06:36:35.068Z - normal: Initializing project D:\Git_rep\CocosTank
+2018-09-05T06:36:35.071Z - normal: Loading packages
+2018-09-05T06:36:35.074Z - normal: Watching packages
+2018-09-05T06:36:35.116Z - normal: Run Application
+2018-09-05T06:36:41.476Z - success: preview server running at http://localhost:7456
+2018-09-05T06:36:46.032Z - normal: 1.9.1
+2018-09-05T06:37:17.288Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T06:37:17.290Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T06:37:17.291Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T06:37:17.941Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T06:37:20.180Z - normal: Compiled project javascript file successfully
+2018-09-05T06:37:20.181Z - normal: Start building assets
+2018-09-05T06:37:20.181Z - normal: Start spawn build-worker
+2018-09-05T06:37:20.737Z - normal: Finish spawn build-worker
+2018-09-05T06:37:20.737Z - normal: Start init build-worker
+2018-09-05T06:37:22.343Z - normal: 1.9.1
+2018-09-05T06:37:22.421Z - normal: Finish init build-worker
+2018-09-05T06:37:22.421Z - normal: Start build-assets in worker
+2018-09-05T06:37:24.435Z - normal: Finish build-assets in worker
+2018-09-05T06:37:24.440Z - normal: Finish building assets
+2018-09-05T06:37:24.462Z - normal: Start building raw assets
+2018-09-05T06:37:24.465Z - normal: Start building plugin scripts
+2018-09-05T06:37:24.523Z - normal: Finish building raw assets
+2018-09-05T06:37:24.569Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T06:37:24.741Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T06:37:31.154Z - normal: Initializing...
+
+2018-09-05T06:37:31.183Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:37:32.192Z - normal: starting ide...
+
+2018-09-05T06:37:50.332Z - normal: Initializing...
+
+2018-09-05T06:37:50.338Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:37:50.590Z - normal: Initializing...
+
+2018-09-05T06:37:50.596Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:37:51.349Z - normal: starting ide...
+
+2018-09-05T06:37:51.607Z - normal: starting ide...
+
+2018-09-05T06:38:00.737Z - normal: IDE server has started, listening on http://127.0.0.1:56056
+
+2018-09-05T06:38:00.740Z - normal: initialization finished
+
+2018-09-05T06:38:00.830Z - error: Runtime error: Error 
+ Error: getaddrinfo ENOTFOUND http://127.0.0.1 http://127.0.0.1:56056
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T06:38:00.830Z - error: Runtime error: Error 
+ Error: socket hang up
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T06:38:02.593Z - normal: open IDE success
+
+2018-09-05T06:39:44.982Z - normal: IDE server has started, listening on http://127.0.0.1:52893
+
+2018-09-05T06:39:44.985Z - normal: initialization finished
+
+2018-09-05T06:39:46.296Z - normal: open IDE success
+
+2018-09-05T06:49:02.823Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T06:49:02.825Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T06:49:02.825Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T06:49:02.825Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T06:49:04.751Z - normal: Compiled project javascript file successfully
+2018-09-05T06:49:04.752Z - normal: Start building assets
+2018-09-05T06:49:04.752Z - normal: Start spawn build-worker
+2018-09-05T06:49:05.334Z - normal: Finish spawn build-worker
+2018-09-05T06:49:05.334Z - normal: Start init build-worker
+2018-09-05T06:49:06.969Z - normal: 1.9.1
+2018-09-05T06:49:07.207Z - normal: Finish init build-worker
+2018-09-05T06:49:07.207Z - normal: Start build-assets in worker
+2018-09-05T06:49:07.706Z - normal: Finish build-assets in worker
+2018-09-05T06:49:07.716Z - normal: Finish building assets
+2018-09-05T06:49:07.742Z - normal: Start building raw assets
+2018-09-05T06:49:07.743Z - normal: Start building plugin scripts
+2018-09-05T06:49:07.811Z - normal: Finish building raw assets
+2018-09-05T06:49:07.841Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T06:49:07.960Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T06:49:13.459Z - normal: Initializing...
+
+2018-09-05T06:49:13.463Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:49:13.478Z - normal: IDE server has started, listening on http://127.0.0.1:54955
+
+2018-09-05T06:49:13.478Z - normal: initialization finished
+
+2018-09-05T06:49:14.423Z - normal: open IDE success
+
+2018-09-05T06:49:37.912Z - normal: Initializing...
+
+2018-09-05T06:49:37.917Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:49:37.931Z - normal: IDE server has started, listening on http://127.0.0.1:54955
+initialization finished
+
+2018-09-05T06:49:38.863Z - normal: open IDE success
+
+2018-09-05T06:49:45.090Z - normal: Initializing...
+
+2018-09-05T06:49:45.094Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:49:45.108Z - normal: IDE server has started, listening on http://127.0.0.1:54955
+
+2018-09-05T06:49:45.108Z - normal: initialization finished
+
+2018-09-05T06:49:46.030Z - normal: open IDE success
+
+2018-09-05T06:49:51.573Z - normal: Initializing...
+
+2018-09-05T06:49:51.577Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T06:49:52.586Z - normal: starting ide...
+
+2018-09-05T06:49:56.388Z - normal: IDE server has started, listening on http://127.0.0.1:62917
+
+2018-09-05T06:49:56.391Z - normal: initialization finished
+
+2018-09-05T06:49:56.395Z - error: Runtime error: Error 
+ Error: getaddrinfo ENOTFOUND http://127.0.0.1 http://127.0.0.1:62917
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T06:49:56.396Z - error: Runtime error: Error 
+ Error: socket hang up
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T06:49:57.484Z - normal: open IDE success
+
+2018-09-05T07:22:15.531Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:98:13
+2018-09-05T07:22:40.078Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:97:13
+2018-09-05T07:23:24.569Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:97:13
+2018-09-05T07:23:58.487Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:96:13
+2018-09-05T07:24:26.607Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:98:13
+2018-09-05T07:24:51.769Z - failed: load script [../../../build/wechatgame/libs/weapp-adapter/window] failed : Error: Cannot find module '../../../build/wechatgame/libs/weapp-adapter/window'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:7:16)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\HomePageCtrl.js:99:13
+2018-09-05T07:26:37.140Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T07:26:37.142Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T07:26:37.142Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T07:26:37.142Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T07:26:39.078Z - normal: Compiled project javascript file successfully
+2018-09-05T07:26:39.078Z - normal: Start building assets
+2018-09-05T07:26:39.079Z - normal: Start spawn build-worker
+2018-09-05T07:26:39.785Z - normal: Finish spawn build-worker
+2018-09-05T07:26:39.785Z - normal: Start init build-worker
+2018-09-05T07:26:41.510Z - normal: 1.9.1
+2018-09-05T07:26:41.580Z - normal: Finish init build-worker
+2018-09-05T07:26:41.580Z - normal: Start build-assets in worker
+2018-09-05T07:26:42.140Z - normal: Finish build-assets in worker
+2018-09-05T07:26:42.148Z - normal: Finish building assets
+2018-09-05T07:26:42.174Z - normal: Start building raw assets
+2018-09-05T07:26:42.175Z - normal: Start building plugin scripts
+2018-09-05T07:26:42.336Z - normal: Finish building raw assets
+2018-09-05T07:26:42.340Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T07:26:42.464Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T07:26:44.170Z - normal: Initializing...
+
+2018-09-05T07:26:44.174Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T07:26:44.194Z - normal: IDE server has started, listening on http://127.0.0.1:22103
+initialization finished
+
+2018-09-05T07:26:44.438Z - normal: open IDE success
+
+2018-09-05T07:31:47.253Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T07:31:47.259Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T07:31:47.259Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T07:31:47.259Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T07:31:48.869Z - normal: Compiled project javascript file successfully
+2018-09-05T07:31:48.869Z - normal: Start building assets
+2018-09-05T07:31:48.869Z - normal: Start spawn build-worker
+2018-09-05T07:31:49.432Z - normal: Finish spawn build-worker
+2018-09-05T07:31:49.432Z - normal: Start init build-worker
+2018-09-05T07:31:51.079Z - normal: 1.9.1
+2018-09-05T07:31:51.155Z - normal: Finish init build-worker
+2018-09-05T07:31:51.155Z - normal: Start build-assets in worker
+2018-09-05T07:31:51.673Z - normal: Finish build-assets in worker
+2018-09-05T07:31:51.695Z - normal: Finish building assets
+2018-09-05T07:31:51.714Z - normal: Start building raw assets
+2018-09-05T07:31:51.714Z - normal: Start building plugin scripts
+2018-09-05T07:31:51.754Z - normal: Finish building raw assets
+2018-09-05T07:31:51.782Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T07:31:51.897Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T07:31:54.426Z - normal: Initializing...
+
+2018-09-05T07:31:54.431Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T07:31:55.443Z - normal: starting ide...
+
+2018-09-05T07:32:05.188Z - normal: IDE server has started, listening on http://127.0.0.1:55174
+
+2018-09-05T07:32:05.192Z - normal: initialization finished
+
+2018-09-05T07:32:05.209Z - error: Runtime error: Error 
+ Error: getaddrinfo ENOTFOUND http://127.0.0.1 http://127.0.0.1:55174
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T07:32:05.210Z - error: Runtime error: Error 
+ Error: socket hang up
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T07:32:05.614Z - normal: open IDE success
+
+2018-09-05T07:40:48.721Z - error: scene 没有保存，请先保存相关信息再进行构建。
+    at Editor.Ipc.sendToPanel (D:\CocosCreator\resources\app.asar\editor\builtin\builder\panel\builder.js:1:14928)
+    at EventEmitter.ipcRenderer.on.n (D:\CocosCreator\resources\app.asar\editor-framework\lib\renderer\ipc.js:1:4493)
+    at emitMany (events.js:127:13)
+    at EventEmitter.emit (events.js:204:7)
+2018-09-05T07:40:58.031Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": false,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T07:40:58.032Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T07:40:58.032Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T07:40:58.033Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T07:40:59.677Z - normal: Compiled project javascript file successfully
+2018-09-05T07:40:59.677Z - normal: Start building assets
+2018-09-05T07:40:59.677Z - normal: Start spawn build-worker
+2018-09-05T07:41:00.265Z - normal: Finish spawn build-worker
+2018-09-05T07:41:00.266Z - normal: Start init build-worker
+2018-09-05T07:41:02.025Z - normal: 1.9.1
+2018-09-05T07:41:02.091Z - normal: Finish init build-worker
+2018-09-05T07:41:02.091Z - normal: Start build-assets in worker
+2018-09-05T07:41:02.616Z - normal: Finish build-assets in worker
+2018-09-05T07:41:02.621Z - normal: Finish building assets
+2018-09-05T07:41:02.640Z - normal: Start building raw assets
+2018-09-05T07:41:02.641Z - normal: Start building plugin scripts
+2018-09-05T07:41:02.683Z - normal: Finish building raw assets
+2018-09-05T07:41:02.689Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T07:41:02.787Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T07:41:08.031Z - normal: Initializing...
+
+2018-09-05T07:41:08.037Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T07:41:09.050Z - normal: starting ide...
+
+2018-09-05T07:41:12.712Z - normal: IDE server has started, listening on http://127.0.0.1:52209
+initialization finished
+
+2018-09-05T07:41:12.738Z - error: Runtime error: Error 
+ Error: getaddrinfo ENOTFOUND http://127.0.0.1 http://127.0.0.1:52209
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T07:41:12.739Z - error: Runtime error: Error 
+ Error: socket hang up
+
+    at Socket.<anonymous> (D:\CocosCreator\resources\app.asar\editor\core\wechat-game.js:1:1302)
+    at emitOne (events.js:96:13)
+    at Socket.emit (events.js:191:7)
+    at readableAddChunk (_stream_readable.js:178:18)
+    at Socket.Readable.push (_stream_readable.js:136:10)
+    at Pipe.onread (net.js:560:20)
+2018-09-05T07:41:13.046Z - normal: open IDE success
+
+2018-09-05T07:51:12.794Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T07:51:12.797Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T07:51:12.797Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T07:51:12.797Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T07:51:14.737Z - normal: Compiled project javascript file successfully
+2018-09-05T07:51:14.737Z - normal: Start building assets
+2018-09-05T07:51:14.738Z - normal: Start spawn build-worker
+2018-09-05T07:51:15.464Z - normal: Finish spawn build-worker
+2018-09-05T07:51:15.464Z - normal: Start init build-worker
+2018-09-05T07:51:17.439Z - normal: 1.9.1
+2018-09-05T07:51:17.520Z - normal: Finish init build-worker
+2018-09-05T07:51:17.520Z - normal: Start build-assets in worker
+2018-09-05T07:51:18.026Z - normal: Finish build-assets in worker
+2018-09-05T07:51:18.032Z - normal: Finish building assets
+2018-09-05T07:51:18.056Z - normal: Start building raw assets
+2018-09-05T07:51:18.057Z - normal: Start building plugin scripts
+2018-09-05T07:51:18.105Z - normal: Finish building raw assets
+2018-09-05T07:51:18.108Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T07:51:18.527Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-05T07:51:38.539Z - normal: Initializing...
+
+2018-09-05T07:51:38.544Z - normal: idePortFile: C:\Users\MyPC\AppData\Local\微信web开发者工具\User Data\Default\.ide
+
+2018-09-05T07:51:38.817Z - normal: IDE server has started, listening on http://127.0.0.1:62416
+
+2018-09-05T07:51:39.557Z - normal: starting ide...
+
+2018-09-05T07:51:39.575Z - normal: initialization finished
+
+2018-09-05T07:51:39.835Z - normal: open IDE success
+
+2018-09-05T07:55:52.922Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-05T07:55:52.934Z - normal: Building D:\Git_rep\CocosTank
+2018-09-05T07:55:52.935Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-05T07:55:52.936Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-05T07:55:57.044Z - normal: Compiled project javascript file successfully
+2018-09-05T07:55:57.045Z - normal: Start building assets
+2018-09-05T07:55:57.045Z - normal: Start spawn build-worker
+2018-09-05T07:55:58.009Z - normal: Finish spawn build-worker
+2018-09-05T07:55:58.009Z - normal: Start init build-worker
+2018-09-05T07:56:00.849Z - normal: 1.9.1
+2018-09-05T07:56:00.947Z - normal: Finish init build-worker
+2018-09-05T07:56:00.947Z - normal: Start build-assets in worker
+2018-09-05T07:56:01.865Z - normal: Finish build-assets in worker
+2018-09-05T07:56:01.878Z - normal: Finish building assets
+2018-09-05T07:56:01.915Z - normal: Start building raw assets
+2018-09-05T07:56:01.916Z - normal: Start building plugin scripts
+2018-09-05T07:56:01.954Z - normal: Finish building raw assets
+2018-09-05T07:56:01.959Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-05T07:56:02.662Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully

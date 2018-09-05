@@ -14,12 +14,16 @@ var NewClass = /** @class */ (function (_super) {
         _this.closeSoundSprite = null;
         _this.bgSound = null;
         _this.IsSound = true; //是否开启音效
+        _this.ping = null;
         _this.UserData = {};
         _this.enemyUserData = {};
         _this.WebScoketNode = null;
         return _this;
     }
     NewClass.prototype.start = function () {
+        this.ping.zIndex = 9999;
+        var self = this;
+        this.getPing();
     };
     /**
      * 点击开始
@@ -35,6 +39,28 @@ var NewClass = /** @class */ (function (_super) {
         this.IsSound = !this.IsSound;
         var buttonSprite = event.target.getComponent(cc.Sprite);
         this.IsSound ? (buttonSprite.spriteFrame = this.openSoundSprite, this.bgSound.resume()) : (buttonSprite.spriteFrame = this.closeSoundSprite, this.bgSound.pause());
+    };
+    NewClass.prototype.getPing = function () {
+        var self = this;
+        setTimeout(function () {
+            self.getPing();
+        }, 1000);
+        var url = 'http://app.ei-marketing.net/tankWar/ping.do';
+        // var url = 'http://172.17.0.13:8080/tankWar/ping.do'
+        var xmlHttp;
+        var start = new Date().getTime();
+        xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = state_Change;
+        xmlHttp.open('GET', url, true);
+        xmlHttp.send(null);
+        function state_Change() {
+            if (xmlHttp.readyState === 4) {
+                if (xmlHttp.status === 200) {
+                    var end = new Date().getTime();
+                    self.ping.getComponent(cc.Label).string = (end - start) + 'ms';
+                }
+            }
+        }
     };
     NewClass.prototype.getUserData = function (response) {
         this.UserData = response.data;
@@ -54,6 +80,9 @@ var NewClass = /** @class */ (function (_super) {
     __decorate([
         property(cc.AudioSource)
     ], NewClass.prototype, "bgSound", void 0);
+    __decorate([
+        property(cc.Node)
+    ], NewClass.prototype, "ping", void 0);
     __decorate([
         property(cc.Node)
     ], NewClass.prototype, "WebScoketNode", void 0);

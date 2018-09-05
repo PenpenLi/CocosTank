@@ -1,6 +1,6 @@
 import LinkedMap from '../Unit/LinkedMap';
 import WebSocketManage from '../WebSocketManage';
-import HomePageCtrl from '.                                   /Page/HomePageCtrl';
+import HomePageCtrl from './HomePageCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -60,8 +60,8 @@ export default class BattleCtrl extends cc.Component {
         { row: 3, column: 7, scale: 1 },
         { row: 4, column: 9, scale: 0.775 },
         { row: 5, column: 11, scale: 0.645 },
-        // { row: 6, column: 13, scale: 0.539 },
-        // { row: 7, column: 15, scale: 0.484 }
+        { row: 6, column: 13, scale: 0.539 },
+        { row: 7, column: 15, scale: 0.484 }
     ]
     private activeBattleData = null;
     private cells = 0;
@@ -117,6 +117,7 @@ export default class BattleCtrl extends cc.Component {
         }
     }
     public restart(type) {
+        console.log(type,'restart')
         if(type === 0) {
             var score = this.MainPlayerScore.getComponent(cc.Label).string;
             this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';

@@ -5,7 +5,7 @@ cc._RF.push(module, '13937DLhkBG67xqI6V6mxta', 'BattleCatrl');
 Object.defineProperty(exports, "__esModule", { value: true });
 var LinkedMap_1 = require("../Unit/LinkedMap");
 var WebSocketManage_1 = require("../WebSocketManage");
-var HomePageCtrl_1 = require(".                                   /Page/HomePageCtrl");
+var HomePageCtrl_1 = require("./HomePageCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -45,6 +45,8 @@ var BattleCtrl = /** @class */ (function (_super) {
             { row: 3, column: 7, scale: 1 },
             { row: 4, column: 9, scale: 0.775 },
             { row: 5, column: 11, scale: 0.645 },
+            { row: 6, column: 13, scale: 0.539 },
+            { row: 7, column: 15, scale: 0.484 }
         ];
         _this.activeBattleData = null;
         _this.cells = 0;
@@ -94,6 +96,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         }
     };
     BattleCtrl.prototype.restart = function (type) {
+        console.log(type, 'restart');
         if (type === 0) {
             var score = this.MainPlayerScore.getComponent(cc.Label).string;
             this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';

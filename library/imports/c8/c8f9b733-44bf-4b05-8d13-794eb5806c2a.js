@@ -21,11 +21,17 @@ var NewClass = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.BattleRegion = null;
         _this.Buttle = null;
+        // 当前玩家控制节点
         _this.player = null;
+        // 旋转状态控制
         _this.rotationStatus = 0;
+        // 移动状态控制
         _this.moveStatus = 0;
+        // 战斗区域脚本
         _this.BattleCtrl = null;
+        // webScoket脚本
         _this.WebScoket = null;
+        // 用于控制坦克子弹的生成控制
         _this.i = 0;
         _this.correct = -1;
         return _this;
@@ -126,13 +132,11 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.generateReceiveButtle = function (response) {
         this.getPlayer(this.BattleCtrl.playerName);
         var buttle = cc.instantiate(this.Buttle);
-        console.log(buttle.name);
         buttle.name = response.data.buttleName;
         buttle.scale = response.data.scale;
         buttle.rotation = response.data.rotation;
         buttle.setPosition(response.data.x, response.data.y);
         var tank = 'tank_2';
-        console.log(this.player);
         if (this.player.name === 'tank_2') {
             tank = 'tank_1';
         }
@@ -194,6 +198,9 @@ var NewClass = /** @class */ (function (_super) {
         }
     };
     NewClass.prototype.sendTankData = function () {
+        setInterval(function () {
+            console.log('1');
+        }, 1000);
         var self = this;
         this.WebScoket.sendMessage({
             msg: 22,
@@ -207,6 +214,7 @@ var NewClass = /** @class */ (function (_super) {
     };
     NewClass.prototype.setOtherTankDataFor2 = function (response) {
         var player = null;
+        console.log(response.data);
         if (response.dataMessage === '2') {
             player = this.getTankName(response.data.tankName);
         }
