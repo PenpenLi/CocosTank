@@ -1,21 +1,16 @@
 "use strict";
-cc._RF.push(module, '8aeccTbL45CTogTfRwPMgzA', 'WebSocketManage');
-// Scripts/WebSocketManage.ts
+cc._RF.push(module, 'c388ajcATZPpbzuPQDZar4D', 'WebSocketManage');
+// Scripts/Unit/WebSocketManage.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var BattleCatrl_1 = require("./Page/BattleCatrl");
-var PlayerOperationCtrl_1 = require("./PlayerOperationCtrl");
-var HomePageCtrl_1 = require("./Page/HomePageCtrl");
-var MatchingCtrl_1 = require("./Page/MatchingCtrl");
+var TransferClass_1 = require("./TransferClass");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var WebSocketManage = /** @class */ (function (_super) {
     __extends(WebSocketManage, _super);
     function WebSocketManage() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.BattlePage = null;
-        _this.Operation = null;
-        _this.HomePage = null;
-        _this.MatchingPage = null;
+        // 事件处理中转对象
+        _this.TransferClass = new TransferClass_1.default();
         return _this;
     }
     WebSocketManage.prototype.start = function () {
@@ -39,31 +34,22 @@ var WebSocketManage = /** @class */ (function (_super) {
             // }
             var response = JSON.parse(event.data);
             if (response.dataMessage === '-1') {
-                self.HomePage = cc.find('Canvas/HomePagePanel');
-                self.HomePage.getComponent(HomePageCtrl_1.default).getUserData(response);
+                self.TransferClass.getUserDataForHomePageCtrl(response);
             }
             // 生成地图
             if (response.dataMessage === '0') {
-                // self.BattlePage = cc.find('Canvas/BattlePagePanel');
-                // self.BattlePage.getComponent(BattleCtrl).sendCallBackFor0();
-                self.HomePage = cc.find('Canvas/HomePagePanel');
-                self.HomePage.getComponent(HomePageCtrl_1.default).enemyUserData = response.enemyData;
-                self.MatchingPage = cc.find('Canvas/MatchingPagePanel');
-                self.MatchingPage.getComponent(MatchingCtrl_1.default).setBattelData(response);
+                self.TransferClass.generateMapForHomePageCtrl(response);
             }
             // 传输地图
             if (response.dataMessage === '1') {
-                self.BattlePage = cc.find('Canvas/BattlePagePanel');
-                self.BattlePage.getComponent(BattleCatrl_1.default).sendCallBackFor1(response);
+                self.TransferClass.getMapForBattlePageCtrl(response);
             }
             // 位置联机
             if (response.dataMessage === '2') {
-                self.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
-                self.Operation.getComponent(PlayerOperationCtrl_1.default).setOtherTankDataFor2(response);
+                self.TransferClass.positionUnicomForOperationCtrl(response);
             }
             if (response.dataMessage === '3') {
-                self.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
-                self.Operation.getComponent(PlayerOperationCtrl_1.default).generateReceiveButtle(response);
+                self.TransferClass.fireButtleForOperationCtrl(response);
             }
         };
     };

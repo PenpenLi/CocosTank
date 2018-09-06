@@ -1,10 +1,10 @@
-(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/Scripts/PlayerOperationCtrl.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
-cc._RF.push(module, 'c8f9bczRL9LBY0TeU61gGwq', 'PlayerOperationCtrl', __filename);
-// Scripts/PlayerOperationCtrl.ts
+"use strict";
+cc._RF.push(module, 'b0f88TROJ1H/aPIf2SVhwDA', 'PlayerOperationCtrl');
+// Scripts/Parts/PlayerOperationCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var BattleCatrl_1 = require("./Page/BattleCatrl");
-var WebSocketManage_1 = require("./WebSocketManage");
+var BattleCtrl_1 = require("../Page/BattleCtrl");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -47,7 +47,7 @@ var NewClass = /** @class */ (function (_super) {
     }
     NewClass.prototype.start = function () {
         this.BattleRegion = this.node.parent.getChildByName('BattleRegion');
-        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCatrl_1.default);
+        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl_1.default);
         this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         this.onEventListener();
@@ -205,29 +205,20 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.sendTankData = function () {
         this.mainActionList.push({
             data: {
+                type: 0,
                 tankName: this.BattleCtrl.playerName,
                 x: this.currentPlayer.x,
                 y: this.currentPlayer.y,
                 rotation: this.currentPlayer.rotation
             }
         });
-        if (this.mainActionList.length > 5) {
+        if (this.mainActionList.length > 2) {
             this.WebScoket.sendMessage({
                 msg: 22,
                 data: this.mainActionList
             });
             this.mainActionList = [];
         }
-        // this.WebScoket.sendMessage({
-        //     msg: 22,
-        //     data: {
-        //         tankName: this.BattleCtrl.playerName,
-        //         x: this.currentPlayer.x,
-        //         y: this.currentPlayer.y,
-        //         rotation: this.currentPlayer.rotation,
-        //         keybord: this.currentPlayerKeyBord
-        //     }
-        // })
     };
     NewClass.prototype.setOtherTankDataFor2 = function (response) {
         for (var i = 0; i < response.data.length; i++) {
@@ -245,15 +236,3 @@ var NewClass = /** @class */ (function (_super) {
 exports.default = NewClass;
 
 cc._RF.pop();
-        }
-        if (CC_EDITOR) {
-            __define(__module.exports, __require, __module);
-        }
-        else {
-            cc.registerModuleFunc(__filename, function () {
-                __define(__module.exports, __require, __module);
-            });
-        }
-        })();
-        //# sourceMappingURL=PlayerOperationCtrl.js.map
-        

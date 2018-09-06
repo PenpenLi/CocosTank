@@ -1,4 +1,4 @@
-import WebSocketManage from '../WebSocketManage';
+import WebSocketManage from '../Unit/WebSocketManage';
 import { AudioSource } from '../../creator';
 
 const {ccclass, property} = cc._decorator;
@@ -15,7 +15,7 @@ export default class NewClass extends cc.Component
     @property (cc.AudioSource)
     bgSound:AudioSource = null;
     public IsSound:boolean = true;//是否开启音效
-     
+    
     @property (cc.Node)
     private ping: cc.Node = null;
     public UserData = {};

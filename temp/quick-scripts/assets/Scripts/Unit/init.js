@@ -1,6 +1,6 @@
-(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/Scripts/init.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
-cc._RF.push(module, '3ff06I6ha1G4Y7NMh0WTs/7', 'init', __filename);
-// Scripts/init.ts
+(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/Scripts/Unit/init.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
+cc._RF.push(module, 'df5b1Aph8JCcYxWKb619e7b', 'init', __filename);
+// Scripts/Unit/init.ts
 
 cc.director.getPhysicsManager().enabled = true;
 cc.director.getPhysicsManager().gravity = cc.v2();

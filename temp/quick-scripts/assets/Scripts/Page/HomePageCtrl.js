@@ -3,7 +3,7 @@ cc._RF.push(module, '34123NWVIRNU6xkpmnqGz20', 'HomePageCtrl', __filename);
 // Scripts/Page/HomePageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var WebSocketManage_1 = require("../WebSocketManage");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);

@@ -3,9 +3,9 @@ cc._RF.push(module, '1dbafsnqO5BzadTTzTYpDVp', 'MatchingCtrl', __filename);
 // Scripts/Page/MatchingCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var WebSocketManage_1 = require("../WebSocketManage");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 var HomePageCtrl_1 = require("./HomePageCtrl");
-var BattleCatrl_1 = require("./BattleCatrl");
+var BattleCtrl_1 = require("./BattleCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -51,7 +51,7 @@ var NewClass = /** @class */ (function (_super) {
         var webScoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
         webScoket.sendMessage({ msg: 2 });
     };
-    NewClass.prototype.setBattelData = function (response) {
+    NewClass.prototype.setBattleData = function (response) {
         var self = this;
         this.Success.active = true;
         if (response.data) {
@@ -76,14 +76,14 @@ var NewClass = /** @class */ (function (_super) {
         battlePage.parent = this.node.parent;
         battlePage.zIndex = -1;
         if (response.data) {
-            battlePage.getComponent(BattleCatrl_1.default).initScore(0);
+            battlePage.getComponent(BattleCtrl_1.default).initScore(0);
         }
         else {
-            battlePage.getComponent(BattleCatrl_1.default).initScore(1);
+            battlePage.getComponent(BattleCtrl_1.default).initScore(1);
         }
         setTimeout(function () {
             if (response.data) {
-                battlePage.getComponent(BattleCatrl_1.default).sendCallBackFor0();
+                battlePage.getComponent(BattleCtrl_1.default).generateMap();
             }
             battlePage.zIndex = 1;
             self.node.destroy();

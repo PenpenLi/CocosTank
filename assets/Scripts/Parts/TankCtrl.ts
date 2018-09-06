@@ -1,5 +1,5 @@
-import PlayerOperationCtrl from '../PlayerOperationCtrl'
-import BattleCtrl from '../Page/BattleCatrl';
+import PlayerOperationCtrl from './PlayerOperationCtrl'
+import BattleCtrl from '../Page/BattleCtrl';
 
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html

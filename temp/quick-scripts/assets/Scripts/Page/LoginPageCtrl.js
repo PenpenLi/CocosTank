@@ -3,7 +3,7 @@ cc._RF.push(module, 'd2df5VGenVNoJazyDhc4uYt', 'LoginPageCtrl', __filename);
 // Scripts/Page/LoginPageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var WebSocketManage_1 = require("../WebSocketManage");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html

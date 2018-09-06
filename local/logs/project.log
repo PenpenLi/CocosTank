@@ -554,3 +554,240 @@
 2018-09-06T07:37:08.173Z - normal: Finish building raw assets
 2018-09-06T07:37:08.228Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
 2018-09-06T07:37:08.799Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
+2018-09-06T08:37:36.352Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:1:358
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:79:13
+2018-09-06T08:37:36.353Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:1:362
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:241:13
+2018-09-06T08:37:36.355Z - failed: load script [./BattleCatrl] failed : Error: Cannot find module './BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\MatchingCtrl.js:1:360
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\MatchingCtrl.js:8:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Page\MatchingCtrl.js:123:13
+2018-09-06T08:37:36.358Z - failed: load script [../Page/BattleCatrl] failed : Error: Cannot find module '../Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:1:357
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:51:13
+2018-09-06T08:37:36.533Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:37:51.862Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:38:14.892Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:1:358
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:79:13
+2018-09-06T08:38:14.893Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:1:362
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:241:13
+2018-09-06T08:38:14.900Z - failed: load script [../Page/BattleCatrl] failed : Error: Cannot find module '../Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:1:357
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:51:13
+2018-09-06T08:38:15.056Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:39:05.928Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:1:358
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:79:13
+2018-09-06T08:39:05.929Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:1:362
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:241:13
+2018-09-06T08:39:05.932Z - failed: load script [../Page/BattleCatrl] failed : Error: Cannot find module '../Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:1:357
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:51:13
+2018-09-06T08:39:06.049Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:39:59.748Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:1:358
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\WebSocketManage.js:79:13
+2018-09-06T08:39:59.749Z - failed: load script [./Page/BattleCatrl] failed : Error: Cannot find module './Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:1:362
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\PlayerOperationCtrl.js:241:13
+2018-09-06T08:39:59.756Z - failed: load script [../Page/BattleCatrl] failed : Error: Cannot find module '../Page/BattleCatrl'
+    at Module._resolveFilename (module.js:470:15)
+    at Function.Module._resolveFilename [as _resolveFilenameVendor] (D:\CocosCreator\resources\electron.asar\common\reset-search-paths.js:35:12)
+    at Function.Module._resolveFilename (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:1361)
+    at Function.Module._load (module.js:418:25)
+    at Module.require (module.js:498:17)
+    at require (internal/module.js:20:19)
+    at Object.cc.require (D:\CocosCreator\resources\app.asar\editor\page\project-scripts.js:1:967)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:1:357
+    at __define (D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:6:21)
+    at D:\Git_rep\CocosTank\temp\quick-scripts\assets\Scripts\Parts\TankCtrl.js:51:13
+2018-09-06T08:39:59.895Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:40:48.345Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:41:44.084Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:42:52.537Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:43:29.778Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:44:08.170Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T08:44:34.589Z - warn: Script attached to "BattlePagePanel" in prefab "BattlePagePanel.prefab" is missing or invalid. Detailed information:
+Node path: "BattlePagePanel"
+Asset url: "db://assets/Prefabs/Page/BattlePagePanel.prefab"
+Script UUID: "139370cb-8640-46eb-bc6a-23a57a9b1b5a"
+Class ID: "13937DLhkBG67xqI6V6mxta"
+
+2018-09-06T09:00:31.369Z - warn: [db-task][sync-changes] Backup unused meta file: db://assets/Scripts/init.ts.meta
+2018-09-06T09:00:31.381Z - warn: [db-task][sync-changes] Backup unused meta file: db://assets/Scripts/PlayerOperationCtrl.ts.meta
+2018-09-06T09:00:31.395Z - warn: [db-task][sync-changes] Backup unused meta file: db://assets/Scripts/WebSocketManage.ts.meta
+2018-09-06T09:00:41.315Z - warn: Error: ipc timeout. message: scene:query-node, session: scene@renderer:524326
+2018-09-06T09:00:41.730Z - warn: Script attached to "operation" in prefab "operation.prefab" is missing or invalid. Detailed information:
+Node path: "operation"
+Asset url: "db://assets/Prefabs/Parts/operation.prefab"
+Script UUID: "c8f9b733-44bf-4b05-8d13-794eb5806c2a"
+Class ID: "c8f9bczRL9LBY0TeU61gGwq"
+
+2018-09-06T09:00:51.438Z - warn: Script attached to "WebScoket" in scene "MainScenes.fire" is missing or invalid. Detailed information:
+Node path: "WebScoket"
+Asset url: "db://assets/MainScenes.fire"
+Script UUID: "8aecc4db-2f8e-424e-8813-7d1c0f320cc0"
+Class ID: "8aeccTbL45CTogTfRwPMgzA"
+
+2018-09-06T09:00:51.595Z - warn: Script attached to "operation" in prefab "operation.prefab" is missing or invalid. Detailed information:
+Node path: "operation"
+Asset url: "db://assets/Prefabs/Parts/operation.prefab"
+Script UUID: "c8f9b733-44bf-4b05-8d13-794eb5806c2a"
+Class ID: "c8f9bczRL9LBY0TeU61gGwq"
+
+2018-09-06T09:01:27.262Z - warn: Script attached to "operation" in prefab "operation.prefab" is missing or invalid. Detailed information:
+Node path: "operation"
+Asset url: "db://assets/Prefabs/Parts/operation.prefab"
+Script UUID: "c8f9b733-44bf-4b05-8d13-794eb5806c2a"
+Class ID: "c8f9bczRL9LBY0TeU61gGwq"
+

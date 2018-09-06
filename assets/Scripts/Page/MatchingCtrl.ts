@@ -1,7 +1,6 @@
-import WebSocketManage from '../WebSocketManage';
+import WebSocketManage from '../Unit/WebSocketManage';
 import HomePageCtrl from './HomePageCtrl'
-import BattleCtrl from './BattleCatrl';
-import { Node, show, Label, Sprite, Prefab } from '../../../creator';
+import BattleCtrl from './BattleCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -54,7 +53,7 @@ export default class NewClass extends cc.Component {
         var webScoket = this.WebScoketNode.getComponent(WebSocketManage);
         webScoket.sendMessage({ msg: 2 });
     }
-    public setBattelData(response) {
+    public setBattleData(response) {
         var self = this;
         this.Success.active = true;
         if (response.data) {
@@ -84,7 +83,7 @@ export default class NewClass extends cc.Component {
         }
         setTimeout(() => {
             if (response.data) {
-                battlePage.getComponent(BattleCtrl).sendCallBackFor0();
+                battlePage.getComponent(BattleCtrl).generateMap();
             }
             battlePage.zIndex = 1;
             self.node.destroy();

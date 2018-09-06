@@ -1,4 +1,4 @@
-import WebSocketManage from '../WebSocketManage';
+import WebSocketManage from '../Unit/WebSocketManage';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html

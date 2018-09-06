@@ -1,10 +1,10 @@
-(function() {"use strict";var __module = CC_EDITOR ? module : {exports:{}};var __filename = 'preview-scripts/assets/Scripts/Page/BattleCatrl.js';var __require = CC_EDITOR ? function (request) {return cc.require(request, require);} : function (request) {return cc.require(request, __filename);};function __define (exports, require, module) {"use strict";
-cc._RF.push(module, '13937DLhkBG67xqI6V6mxta', 'BattleCatrl', __filename);
-// Scripts/Page/BattleCatrl.ts
+"use strict";
+cc._RF.push(module, '8ba1eRX5hVFTbZGiR6vdZqk', 'BattleCtrl');
+// Scripts/Page/BattleCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var LinkedMap_1 = require("../Unit/LinkedMap");
-var WebSocketManage_1 = require("../WebSocketManage");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 var HomePageCtrl_1 = require("./HomePageCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
@@ -69,53 +69,6 @@ var BattleCtrl = /** @class */ (function (_super) {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         this.initBattleData();
     };
-    BattleCtrl.prototype.initScore = function (type) {
-        var self = this;
-        var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl_1.default);
-        var userData = homePageCtrl.UserData;
-        var enemyUserData = homePageCtrl.enemyUserData;
-        // 该玩家是主玩家
-        if (type === 0) {
-            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
-                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            });
-            self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
-            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
-                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            });
-            self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        }
-        else {
-            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
-                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            });
-            self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
-            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
-                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            });
-            self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        }
-    };
-    BattleCtrl.prototype.restart = function (type) {
-        console.log(type, 'restart');
-        if (type === 0) {
-            var score = this.MainPlayerScore.getComponent(cc.Label).string;
-            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        }
-        else {
-            var score = this.VicePlayerScore.getComponent(cc.Label).string;
-            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        }
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
-        if (this.playerName !== 'tank_2') {
-            this.initBattleData();
-            this.sendCallBackFor0();
-        }
-    };
     BattleCtrl.prototype.initBattleData = function () {
         var self = this;
         this.externalResources = [
@@ -131,49 +84,6 @@ var BattleCtrl = /** @class */ (function (_super) {
         this.activeExternalData = this.externalResources[this.Exterrandom];
         this.cells = this.activeBattleData.column * this.activeBattleData.row;
         this.initPlayerPoint();
-    };
-    BattleCtrl.prototype.sendCallBackFor0 = function () {
-        var self = this;
-        self.linkedMap = new LinkedMap_1.default(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
-        self.externalCell();
-        for (var i = 0; i < self.cells; i++) {
-            self.generateRegion(i);
-        }
-        if (this.BattleRegion.parent.getChildByName('operation')) {
-            this.BattleRegion.parent.getChildByName('operation').destroy();
-        }
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        self.webScoket.sendMessage({
-            msg: 21,
-            data: {
-                battleData: [{
-                        column: self.activeBattleData.column,
-                        row: self.activeBattleData.row,
-                        scale: self.activeBattleData.scale
-                    }],
-                player: self.player,
-                externaData: this.Exterrandom,
-                linkedMap: self.linkedMap
-            }
-        });
-    };
-    BattleCtrl.prototype.sendCallBackFor1 = function (response) {
-        var self = this;
-        self.playerName = 'tank_2';
-        self.linkedMap = response.data.linkedMap;
-        self.player = response.data.player;
-        self.activeExternalData = self.externalResources[response.data.externaData];
-        self.activeBattleData = response.data.battleData[0];
-        var cells = self.activeBattleData.column * self.activeBattleData.row;
-        self.externalCell();
-        for (var i = 0; i < cells; i++) {
-            self.generateRegion(i);
-        }
-        if (this.BattleRegion.parent.getChildByName('operation')) {
-            this.BattleRegion.parent.getChildByName('operation').destroy();
-        }
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1);
     };
     // 双方玩家位置随机
     BattleCtrl.prototype.initPlayerPoint = function () {
@@ -318,6 +228,96 @@ var BattleCtrl = /** @class */ (function (_super) {
     BattleCtrl.prototype.onBack = function () {
         this.node.destroy();
     };
+    BattleCtrl.prototype.initScore = function (type) {
+        var self = this;
+        var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl_1.default);
+        var userData = homePageCtrl.UserData;
+        var enemyUserData = homePageCtrl.enemyUserData;
+        // 该玩家是主玩家
+        if (type === 0) {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            });
+            self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            });
+            self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        }
+        else {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            });
+            self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            });
+            self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        }
+    };
+    BattleCtrl.prototype.restart = function (type) {
+        console.log(type, 'restart');
+        if (type === 0) {
+            var score = this.MainPlayerScore.getComponent(cc.Label).string;
+            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        }
+        else {
+            var score = this.VicePlayerScore.getComponent(cc.Label).string;
+            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        }
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
+        if (this.playerName !== 'tank_2') {
+            this.initBattleData();
+            this.generateMap();
+        }
+    };
+    BattleCtrl.prototype.generateMap = function () {
+        var self = this;
+        self.linkedMap = new LinkedMap_1.default(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
+        self.externalCell();
+        for (var i = 0; i < self.cells; i++) {
+            self.generateRegion(i);
+        }
+        if (this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        self.webScoket.sendMessage({
+            msg: 21,
+            data: {
+                battleData: [{
+                        column: self.activeBattleData.column,
+                        row: self.activeBattleData.row,
+                        scale: self.activeBattleData.scale
+                    }],
+                player: self.player,
+                externaData: this.Exterrandom,
+                linkedMap: self.linkedMap
+            }
+        });
+    };
+    BattleCtrl.prototype.getMap = function (response) {
+        var self = this;
+        self.playerName = 'tank_2';
+        self.linkedMap = response.data.linkedMap;
+        self.player = response.data.player;
+        self.activeExternalData = self.externalResources[response.data.externaData];
+        self.activeBattleData = response.data.battleData[0];
+        var cells = self.activeBattleData.column * self.activeBattleData.row;
+        self.externalCell();
+        for (var i = 0; i < cells; i++) {
+            self.generateRegion(i);
+        }
+        if (this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        console.log(1);
+    };
     __decorate([
         property(cc.Prefab)
     ], BattleCtrl.prototype, "wall_column_1", void 0);
@@ -404,15 +404,3 @@ var BattleCtrl = /** @class */ (function (_super) {
 exports.default = BattleCtrl;
 
 cc._RF.pop();
-        }
-        if (CC_EDITOR) {
-            __define(__module.exports, __require, __module);
-        }
-        else {
-            cc.registerModuleFunc(__filename, function () {
-                __define(__module.exports, __require, __module);
-            });
-        }
-        })();
-        //# sourceMappingURL=BattleCatrl.js.map
-        

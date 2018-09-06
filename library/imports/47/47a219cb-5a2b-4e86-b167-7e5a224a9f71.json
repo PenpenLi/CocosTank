@@ -163,7 +163,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "0bwIUVeDdIP478bJ1tpU8B",
     "sync": false
@@ -254,7 +254,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "87gqubfo9BL5xG2TOx8iiw",
     "sync": false
@@ -345,7 +345,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "3afHKLlKRKrqYewBSICRMg",
     "sync": false
@@ -436,7 +436,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "d1/1Ict7ZGQLUKfSU7UrRG",
     "sync": false
@@ -527,20 +527,19 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "dfRqVTZJNINJJi6e3dxwH8",
     "sync": false
   },
   {
-    "__type__": "c8f9bczRL9LBY0TeU61gGwq",
+    "__type__": "b0f88TROJ1H/aPIf2SVhwDA",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "BattleRegion": null,
     "Buttle": {
       "__uuid__": "97330c18-2008-4cfe-b75d-2d40078f2594"
     }
@@ -551,7 +550,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "47a219cb-5a2b-4e86-b167-7e5a224a9f71"
     },
     "fileId": "88/PuFuelPAoX0c2ufuakx",
     "sync": false

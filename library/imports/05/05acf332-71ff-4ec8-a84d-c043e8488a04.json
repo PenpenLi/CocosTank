@@ -1460,7 +1460,7 @@
     "target": {
       "__id__": 1
     },
-    "component": "BattleCatrl",
+    "component": "BattleCtrl",
     "handler": "onBack",
     "customEventData": ""
   },
@@ -2022,7 +2022,7 @@
     "sync": false
   },
   {
-    "__type__": "13937DLhkBG67xqI6V6mxta",
+    "__type__": "8ba1eRX5hVFTbZGiR6vdZqk",
     "_name": "",
     "_objFlags": 0,
     "node": {

@@ -3,7 +3,7 @@ cc._RF.push(module, '2a2bbazLDJL6aDlFXxZ1Za8', 'BulletCtrl');
 // Scripts/Parts/BulletCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var WebSocketManage_1 = require("../WebSocketManage");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html

@@ -1,7 +1,6 @@
 import LinkedMap from '../Unit/LinkedMap';
-import WebSocketManage from '../WebSocketManage';
+import WebSocketManage from '../Unit/WebSocketManage';
 import HomePageCtrl from './HomePageCtrl';
-import PlayerOperationCtrl from '../PlayerOperationCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -92,54 +91,7 @@ export default class BattleCtrl extends cc.Component {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
     }
-    initScore(type) {
-        var self = this;
-        var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl);
-        var userData = homePageCtrl.UserData;
-        var enemyUserData = homePageCtrl.enemyUserData;
-        // 该玩家是主玩家
-        if(type === 0) {
-            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
-                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            })
-            self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
-            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
-                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            })
-            self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        } else {
-            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
-                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            })
-            self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
-
-            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
-                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-            })
-            self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        }
-    }
-    public restart(type) {
-        console.log(type,'restart')
-        if(type === 0) {
-            var score = this.MainPlayerScore.getComponent(cc.Label).string;
-            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        } else {
-            var score = this.VicePlayerScore.getComponent(cc.Label).string;
-            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        }
-
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
-
-        if (this.playerName !== 'tank_2') {
-            this.initBattleData();
-            this.sendCallBackFor0();
-        }
-    }
+    
     initBattleData() {
         let self = this;
         this.externalResources = [
@@ -156,49 +108,7 @@ export default class BattleCtrl extends cc.Component {
         this.cells = this.activeBattleData.column * this.activeBattleData.row
         this.initPlayerPoint();
     }
-    public sendCallBackFor0() {
-        var self = this;
-        self.linkedMap = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
-        self.externalCell();
-        for (let i = 0; i < self.cells; i++) {
-            self.generateRegion(i);
-        }
-        if(this.BattleRegion.parent.getChildByName('operation')) {
-            this.BattleRegion.parent.getChildByName('operation').destroy();
-        }
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        self.webScoket.sendMessage({
-            msg: 21,
-            data: {
-                battleData: [{
-                    column: self.activeBattleData.column,
-                    row: self.activeBattleData.row,
-                    scale: self.activeBattleData.scale
-                }],
-                player: self.player,
-                externaData: this.Exterrandom,
-                linkedMap: self.linkedMap
-            }
-        })
-    }
-    public sendCallBackFor1(response) {
-        var self = this
-        self.playerName = 'tank_2'
-        self.linkedMap = response.data.linkedMap;
-        self.player = response.data.player;
-        self.activeExternalData = self.externalResources[response.data.externaData];
-        self.activeBattleData = response.data.battleData[0];
-        var cells = self.activeBattleData.column * self.activeBattleData.row
-        self.externalCell();
-        for (let i = 0; i < cells; i++) {
-            self.generateRegion(i)
-        }
-        if(this.BattleRegion.parent.getChildByName('operation')) {
-            this.BattleRegion.parent.getChildByName('operation').destroy();
-        }
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1)
-    }
+    
     // 双方玩家位置随机
     initPlayerPoint() {
         this.player = [];
@@ -342,5 +252,97 @@ export default class BattleCtrl extends cc.Component {
     }
     onBack(){
         this.node.destroy();
+    }
+    public initScore(type) {
+        var self = this;
+        var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl);
+        var userData = homePageCtrl.UserData;
+        var enemyUserData = homePageCtrl.enemyUserData;
+        // 该玩家是主玩家
+        if(type === 0) {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        } else {
+            cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
+                self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
+
+            cc.loader.load({ url: enemyUserData.headimgurl, type: 'png' }, function (err, texture) {
+                self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+            })
+            self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        }
+    }
+    public restart(type) {
+        console.log(type,'restart')
+        if(type === 0) {
+            var score = this.MainPlayerScore.getComponent(cc.Label).string;
+            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        } else {
+            var score = this.VicePlayerScore.getComponent(cc.Label).string;
+            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        }
+
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
+
+        if (this.playerName !== 'tank_2') {
+            this.initBattleData();
+            this.generateMap();
+        }
+    }
+    
+    public generateMap() {
+        var self = this;
+        self.linkedMap = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
+        self.externalCell();
+        for (let i = 0; i < self.cells; i++) {
+            self.generateRegion(i);
+        }
+        if(this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        self.webScoket.sendMessage({
+            msg: 21,
+            data: {
+                battleData: [{
+                    column: self.activeBattleData.column,
+                    row: self.activeBattleData.row,
+                    scale: self.activeBattleData.scale
+                }],
+                player: self.player,
+                externaData: this.Exterrandom,
+                linkedMap: self.linkedMap
+            }
+        })
+    }
+    public getMap(response) {
+        var self = this
+        self.playerName = 'tank_2'
+        self.linkedMap = response.data.linkedMap;
+        self.player = response.data.player;
+        self.activeExternalData = self.externalResources[response.data.externaData];
+        self.activeBattleData = response.data.battleData[0];
+        var cells = self.activeBattleData.column * self.activeBattleData.row
+        self.externalCell();
+        for (let i = 0; i < cells; i++) {
+            self.generateRegion(i)
+        }
+        if(this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        console.log(1)
     }
 }
