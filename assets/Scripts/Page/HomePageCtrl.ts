@@ -1,6 +1,5 @@
 import WebSocketManage from '../WebSocketManage';
 import { AudioSource } from '../../creator';
-import { setInterval } from '../../../build/wechatgame/libs/weapp-adapter/window';
 
 const {ccclass, property} = cc._decorator;
 
@@ -15,7 +14,7 @@ export default class NewClass extends cc.Component
     closeSoundSprite:cc.SpriteFrame = null;
     @property (cc.AudioSource)
     bgSound:AudioSource = null;
-    public IsSound:boolean = true;      //是否开启音效
+    public IsSound:boolean = true;//是否开启音效
      
     @property (cc.Node)
     private ping: cc.Node = null;
@@ -25,8 +24,7 @@ export default class NewClass extends cc.Component
     private WebScoketNode: cc.Node = null;
     start() {
         this.ping.zIndex = 9999;
-        var self = this;
-       this.getPing()
+        this.getPing()
     }
     /**
      * 点击开始
@@ -35,7 +33,6 @@ export default class NewClass extends cc.Component
     {
         var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
         webscoket.sendMessage({msg: 1})
-        
     }
     /**
      * 点击声音按钮

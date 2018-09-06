@@ -87,7 +87,7 @@ export default class NewClass extends cc.Component {
                 battlePage.getComponent(BattleCtrl).sendCallBackFor0();
             }
             battlePage.zIndex = 1;
-            self.destroy();
+            self.node.destroy();
         }, 1000);
     }
 }

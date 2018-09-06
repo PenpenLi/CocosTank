@@ -5,9 +5,9 @@
       "main": true,
       "url": "app://editor/index.html",
       "windowType": "dockable",
-      "x": 256,
-      "y": 0,
-      "width": 1425,
+      "x": -8,
+      "y": -8,
+      "width": 1936,
       "height": 1056,
       "layout": {
         "children": [
@@ -20,7 +20,7 @@
                 ],
                 "height": 471,
                 "type": "panel",
-                "width": 212
+                "width": 212.15625
               },
               {
                 "active": 0,
@@ -29,12 +29,12 @@
                 ],
                 "height": 454,
                 "type": "panel",
-                "width": 212
+                "width": 212.15625
               }
             ],
             "height": 928,
             "type": "dock-v",
-            "width": 212
+            "width": 212.15625
           },
           {
             "children": [
@@ -45,7 +45,7 @@
                 ],
                 "height": 699,
                 "type": "panel",
-                "width": 879.984375
+                "width": 880.625
               },
               {
                 "active": 0,
@@ -55,12 +55,12 @@
                 ],
                 "height": 226,
                 "type": "panel",
-                "width": 879.984375
+                "width": 880.625
               }
             ],
             "height": 928,
             "type": "dock-v",
-            "width": 879.984375
+            "width": 880.625
           },
           {
             "active": 0,
@@ -69,7 +69,7 @@
             ],
             "height": 928,
             "type": "panel",
-            "width": 304
+            "width": 304.21875
           }
         ],
         "type": "dock-h"
@@ -83,7 +83,8 @@
         "timeline"
       ]
     },
-    "window-1536133861856": {}
+    "window-1536219350063": {},
+    "worker": {}
   },
   "panels": {
     "project-settings": {

@@ -2,16 +2,34 @@ window._CCSettings = {
     platform: "wechatgame",
     groupList: [
         "Tank_1",
-        "Tank_2"
+        "Tank_2",
+        "wall",
+        "buttle"
     ],
     collisionMatrix: [
         [
+            false,
+            false,
+            true,
+            true
+        ],
+        [
+            false,
+            false,
             true,
             true
         ],
         [
             true,
+            true,
+            false,
             true
+        ],
+        [
+            true,
+            true,
+            true,
+            false
         ]
     ],
     rawAssets: {
@@ -475,7 +493,7 @@ window._CCSettings = {
         }
     ],
     packedAssets: {
-        "0eadca160": [
+        "0153890b3": [
             "05rPMycf9OyKhNwEPoSIoE",
             "07djK+W+BB9a9DuZlxP8sz",
             "09E1+u/VpM2p0a9CDZBI00",
@@ -491,6 +509,7 @@ window._CCSettings = {
             "31yhcfMHtJK6SM6Jb8Si1T",
             "3aUkVbhpBMT5ZFf4vglz4f",
             "41JBCftNJDEL5SR+y64TxW",
+            "47ohnLWitOhrFnfloiSp9x",
             "4at5HwPDlBB4K++bECEOcf",
             "4boHvawgNFjarvl/+5NiHo",
             "4dwgqNP6pJ54lQ0Qkh9hRW",
@@ -543,7 +562,7 @@ window._CCSettings = {
     orientation: "landscape",
     debug: true,
     md5AssetsMap: {
-        "0e/0eadca160.json": "24240",
+        "01/0153890b3.json": "5dd9f",
         "1f/1f033a4c-82f5-45ab-8cb0-e25cf0d1a8a1.json": "613b9",
         "5c/5c8a01a0-3dc8-4ad4-81f6-4d2a94437cc8.json": "fe6ea",
         "81/8121f703-aa03-4491-80c6-d5fd36756246.json": "1fb8b",

@@ -15,13 +15,13 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
-    @property(cc.Node)
     private BattleRegion: cc.Node = null;
     @property(cc.Prefab)
     private Buttle: cc.Prefab = null;
 
     // 当前玩家控制节点
-    private player: cc.Node = null;
+    private currentPlayer: cc.Node = null;
+    private vicePlayer: cc.Node = null;
     // 旋转状态控制
     private rotationStatus = 0;
     // 移动状态控制
@@ -31,92 +31,102 @@ export default class NewClass extends cc.Component {
     // webScoket脚本
     private WebScoket: WebSocketManage = null;
 
+    private mainActionList = [];
+    private viceActionList = [];
+    private currentPlayerKeyBord = {
+        top: false,
+        right: false,
+        bottom: false,
+        left: false
+    }
     // 用于控制坦克子弹的生成控制
     private i = 0;
 
     private correct = -1;
     start() {
+        this.BattleRegion = this.node.parent.getChildByName('BattleRegion');
         this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl);
+        this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage);
+        this.onEventListener();
+    }
+    init() {
+
+    }
+    onEventListener() {
         var self = this;
         this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 1;
+            self.currentPlayerKeyBord.left = true;
         })
         this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 0;
+            self.currentPlayerKeyBord.left = false;
         })
         this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 0;
+            self.currentPlayerKeyBord.left = false;
         })
         this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 2;
+            self.currentPlayerKeyBord.right = true;
         })
         this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 0;
+            self.currentPlayerKeyBord.right = false;
         })
         this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.rotationStatus = 0;
+            self.currentPlayerKeyBord.right = false;
         })
         this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 1;
+            self.currentPlayerKeyBord.top = true;
         })
         this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 0;
+            self.currentPlayerKeyBord.top = false;
         })
         this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 0;
+            self.currentPlayerKeyBord.top = false;
         })
         this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 2;
+            self.currentPlayerKeyBord.bottom = true;
         })
         this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 0;
+            self.currentPlayerKeyBord.bottom = false;
         })
         this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.moveStatus = 0;
+            self.currentPlayerKeyBord.bottom = false;
         })
         this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_START, function (event) {
             var len = 0;
-            self.getPlayer(self.BattleCtrl.playerName);
-            self.player.parent.children.map((node) => {
-                if(node.name.length > 11){
+            self.currentPlayer.parent.children.map((node) => {
+                if (node.name.length > 11) {
                     len++;
                 }
             })
-            if(len < 5) {
+            if (len < 5) {
                 self.i = (self.i + 1) % 5;
                 self.generateBullet(`tank_buttle_${self.i}`)
             }
         })
     }
+    /**
+     * 
+     */
+    sendcurrentPlayerKeyBordState(type, x, y, rotation) {
+
+    }
+    // 子弹生成
     generateBullet(name) {
         var buttle = cc.instantiate(this.Buttle);
         buttle.name = name
-        var scale = this.player.scale;
-        var rotation = this.player.rotation;
+        var scale = this.currentPlayer.scale;
+        var rotation = this.currentPlayer.rotation;
         buttle.scale = scale;
         buttle.rotation = rotation;
         buttle.zIndex = -1;
-        var centerPointx = this.player.x;
-        var centerPointy = this.player.y;
-        var buttleX = this.player.x;
-        var buttleY = this.player.y + this.player.height * scale / 2 + 2;
+        var centerPointx = this.currentPlayer.x;
+        var centerPointy = this.currentPlayer.y;
+        var buttleX = this.currentPlayer.x;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 2;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y)
-        this.player.parent.addChild(buttle);
+        this.currentPlayer.parent.addChild(buttle);
         this.WebScoket.sendMessage({
             msg: 23,
             data: {
@@ -128,95 +138,93 @@ export default class NewClass extends cc.Component {
             }
         })
     }
+    // 得到对面子弹生成信息，添加到我方区域
     public generateReceiveButtle(response) {
-        this.getPlayer(this.BattleCtrl.playerName);
         var buttle = cc.instantiate(this.Buttle);
         buttle.name = response.data.buttleName;
         buttle.scale = response.data.scale;
         buttle.rotation = response.data.rotation;
         buttle.setPosition(response.data.x, response.data.y);
-        var tank = 'tank_2'
-        if(this.player.name === 'tank_2'){
-            tank = 'tank_1';
-        }
-        this.getTankName(tank).parent.addChild(buttle);
+        this.vicePlayer.parent.addChild(buttle);
     }
-    getTankName(tank) {
-        var player: cc.Node = null;
+    // 获得玩家信息
+    getPlayer(mainTank) {
+        var viceTank = 'tank_1'
+        if (mainTank === 'tank_1') {
+            viceTank = 'tank_2'
+        }
         var children = this.BattleRegion.children;
         if (!children) {
             return
         }
         for (let i = 0; i < children.length; i++) {
-            if (children[i].getChildByName(tank)) {
-                player = children[i].getChildByName(tank);
-                return player;
+            if (children[i].getChildByName(mainTank)) {
+                this.currentPlayer = children[i].getChildByName(mainTank);
+            }
+            if (children[i].getChildByName(viceTank)) {
+                this.vicePlayer = children[i].getChildByName(viceTank)
+            }
+            if (this.currentPlayer && this.vicePlayer) {
+                return
             }
         }
-    }
-    getPlayer(tank) {
-        var children = this.BattleRegion.children;
-        if (!children) {
-            return
-        }
-        for (let i = 0; i < children.length; i++) {
-            if (children[i].getChildByName(tank)) {
-                this.player = children[i].getChildByName(tank);
-                return;
-            }
-        }
-        console.log(this.player)
     }
     update(dt) {
-        var self = this;
-        if (this.rotationStatus === 1) {
-            if (this.player.rotation - 5 < 0) {
-                this.player.rotation = 360 - this.player.rotation - 5
+        if (this.currentPlayerKeyBord.left) {
+            if (this.currentPlayer.rotation - 5 < 0) {
+                this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5
             } else {
-                this.player.rotation = this.player.rotation - 5
+                this.currentPlayer.rotation = this.currentPlayer.rotation - 5
             }
             this.sendTankData()
         }
-        if (this.rotationStatus === 2) {
-            this.player.rotation = (this.player.rotation + 5) % 360;
+        if (this.currentPlayerKeyBord.right) {
+            this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
             this.sendTankData()
         }
-        if (this.moveStatus === 1) {
+        if (this.currentPlayerKeyBord.top) {
             var speed = 5;
-            this.player.x += speed * Math.sin(Math.PI * this.player.rotation / 180)
-            this.player.y += speed * Math.cos(Math.PI * this.player.rotation / 180)
-            console.log(this.player.x,this.player.y)
+            this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180)
+            this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180)
             this.sendTankData()
         }
-        if (this.moveStatus === 2) {
+        if (this.currentPlayerKeyBord.bottom) {
             var speed = 5;
-            this.player.x -= speed * Math.sin(Math.PI * this.player.rotation / 180)
-            this.player.y -= speed * Math.cos(Math.PI * this.player.rotation / 180)
+            this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180)
+            this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180)
             this.sendTankData()
+        }
+        if (this.viceActionList.length !== 0) {
+
+            this.vicePlayer.x = this.viceActionList[0].data.x;
+            this.vicePlayer.y = this.viceActionList[0].data.y;
+            this.vicePlayer.rotation = this.viceActionList[0].data.rotation;
+
+
+            this.viceActionList.splice(0, 1);
         }
     }
     sendTankData() {
-        let self = this;
-        this.WebScoket.sendMessage({
-            msg: 22,
+        this.mainActionList.push({
             data: {
-                tankName: self.BattleCtrl.playerName,
-                x: self.player.x,
-                y: self.player.y,
-                rotation: self.player.rotation
+                type: 0,
+                tankName: this.BattleCtrl.playerName,
+                x: this.currentPlayer.x,
+                y: this.currentPlayer.y,
+                rotation: this.currentPlayer.rotation
             }
         })
-    }
-    public setOtherTankDataFor2(response){
-        var player: cc.Node = null;
-        console.log(response.data);
-        if (response.dataMessage === '2') {
-            player = this.getTankName(response.data.tankName);
+        if (this.mainActionList.length > 2) {
+            this.WebScoket.sendMessage({
+                msg: 22,
+                data: this.mainActionList
+            })
+            this.mainActionList = []
         }
-        if (player) {
-            player.x = response.data.x
-            player.y = response.data.y
-            player.rotation = response.data.rotation
+    }
+    public setOtherTankDataFor2(response) {
+        for (let i = 0; i < response.data.length; i++) {
+            this.viceActionList.push(response.data[i])
         }
     }
 }

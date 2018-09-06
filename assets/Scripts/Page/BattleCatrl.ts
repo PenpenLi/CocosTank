@@ -1,6 +1,7 @@
 import LinkedMap from '../Unit/LinkedMap';
 import WebSocketManage from '../WebSocketManage';
 import HomePageCtrl from './HomePageCtrl';
+import PlayerOperationCtrl from '../PlayerOperationCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
@@ -54,6 +55,8 @@ export default class BattleCtrl extends cc.Component {
     private horn_2: cc.SpriteFrame = null;
     @property(cc.SpriteFrame)
     private horn_3: cc.SpriteFrame = null;
+    @property(cc.Prefab)
+    private operation: cc.Prefab = null;
     private webScoket: WebSocketManage = null;
     // 战斗数据
     private battleData = [
@@ -160,6 +163,10 @@ export default class BattleCtrl extends cc.Component {
         for (let i = 0; i < self.cells; i++) {
             self.generateRegion(i);
         }
+        if(this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
         self.webScoket.sendMessage({
             msg: 21,
             data: {
@@ -186,6 +193,11 @@ export default class BattleCtrl extends cc.Component {
         for (let i = 0; i < cells; i++) {
             self.generateRegion(i)
         }
+        if(this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        console.log(1)
     }
     // 双方玩家位置随机
     initPlayerPoint() {
@@ -327,5 +339,8 @@ export default class BattleCtrl extends cc.Component {
             player2.setPosition(this.BattleRegion.width / this.activeBattleData.column * column + this.BattleRegion.width / this.activeBattleData.column / 2, - this.BattleRegion.height / this.activeBattleData.row * row - this.BattleRegion.height / this.activeBattleData.row / 2);
             layoutNode.addChild(player2);
         }
+    }
+    onBack(){
+        this.node.destroy();
     }
 }

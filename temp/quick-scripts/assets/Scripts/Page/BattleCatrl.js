@@ -39,6 +39,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.horn_1 = null;
         _this.horn_2 = null;
         _this.horn_3 = null;
+        _this.operation = null;
         _this.webScoket = null;
         // 战斗数据
         _this.battleData = [
@@ -138,6 +139,10 @@ var BattleCtrl = /** @class */ (function (_super) {
         for (var i = 0; i < self.cells; i++) {
             self.generateRegion(i);
         }
+        if (this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
         self.webScoket.sendMessage({
             msg: 21,
             data: {
@@ -164,6 +169,11 @@ var BattleCtrl = /** @class */ (function (_super) {
         for (var i = 0; i < cells; i++) {
             self.generateRegion(i);
         }
+        if (this.BattleRegion.parent.getChildByName('operation')) {
+            this.BattleRegion.parent.getChildByName('operation').destroy();
+        }
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        console.log(1);
     };
     // 双方玩家位置随机
     BattleCtrl.prototype.initPlayerPoint = function () {
@@ -305,6 +315,9 @@ var BattleCtrl = /** @class */ (function (_super) {
             layoutNode.addChild(player2);
         }
     };
+    BattleCtrl.prototype.onBack = function () {
+        this.node.destroy();
+    };
     __decorate([
         property(cc.Prefab)
     ], BattleCtrl.prototype, "wall_column_1", void 0);
@@ -362,6 +375,9 @@ var BattleCtrl = /** @class */ (function (_super) {
     __decorate([
         property(cc.SpriteFrame)
     ], BattleCtrl.prototype, "horn_3", void 0);
+    __decorate([
+        property(cc.Prefab)
+    ], BattleCtrl.prototype, "operation", void 0);
     __decorate([
         property(cc.Node)
     ], BattleCtrl.prototype, "MainPlayerHeadImg", void 0);

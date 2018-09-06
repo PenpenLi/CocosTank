@@ -86,7 +86,7 @@ var NewClass = /** @class */ (function (_super) {
                 battlePage.getComponent(BattleCatrl_1.default).sendCallBackFor0();
             }
             battlePage.zIndex = 1;
-            self.destroy();
+            self.node.destroy();
         }, 1000);
     };
     __decorate([

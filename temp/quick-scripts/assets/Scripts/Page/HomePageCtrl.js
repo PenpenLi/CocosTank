@@ -22,7 +22,6 @@ var NewClass = /** @class */ (function (_super) {
     }
     NewClass.prototype.start = function () {
         this.ping.zIndex = 9999;
-        var self = this;
         this.getPing();
     };
     /**
