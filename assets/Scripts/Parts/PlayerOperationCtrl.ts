@@ -122,7 +122,7 @@ export default class NewClass extends cc.Component {
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 2;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 1;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y)

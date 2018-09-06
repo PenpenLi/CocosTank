@@ -791,3 +791,7 @@ Asset url: "db://assets/Prefabs/Parts/operation.prefab"
 Script UUID: "c8f9b733-44bf-4b05-8d13-794eb5806c2a"
 Class ID: "c8f9bczRL9LBY0TeU61gGwq"
 
+2018-09-06T09:19:53.808Z - info: 只有预制节点 "wall_1_2" 及其子节点会被保存。
+2018-09-06T09:19:54.204Z - info: 只有预制节点 "wall_1_2" 及其子节点会被保存。
+2018-09-06T09:19:54.413Z - info: 只有预制节点 "wall_1_2" 及其子节点会被保存。
+2018-09-06T09:19:55.413Z - info: 只有预制节点 "wall_1_2" 及其子节点会被保存。
