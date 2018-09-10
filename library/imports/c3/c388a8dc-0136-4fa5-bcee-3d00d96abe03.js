@@ -15,8 +15,8 @@ var WebSocketManage = /** @class */ (function (_super) {
     }
     WebSocketManage.prototype.start = function () {
         var self = this;
-        // this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
-        this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
         };
@@ -50,6 +50,9 @@ var WebSocketManage = /** @class */ (function (_super) {
             }
             if (response.dataMessage === '3') {
                 self.TransferClass.fireButtleForOperationCtrl(response);
+            }
+            if (response.dataMessage === 'selfToSelf') {
+                self.TransferClass.selfToSelfForOperationCtrl(response);
             }
         };
     };

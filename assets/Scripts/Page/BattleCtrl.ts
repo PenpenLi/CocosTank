@@ -281,7 +281,6 @@ export default class BattleCtrl extends cc.Component {
         }
     }
     public restart(type) {
-        console.log(type,'restart')
         if(type === 0) {
             var score = this.MainPlayerScore.getComponent(cc.Label).string;
             this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
@@ -289,13 +288,11 @@ export default class BattleCtrl extends cc.Component {
             var score = this.VicePlayerScore.getComponent(cc.Label).string;
             this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
         }
-
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();
         this.BottomCell.removeAllChildren();
         this.BattleRegion.removeAllChildren();
-
         if (this.playerName !== 'tank_2') {
             this.initBattleData();
             this.generateMap();
@@ -328,6 +325,11 @@ export default class BattleCtrl extends cc.Component {
         })
     }
     public getMap(response) {
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
         var self = this
         self.playerName = 'tank_2'
         self.linkedMap = response.data.linkedMap;

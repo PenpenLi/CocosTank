@@ -256,7 +256,6 @@ var BattleCtrl = /** @class */ (function (_super) {
         }
     };
     BattleCtrl.prototype.restart = function (type) {
-        console.log(type, 'restart');
         if (type === 0) {
             var score = this.MainPlayerScore.getComponent(cc.Label).string;
             this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
@@ -301,6 +300,11 @@ var BattleCtrl = /** @class */ (function (_super) {
         });
     };
     BattleCtrl.prototype.getMap = function (response) {
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
         var self = this;
         self.playerName = 'tank_2';
         self.linkedMap = response.data.linkedMap;

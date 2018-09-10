@@ -57,10 +57,19 @@ export default class Transfer extends cc.Component {
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl);
         operationCtrl.setOtherTankDataFor2(res)
     }
+    // 开炮
     public fireButtleForOperationCtrl(res) {
         var operationCtrl = null;
         this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl);
-        operationCtrl.generateReceiveButtle(res)
+        operationCtrl.addReceiveButtle(res)
+    }
+    // 个人位置延迟
+    public selfToSelfForOperationCtrl(res) {
+        return
+        var operationCtrl = null;
+        this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
+        operationCtrl = this.Operation.getComponent(PlayerOperationCtrl);
+        operationCtrl.setSelfTankData(res);
     }
 }

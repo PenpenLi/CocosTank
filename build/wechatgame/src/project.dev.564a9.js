@@ -24,14 +24,14 @@ require = function() {
   }
   return r;
 }()({
-  BattleCatrl: [ function(require, module, exports) {
+  BattleCtrl: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "13937DLhkBG67xqI6V6mxta", "BattleCatrl");
+    cc._RF.push(module, "8ba1eRX5hVFTbZGiR6vdZqk", "BattleCtrl");
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
     var LinkedMap_1 = require("../Unit/LinkedMap");
-    var WebSocketManage_1 = require("../WebSocketManage");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var HomePageCtrl_1 = require("./HomePageCtrl");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var BattleCtrl = function(_super) {
@@ -100,62 +100,6 @@ require = function() {
         this.webScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
         this.initBattleData();
       };
-      BattleCtrl.prototype.initScore = function(type) {
-        var self = this;
-        var homePageCtrl = cc.find("Canvas/HomePagePanel").getComponent(HomePageCtrl_1.default);
-        var userData = homePageCtrl.UserData;
-        var enemyUserData = homePageCtrl.enemyUserData;
-        if (0 === type) {
-          cc.loader.load({
-            url: userData.headimgurl,
-            type: "png"
-          }, function(err, texture) {
-            self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-          });
-          self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
-          cc.loader.load({
-            url: enemyUserData.headimgurl,
-            type: "png"
-          }, function(err, texture) {
-            self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-          });
-          self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        } else {
-          cc.loader.load({
-            url: userData.headimgurl,
-            type: "png"
-          }, function(err, texture) {
-            self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-          });
-          self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
-          cc.loader.load({
-            url: enemyUserData.headimgurl,
-            type: "png"
-          }, function(err, texture) {
-            self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-          });
-          self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
-        }
-      };
-      BattleCtrl.prototype.restart = function(type) {
-        console.log(type, "restart");
-        if (0 === type) {
-          var score = this.MainPlayerScore.getComponent(cc.Label).string;
-          this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + "";
-        } else {
-          var score = this.VicePlayerScore.getComponent(cc.Label).string;
-          this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + "";
-        }
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
-        if ("tank_2" !== this.playerName) {
-          this.initBattleData();
-          this.sendCallBackFor0();
-        }
-      };
       BattleCtrl.prototype.initBattleData = function() {
         var self = this;
         this.externalResources = [ {
@@ -183,41 +127,6 @@ require = function() {
         this.activeExternalData = this.externalResources[this.Exterrandom];
         this.cells = this.activeBattleData.column * this.activeBattleData.row;
         this.initPlayerPoint();
-      };
-      BattleCtrl.prototype.sendCallBackFor0 = function() {
-        var self = this;
-        self.linkedMap = new LinkedMap_1.default(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
-        self.externalCell();
-        for (var i = 0; i < self.cells; i++) self.generateRegion(i);
-        this.BattleRegion.parent.getChildByName("operation") && this.BattleRegion.parent.getChildByName("operation").destroy();
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        self.webScoket.sendMessage({
-          msg: 21,
-          data: {
-            battleData: [ {
-              column: self.activeBattleData.column,
-              row: self.activeBattleData.row,
-              scale: self.activeBattleData.scale
-            } ],
-            player: self.player,
-            externaData: this.Exterrandom,
-            linkedMap: self.linkedMap
-          }
-        });
-      };
-      BattleCtrl.prototype.sendCallBackFor1 = function(response) {
-        var self = this;
-        self.playerName = "tank_2";
-        self.linkedMap = response.data.linkedMap;
-        self.player = response.data.player;
-        self.activeExternalData = self.externalResources[response.data.externaData];
-        self.activeBattleData = response.data.battleData[0];
-        var cells = self.activeBattleData.column * self.activeBattleData.row;
-        self.externalCell();
-        for (var i = 0; i < cells; i++) self.generateRegion(i);
-        this.BattleRegion.parent.getChildByName("operation") && this.BattleRegion.parent.getChildByName("operation").destroy();
-        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1);
       };
       BattleCtrl.prototype.initPlayerPoint = function() {
         this.player = [];
@@ -346,6 +255,101 @@ require = function() {
       BattleCtrl.prototype.onBack = function() {
         this.node.destroy();
       };
+      BattleCtrl.prototype.initScore = function(type) {
+        var self = this;
+        var homePageCtrl = cc.find("Canvas/HomePagePanel").getComponent(HomePageCtrl_1.default);
+        var userData = homePageCtrl.UserData;
+        var enemyUserData = homePageCtrl.enemyUserData;
+        if (0 === type) {
+          cc.loader.load({
+            url: userData.headimgurl,
+            type: "png"
+          }, function(err, texture) {
+            self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+          });
+          self.MainPlayerName.getComponent(cc.Label).string = userData.nickname;
+          cc.loader.load({
+            url: enemyUserData.headimgurl,
+            type: "png"
+          }, function(err, texture) {
+            self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+          });
+          self.VicePlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        } else {
+          cc.loader.load({
+            url: userData.headimgurl,
+            type: "png"
+          }, function(err, texture) {
+            self.VicePlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+          });
+          self.VicePlayerName.getComponent(cc.Label).string = userData.nickname;
+          cc.loader.load({
+            url: enemyUserData.headimgurl,
+            type: "png"
+          }, function(err, texture) {
+            self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+          });
+          self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
+        }
+      };
+      BattleCtrl.prototype.restart = function(type) {
+        if (0 === type) {
+          var score = this.MainPlayerScore.getComponent(cc.Label).string;
+          this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + "";
+        } else {
+          var score = this.VicePlayerScore.getComponent(cc.Label).string;
+          this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + "";
+        }
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
+        if ("tank_2" !== this.playerName) {
+          this.initBattleData();
+          this.generateMap();
+        }
+      };
+      BattleCtrl.prototype.generateMap = function() {
+        var self = this;
+        self.linkedMap = new LinkedMap_1.default(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
+        self.externalCell();
+        for (var i = 0; i < self.cells; i++) self.generateRegion(i);
+        this.BattleRegion.parent.getChildByName("operation") && this.BattleRegion.parent.getChildByName("operation").destroy();
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        self.webScoket.sendMessage({
+          msg: 21,
+          data: {
+            battleData: [ {
+              column: self.activeBattleData.column,
+              row: self.activeBattleData.row,
+              scale: self.activeBattleData.scale
+            } ],
+            player: self.player,
+            externaData: this.Exterrandom,
+            linkedMap: self.linkedMap
+          }
+        });
+      };
+      BattleCtrl.prototype.getMap = function(response) {
+        this.TopCell.removeAllChildren();
+        this.LeftCell.removeAllChildren();
+        this.RightCell.removeAllChildren();
+        this.BottomCell.removeAllChildren();
+        this.BattleRegion.removeAllChildren();
+        var self = this;
+        self.playerName = "tank_2";
+        self.linkedMap = response.data.linkedMap;
+        self.player = response.data.player;
+        self.activeExternalData = self.externalResources[response.data.externaData];
+        self.activeBattleData = response.data.battleData[0];
+        var cells = self.activeBattleData.column * self.activeBattleData.row;
+        self.externalCell();
+        for (var i = 0; i < cells; i++) self.generateRegion(i);
+        this.BattleRegion.parent.getChildByName("operation") && this.BattleRegion.parent.getChildByName("operation").destroy();
+        this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
+        console.log(1);
+      };
       __decorate([ property(cc.Prefab) ], BattleCtrl.prototype, "wall_column_1", void 0);
       __decorate([ property(cc.Prefab) ], BattleCtrl.prototype, "wall_row_1", void 0);
       __decorate([ property(cc.Prefab) ], BattleCtrl.prototype, "wall_column_2", void 0);
@@ -379,7 +383,7 @@ require = function() {
     cc._RF.pop();
   }, {
     "../Unit/LinkedMap": "LinkedMap",
-    "../WebSocketManage": "WebSocketManage",
+    "../Unit/WebSocketManage": "WebSocketManage",
     "./HomePageCtrl": "HomePageCtrl"
   } ],
   BulletCtrl: [ function(require, module, exports) {
@@ -388,7 +392,7 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var WebSocketManage_1 = require("../WebSocketManage");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -438,7 +442,7 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "../WebSocketManage": "WebSocketManage"
+    "../Unit/WebSocketManage": "WebSocketManage"
   } ],
   CellCtrl: [ function(require, module, exports) {
     "use strict";
@@ -469,7 +473,7 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var WebSocketManage_1 = require("../WebSocketManage");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -539,7 +543,7 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "../WebSocketManage": "WebSocketManage"
+    "../Unit/WebSocketManage": "WebSocketManage"
   } ],
   LinkedMap: [ function(require, module, exports) {
     "use strict";
@@ -677,7 +681,7 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var WebSocketManage_1 = require("../WebSocketManage");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -708,7 +712,7 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "../WebSocketManage": "WebSocketManage"
+    "../Unit/WebSocketManage": "WebSocketManage"
   } ],
   MatchingCtrl: [ function(require, module, exports) {
     "use strict";
@@ -716,9 +720,9 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var WebSocketManage_1 = require("../WebSocketManage");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var HomePageCtrl_1 = require("./HomePageCtrl");
-    var BattleCatrl_1 = require("./BattleCatrl");
+    var BattleCtrl_1 = require("./BattleCtrl");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -759,7 +763,7 @@ require = function() {
           msg: 2
         });
       };
-      NewClass.prototype.setBattelData = function(response) {
+      NewClass.prototype.setBattleData = function(response) {
         var self = this;
         this.Success.active = true;
         if (response.data) {
@@ -791,9 +795,9 @@ require = function() {
         var battlePage = cc.instantiate(this.BattlePage);
         battlePage.parent = this.node.parent;
         battlePage.zIndex = -1;
-        response.data ? battlePage.getComponent(BattleCatrl_1.default).initScore(0) : battlePage.getComponent(BattleCatrl_1.default).initScore(1);
+        response.data ? battlePage.getComponent(BattleCtrl_1.default).initScore(0) : battlePage.getComponent(BattleCtrl_1.default).initScore(1);
         setTimeout(function() {
-          response.data && battlePage.getComponent(BattleCatrl_1.default).sendCallBackFor0();
+          response.data && battlePage.getComponent(BattleCtrl_1.default).generateMap();
           battlePage.zIndex = 1;
           self.node.destroy();
         }, 1e3);
@@ -811,18 +815,18 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "../WebSocketManage": "WebSocketManage",
-    "./BattleCatrl": "BattleCatrl",
+    "../Unit/WebSocketManage": "WebSocketManage",
+    "./BattleCtrl": "BattleCtrl",
     "./HomePageCtrl": "HomePageCtrl"
   } ],
   PlayerOperationCtrl: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "c8f9bczRL9LBY0TeU61gGwq", "PlayerOperationCtrl");
+    cc._RF.push(module, "b0f88TROJ1H/aPIf2SVhwDA", "PlayerOperationCtrl");
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var BattleCatrl_1 = require("./Page/BattleCatrl");
-    var WebSocketManage_1 = require("./WebSocketManage");
+    var BattleCtrl_1 = require("../Page/BattleCtrl");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -846,16 +850,17 @@ require = function() {
         };
         _this.i = 0;
         _this.correct = -1;
+        _this.sum = 0;
+        _this.vicesum = 0;
         return _this;
       }
       NewClass.prototype.start = function() {
         this.BattleRegion = this.node.parent.getChildByName("BattleRegion");
-        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCatrl_1.default);
+        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl_1.default);
         this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
         this.onEventListener();
       };
-      NewClass.prototype.init = function() {};
       NewClass.prototype.onEventListener = function() {
         var self = this;
         this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_START, function(event) {
@@ -905,7 +910,6 @@ require = function() {
           }
         });
       };
-      NewClass.prototype.sendcurrentPlayerKeyBordState = function(type, x, y, rotation) {};
       NewClass.prototype.generateBullet = function(name) {
         var buttle = cc.instantiate(this.Buttle);
         buttle.name = name;
@@ -917,14 +921,14 @@ require = function() {
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 2;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + buttle.width * scale / 2 + 1;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y);
         this.currentPlayer.parent.addChild(buttle);
-        this.WebScoket.sendMessage({
-          msg: 23,
+        this.mainActionList.push({
           data: {
+            type: 1,
             buttleName: buttle.name,
             scale: scale,
             x: x,
@@ -932,6 +936,13 @@ require = function() {
             rotation: rotation
           }
         });
+        this.sum++;
+        console.log(this.sum, "sum");
+        this.WebScoket.sendMessage({
+          msg: 22,
+          data: this.mainActionList
+        });
+        this.mainActionList = [];
       };
       NewClass.prototype.generateReceiveButtle = function(response) {
         var buttle = cc.instantiate(this.Buttle);
@@ -940,6 +951,9 @@ require = function() {
         buttle.rotation = response.data.rotation;
         buttle.setPosition(response.data.x, response.data.y);
         this.vicePlayer.parent.addChild(buttle);
+      };
+      NewClass.prototype.addReceiveButtle = function(response) {
+        return;
       };
       NewClass.prototype.getPlayer = function(mainTank) {
         var viceTank = "tank_1";
@@ -973,23 +987,29 @@ require = function() {
           this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
           this.sendTankData();
         }
-        if (0 !== this.viceActionList.length) {
+        if (0 !== this.viceActionList.length) if (0 === this.viceActionList[0].data.type) {
           this.vicePlayer.x = this.viceActionList[0].data.x;
           this.vicePlayer.y = this.viceActionList[0].data.y;
           this.vicePlayer.rotation = this.viceActionList[0].data.rotation;
+          this.viceActionList.splice(0, 1);
+        } else if (1 === this.viceActionList[0].data.type) {
+          this.generateReceiveButtle(this.viceActionList[0]);
           this.viceActionList.splice(0, 1);
         }
       };
       NewClass.prototype.sendTankData = function() {
         this.mainActionList.push({
           data: {
+            type: 0,
             tankName: this.BattleCtrl.playerName,
             x: this.currentPlayer.x,
             y: this.currentPlayer.y,
             rotation: this.currentPlayer.rotation
           }
         });
-        if (this.mainActionList.length > 5) {
+        this.sum++;
+        console.log(this.sum, "sum");
+        if (this.mainActionList.length > 2) {
           this.WebScoket.sendMessage({
             msg: 22,
             data: this.mainActionList
@@ -998,7 +1018,11 @@ require = function() {
         }
       };
       NewClass.prototype.setOtherTankDataFor2 = function(response) {
-        for (var i = 0; i < response.data.length; i++) this.viceActionList.push(response.data[i]);
+        for (var i = 0; i < response.data.length; i++) {
+          this.vicesum++;
+          console.log(this.vicesum, "vicesum");
+          this.viceActionList.push(response.data[i]);
+        }
       };
       __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle", void 0);
       NewClass = __decorate([ ccclass ], NewClass);
@@ -1007,8 +1031,8 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "./Page/BattleCatrl": "BattleCatrl",
-    "./WebSocketManage": "WebSocketManage"
+    "../Page/BattleCtrl": "BattleCtrl",
+    "../Unit/WebSocketManage": "WebSocketManage"
   } ],
   TankCtrl: [ function(require, module, exports) {
     "use strict";
@@ -1016,27 +1040,34 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var BattleCatrl_1 = require("../Page/BattleCatrl");
+    var BattleCtrl_1 = require("../Page/BattleCtrl");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
       function NewClass() {
-        return null !== _super && _super.apply(this, arguments) || this;
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.WebScoket = null;
+        return _this;
       }
       NewClass.prototype.start = function() {
         this.playerRg = this.getComponent(cc.RigidBody);
+        this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
       };
       NewClass.prototype.update = function() {};
       NewClass.prototype.onCollisionEnter = function(other, self) {
         var otherName = other.node.name.substring(5, 11);
         var loser = self.node.name;
         var scoreType = 0;
+        var mainPlayer = 0;
+        "tank_1" === cc.find("Canvas/BattlePagePanel").getComponent(BattleCtrl_1.default).playerName && (mainPlayer = 1);
         "tank_1" === loser && (scoreType = 1);
         if ("buttle" === otherName) {
+          console.log("die");
           this.node.destroy();
           var node = other.node;
           node.destroy();
-          cc.find("Canvas/BattlePagePanel").getComponent(BattleCatrl_1.default).restart(scoreType);
+          cc.find("Canvas/BattlePagePanel").getComponent(BattleCtrl_1.default).restart(scoreType);
         }
       };
       NewClass = __decorate([ ccclass ], NewClass);
@@ -1045,27 +1076,88 @@ require = function() {
     exports.default = NewClass;
     cc._RF.pop();
   }, {
-    "../Page/BattleCatrl": "BattleCatrl"
+    "../Page/BattleCtrl": "BattleCtrl",
+    "../Unit/WebSocketManage": "WebSocketManage"
   } ],
-  WebSocketManage: [ function(require, module, exports) {
+  TransferClass: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "8aeccTbL45CTogTfRwPMgzA", "WebSocketManage");
+    cc._RF.push(module, "f365fMBokNNhoCix8wcU7gU", "TransferClass");
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var BattleCatrl_1 = require("./Page/BattleCatrl");
-    var PlayerOperationCtrl_1 = require("./PlayerOperationCtrl");
-    var HomePageCtrl_1 = require("./Page/HomePageCtrl");
-    var MatchingCtrl_1 = require("./Page/MatchingCtrl");
+    var HomePageCtrl_1 = require("../Page/HomePageCtrl");
+    var MatchingCtrl_1 = require("../Page/MatchingCtrl");
+    var BattleCtrl_1 = require("../Page/BattleCtrl");
+    var PlayerOperationCtrl_1 = require("../Parts/PlayerOperationCtrl");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var Transfer = function(_super) {
+      __extends(Transfer, _super);
+      function Transfer() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.HomePage = null;
+        _this.MatchPage = null;
+        _this.BattlePage = null;
+        _this.Operation = null;
+        return _this;
+      }
+      Transfer.prototype.getUserDataForHomePageCtrl = function(res) {
+        var homePageCtrl = null;
+        this.HomePage = cc.find("Canvas/HomePagePanel");
+        homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
+        homePageCtrl.getUserData(res);
+      };
+      Transfer.prototype.generateMapForHomePageCtrl = function(res) {
+        var homePageCtrl = null;
+        this.HomePage = cc.find("Canvas/HomePagePanel");
+        homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
+        homePageCtrl.enemyUserData = res.enemyData;
+        var matchPageCtrl = null;
+        this.MatchPage = cc.find("Canvas/MatchingPagePanel");
+        matchPageCtrl = this.MatchPage.getComponent(MatchingCtrl_1.default);
+        matchPageCtrl.setBattleData(res);
+      };
+      Transfer.prototype.getMapForBattlePageCtrl = function(res) {
+        var battlePageCtrl = null;
+        this.BattlePage = cc.find("Canvas/BattlePagePanel");
+        battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
+        battlePageCtrl.getMap(res);
+      };
+      Transfer.prototype.positionUnicomForOperationCtrl = function(res) {
+        var operationCtrl = null;
+        this.Operation = cc.find("Canvas/BattlePagePanel/BattleBox/operation");
+        operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
+        operationCtrl.setOtherTankDataFor2(res);
+      };
+      Transfer.prototype.fireButtleForOperationCtrl = function(res) {
+        var operationCtrl = null;
+        this.Operation = cc.find("Canvas/BattlePagePanel/BattleBox/operation");
+        operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
+        operationCtrl.addReceiveButtle(res);
+      };
+      Transfer = __decorate([ ccclass ], Transfer);
+      return Transfer;
+    }(cc.Component);
+    exports.default = Transfer;
+    cc._RF.pop();
+  }, {
+    "../Page/BattleCtrl": "BattleCtrl",
+    "../Page/HomePageCtrl": "HomePageCtrl",
+    "../Page/MatchingCtrl": "MatchingCtrl",
+    "../Parts/PlayerOperationCtrl": "PlayerOperationCtrl"
+  } ],
+  WebSocketManage: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "c388ajcATZPpbzuPQDZar4D", "WebSocketManage");
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var TransferClass_1 = require("./TransferClass");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var WebSocketManage = function(_super) {
       __extends(WebSocketManage, _super);
       function WebSocketManage() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
-        _this.BattlePage = null;
-        _this.Operation = null;
-        _this.HomePage = null;
-        _this.MatchingPage = null;
+        _this.TransferClass = new TransferClass_1.default();
         return _this;
       }
       WebSocketManage.prototype.start = function() {
@@ -1082,28 +1174,11 @@ require = function() {
         };
         this.ws.onmessage = function(event) {
           var response = JSON.parse(event.data);
-          if ("-1" === response.dataMessage) {
-            self.HomePage = cc.find("Canvas/HomePagePanel");
-            self.HomePage.getComponent(HomePageCtrl_1.default).getUserData(response);
-          }
-          if ("0" === response.dataMessage) {
-            self.HomePage = cc.find("Canvas/HomePagePanel");
-            self.HomePage.getComponent(HomePageCtrl_1.default).enemyUserData = response.enemyData;
-            self.MatchingPage = cc.find("Canvas/MatchingPagePanel");
-            self.MatchingPage.getComponent(MatchingCtrl_1.default).setBattelData(response);
-          }
-          if ("1" === response.dataMessage) {
-            self.BattlePage = cc.find("Canvas/BattlePagePanel");
-            self.BattlePage.getComponent(BattleCatrl_1.default).sendCallBackFor1(response);
-          }
-          if ("2" === response.dataMessage) {
-            self.Operation = cc.find("Canvas/BattlePagePanel/BattleBox/operation");
-            self.Operation.getComponent(PlayerOperationCtrl_1.default).setOtherTankDataFor2(response);
-          }
-          if ("3" === response.dataMessage) {
-            self.Operation = cc.find("Canvas/BattlePagePanel/BattleBox/operation");
-            self.Operation.getComponent(PlayerOperationCtrl_1.default).generateReceiveButtle(response);
-          }
+          "-1" === response.dataMessage && self.TransferClass.getUserDataForHomePageCtrl(response);
+          "0" === response.dataMessage && self.TransferClass.generateMapForHomePageCtrl(response);
+          "1" === response.dataMessage && self.TransferClass.getMapForBattlePageCtrl(response);
+          "2" === response.dataMessage && self.TransferClass.positionUnicomForOperationCtrl(response);
+          "3" === response.dataMessage && self.TransferClass.fireButtleForOperationCtrl(response);
         };
       };
       WebSocketManage.prototype.sendMessage = function(JSONmessage) {
@@ -1116,16 +1191,13 @@ require = function() {
     exports.default = WebSocketManage;
     cc._RF.pop();
   }, {
-    "./Page/BattleCatrl": "BattleCatrl",
-    "./Page/HomePageCtrl": "HomePageCtrl",
-    "./Page/MatchingCtrl": "MatchingCtrl",
-    "./PlayerOperationCtrl": "PlayerOperationCtrl"
+    "./TransferClass": "TransferClass"
   } ],
   init: [ function(require, module, exports) {
     "use strict";
-    cc._RF.push(module, "3ff06I6ha1G4Y7NMh0WTs/7", "init");
+    cc._RF.push(module, "df5b1Aph8JCcYxWKb619e7b", "init");
     cc.director.getPhysicsManager().enabled = true;
     cc.director.getPhysicsManager().gravity = cc.v2();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "BattleCatrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "CellCtrl", "TankCtrl", "PlayerOperationCtrl", "LinkedMap", "WebSocketManage", "init" ]);
+}, {}, [ "BattleCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "CellCtrl", "PlayerOperationCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);

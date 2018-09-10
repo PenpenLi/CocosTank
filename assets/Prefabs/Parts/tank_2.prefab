@@ -137,13 +137,13 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 5
+      "x": -0.1,
+      "y": 9.8
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 63,
-      "height": 99
+      "width": 62.7,
+      "height": 108.5
     }
   },
   {

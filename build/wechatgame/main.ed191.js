@@ -155,7 +155,7 @@
         }
         else
         {
-            var bundledScript = settings.debug ? 'src/project.dev.3df5f.js' : 'src/project.js';
+            var bundledScript = settings.debug ? 'src/project.dev.564a9.js' : 'src/project.js';
             if (jsList) {
                 jsList = jsList.map(function (x) {
                     return 'src/' + x;
@@ -204,8 +204,6 @@
 
     if (true) {
         require(window._CCSettings.debug ? 'cocos2d-js.b4b5f.js' : 'cocos2d-js-min.js');
-      require('libs/wx-downloader.js');
-      wxDownloader.REMOTE_SERVER_ROOT = 'http://app.ei-marketing.net/Tank_resources'
         var prevPipe = cc.loader.md5Pipe || cc.loader.assetLoader;
         cc.loader.insertPipeAfter(prevPipe, wxDownloader);
         boot();
@@ -213,7 +211,7 @@
     }
 
     if (window.jsb) {
-        require('src/settings.db449.js');
+        require('src/settings.a99ae.js');
         require('src/jsb_polyfill.js');
         boot();
         return;

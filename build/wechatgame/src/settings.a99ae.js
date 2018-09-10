@@ -562,7 +562,7 @@ window._CCSettings = {
     orientation: "landscape",
     debug: true,
     md5AssetsMap: {
-        "01/0153890b3.json": "5dd9f",
+        "01/0153890b3.json": "ac756",
         "1f/1f033a4c-82f5-45ab-8cb0-e25cf0d1a8a1.json": "613b9",
         "5c/5c8a01a0-3dc8-4ad4-81f6-4d2a94437cc8.json": "fe6ea",
         "81/8121f703-aa03-4491-80c6-d5fd36756246.json": "1fb8b",

@@ -30,6 +30,7 @@
   "title": "Tank",
   "webOrientation": "landscape",
   "wechatgame": {
+    "REMOTE_SERVER_ROOT": "http://app.ei-marketing.net/Tank_resources",
     "appid": "wxa5067d6a5dae5c1c",
     "orientation": "landscape"
   },

@@ -63,11 +63,20 @@ var Transfer = /** @class */ (function (_super) {
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
         operationCtrl.setOtherTankDataFor2(res);
     };
+    // 开炮
     Transfer.prototype.fireButtleForOperationCtrl = function (res) {
         var operationCtrl = null;
         this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
-        operationCtrl.generateReceiveButtle(res);
+        operationCtrl.addReceiveButtle(res);
+    };
+    // 个人位置延迟
+    Transfer.prototype.selfToSelfForOperationCtrl = function (res) {
+        return;
+        var operationCtrl = null;
+        this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
+        operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
+        operationCtrl.setSelfTankData(res);
     };
     Transfer = __decorate([
         ccclass

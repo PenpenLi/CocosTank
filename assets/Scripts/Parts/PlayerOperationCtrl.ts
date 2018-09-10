@@ -41,16 +41,12 @@ export default class NewClass extends cc.Component {
     }
     // 用于控制坦克子弹的生成控制
     private i = 0;
-
-    private correct = -1;
     start() {
         this.BattleRegion = this.node.parent.getChildByName('BattleRegion');
         this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl);
         this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.onEventListener();
-    }
-    init() {
 
     }
     onEventListener() {
@@ -104,12 +100,6 @@ export default class NewClass extends cc.Component {
             }
         })
     }
-    /**
-     * 
-     */
-    sendcurrentPlayerKeyBordState(type, x, y, rotation) {
-
-    }
     // 子弹生成
     generateBullet(name) {
         var buttle = cc.instantiate(this.Buttle);
@@ -122,30 +112,36 @@ export default class NewClass extends cc.Component {
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 2;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + buttle.width * scale / 2 + 1;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y)
         this.currentPlayer.parent.addChild(buttle);
-        this.WebScoket.sendMessage({
-            msg: 23,
-            data: {
+        this.mainActionList.push({
+                type: 1,
                 buttleName: buttle.name,
                 scale: scale,
                 x: x,
                 y: y,
                 rotation: rotation
-            }
+            })
+        this.WebScoket.sendMessage({
+            msg: 22,
+            data: this.mainActionList
         })
+        this.mainActionList = []
+    }
+    generateReceiveButtle(response) {
+        var buttle = cc.instantiate(this.Buttle);
+        buttle.name = response.buttleName;
+        buttle.scale = response.scale;
+        buttle.rotation = response.rotation;
+        buttle.setPosition(response.x, response.y);
+        this.vicePlayer.parent.addChild(buttle);
     }
     // 得到对面子弹生成信息，添加到我方区域
-    public generateReceiveButtle(response) {
-        var buttle = cc.instantiate(this.Buttle);
-        buttle.name = response.data.buttleName;
-        buttle.scale = response.data.scale;
-        buttle.rotation = response.data.rotation;
-        buttle.setPosition(response.data.x, response.data.y);
-        this.vicePlayer.parent.addChild(buttle);
+    public addReceiveButtle(response) {
+        this.viceActionList.push(response)
     }
     // 获得玩家信息
     getPlayer(mainTank) {
@@ -168,13 +164,14 @@ export default class NewClass extends cc.Component {
                 return
             }
         }
+
     }
     update(dt) {
         if (this.currentPlayerKeyBord.left) {
             if (this.currentPlayer.rotation - 5 < 0) {
-                this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5
+                this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5;
             } else {
-                this.currentPlayer.rotation = this.currentPlayer.rotation - 5
+                this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
             }
             this.sendTankData()
         }
@@ -195,24 +192,24 @@ export default class NewClass extends cc.Component {
             this.sendTankData()
         }
         if (this.viceActionList.length !== 0) {
-
-            this.vicePlayer.x = this.viceActionList[0].data.x;
-            this.vicePlayer.y = this.viceActionList[0].data.y;
-            this.vicePlayer.rotation = this.viceActionList[0].data.rotation;
-
-
-            this.viceActionList.splice(0, 1);
+            // 位置联调
+            if (this.viceActionList[0].type === 0) {
+                this.vicePlayer.x = this.viceActionList[0].x;
+                this.vicePlayer.y = this.viceActionList[0].y;
+                this.vicePlayer.rotation = this.viceActionList[0].rotation;
+                this.viceActionList.splice(0, 1);
+            } else if (this.viceActionList[0].type === 1) { // 子弹发射
+                this.generateReceiveButtle(this.viceActionList[0])
+                this.viceActionList.splice(0, 1);
+            }
         }
     }
     sendTankData() {
         this.mainActionList.push({
-            data: {
-                type: 0,
-                tankName: this.BattleCtrl.playerName,
-                x: this.currentPlayer.x,
-                y: this.currentPlayer.y,
-                rotation: this.currentPlayer.rotation
-            }
+            type: 0,
+            x: this.currentPlayer.x,
+            y: this.currentPlayer.y,
+            rotation: this.currentPlayer.rotation
         })
         if (this.mainActionList.length > 2) {
             this.WebScoket.sendMessage({
@@ -221,6 +218,9 @@ export default class NewClass extends cc.Component {
             })
             this.mainActionList = []
         }
+    }
+    public selfToSelfForOperationCtrl(response) {
+
     }
     public setOtherTankDataFor2(response) {
         for (let i = 0; i < response.data.length; i++) {

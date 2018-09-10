@@ -42,7 +42,6 @@ var NewClass = /** @class */ (function (_super) {
         };
         // 用于控制坦克子弹的生成控制
         _this.i = 0;
-        _this.correct = -1;
         return _this;
     }
     NewClass.prototype.start = function () {
@@ -51,8 +50,6 @@ var NewClass = /** @class */ (function (_super) {
         this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         this.onEventListener();
-    };
-    NewClass.prototype.init = function () {
     };
     NewClass.prototype.onEventListener = function () {
         var self = this;
@@ -105,11 +102,6 @@ var NewClass = /** @class */ (function (_super) {
             }
         });
     };
-    /**
-     *
-     */
-    NewClass.prototype.sendcurrentPlayerKeyBordState = function (type, x, y, rotation) {
-    };
     // 子弹生成
     NewClass.prototype.generateBullet = function (name) {
         var buttle = cc.instantiate(this.Buttle);
@@ -122,30 +114,36 @@ var NewClass = /** @class */ (function (_super) {
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + 2;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + buttle.width * scale / 2 + 1;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y);
         this.currentPlayer.parent.addChild(buttle);
-        this.WebScoket.sendMessage({
-            msg: 23,
-            data: {
-                buttleName: buttle.name,
-                scale: scale,
-                x: x,
-                y: y,
-                rotation: rotation
-            }
+        this.mainActionList.push({
+            type: 1,
+            buttleName: buttle.name,
+            scale: scale,
+            x: x,
+            y: y,
+            rotation: rotation
         });
+        this.WebScoket.sendMessage({
+            msg: 22,
+            data: this.mainActionList
+        });
+        this.mainActionList = [];
     };
-    // 得到对面子弹生成信息，添加到我方区域
     NewClass.prototype.generateReceiveButtle = function (response) {
         var buttle = cc.instantiate(this.Buttle);
-        buttle.name = response.data.buttleName;
-        buttle.scale = response.data.scale;
-        buttle.rotation = response.data.rotation;
-        buttle.setPosition(response.data.x, response.data.y);
+        buttle.name = response.buttleName;
+        buttle.scale = response.scale;
+        buttle.rotation = response.rotation;
+        buttle.setPosition(response.x, response.y);
         this.vicePlayer.parent.addChild(buttle);
+    };
+    // 得到对面子弹生成信息，添加到我方区域
+    NewClass.prototype.addReceiveButtle = function (response) {
+        this.viceActionList.push(response);
     };
     // 获得玩家信息
     NewClass.prototype.getPlayer = function (mainTank) {
@@ -196,21 +194,25 @@ var NewClass = /** @class */ (function (_super) {
             this.sendTankData();
         }
         if (this.viceActionList.length !== 0) {
-            this.vicePlayer.x = this.viceActionList[0].data.x;
-            this.vicePlayer.y = this.viceActionList[0].data.y;
-            this.vicePlayer.rotation = this.viceActionList[0].data.rotation;
-            this.viceActionList.splice(0, 1);
+            // 位置联调
+            if (this.viceActionList[0].type === 0) {
+                this.vicePlayer.x = this.viceActionList[0].x;
+                this.vicePlayer.y = this.viceActionList[0].y;
+                this.vicePlayer.rotation = this.viceActionList[0].rotation;
+                this.viceActionList.splice(0, 1);
+            }
+            else if (this.viceActionList[0].type === 1) { // 子弹发射
+                this.generateReceiveButtle(this.viceActionList[0]);
+                this.viceActionList.splice(0, 1);
+            }
         }
     };
     NewClass.prototype.sendTankData = function () {
         this.mainActionList.push({
-            data: {
-                type: 0,
-                tankName: this.BattleCtrl.playerName,
-                x: this.currentPlayer.x,
-                y: this.currentPlayer.y,
-                rotation: this.currentPlayer.rotation
-            }
+            type: 0,
+            x: this.currentPlayer.x,
+            y: this.currentPlayer.y,
+            rotation: this.currentPlayer.rotation
         });
         if (this.mainActionList.length > 2) {
             this.WebScoket.sendMessage({
@@ -219,6 +221,8 @@ var NewClass = /** @class */ (function (_super) {
             });
             this.mainActionList = [];
         }
+    };
+    NewClass.prototype.selfToSelfForOperationCtrl = function (response) {
     };
     NewClass.prototype.setOtherTankDataFor2 = function (response) {
         for (var i = 0; i < response.data.length; i++) {
