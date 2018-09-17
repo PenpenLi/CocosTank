@@ -6,6 +6,7 @@ export default class LinkedMap {
   private player_2: number = 0;
   private linkedMap = {};
   private unionSets = null;
+  public setArray = null;
   constructor(column: number = 0, row: number = 0, player_1: number = 0, player_2: number = 0) {
     this.column = column;
     this.row = row;
@@ -22,6 +23,8 @@ export default class LinkedMap {
         this.addLinkedMap(cellPairs[0], cellPairs[1]);
       }
     }
+    this.setArray = this.unionSets.setArray
+    console.log(this.setArray)
     return this.linkedMap;
   }
   playerLinked() {
@@ -55,7 +58,7 @@ export default class LinkedMap {
   }
 }
 class UnionSet {
-  private setArray = null;
+  public setArray = null;
   constructor(size) {
     this.setArray = new Array(size);
     for (let i = this.setArray.length - 1; i >= 0; i--) {

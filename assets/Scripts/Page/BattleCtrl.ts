@@ -62,8 +62,8 @@ export default class BattleCtrl extends cc.Component {
         { row: 3, column: 7, scale: 1 },
         { row: 4, column: 9, scale: 0.775 },
         { row: 5, column: 11, scale: 0.645 },
-        { row: 6, column: 13, scale: 0.539 },
-        { row: 7, column: 15, scale: 0.484 }
+        // { row: 6, column: 13, scale: 0.539 },
+        // { row: 7, column: 15, scale: 0.484 }
     ]
     private activeBattleData = null;
     private cells = 0;
@@ -72,21 +72,45 @@ export default class BattleCtrl extends cc.Component {
     private linkedMap = {};
     private player = [];
     private Exterrandom = 0;
+    // 当前玩家节点名称
     public playerName = 'tank_1'
+    // 根据双方玩家位置生成的区间数组
+    public setArray = null;
+    // 道具刷新区间
+    private propsInterval = [];
 
+    @property(cc.Prefab)
+    private props: cc.Prefab = null;
+
+    // 主玩家头像
     @property(cc.Node)
     private MainPlayerHeadImg: cc.Node = null;
+    // 主玩家名字
     @property(cc.Node)
     private MainPlayerName: cc.Node = null;
+    // 主玩家得分
     @property(cc.Node)
     private MainPlayerScore: cc.Node = null;
+    // 副玩家头像
     @property (cc.Node)
     private VicePlayerHeadImg: cc.Node = null;
+    // 副玩家名字
     @property(cc.Node)
     private VicePlayerName: cc.Node = null;
+    // 副玩家得分
     @property(cc.Node)
     private VicePlayerScore: cc.Node = null;
-    
+    // 游戏结束显示节点
+    @property (cc.Node)
+    private GameStatus: cc.Node = null;
+    @property (cc.SpriteFrame)
+    private defeat: cc.SpriteFrame = null;
+    @property (cc.SpriteFrame)
+    private victory: cc.SpriteFrame = null;
+    @property (cc.Node)
+    public ready: cc.Node = null;
+
+    private propsTime = null;
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
@@ -120,7 +144,7 @@ export default class BattleCtrl extends cc.Component {
             point: Math.random() * this.cells >> 0,
             rotation: Math.random() * 180 >> 0
         });
-        if (this.player[0] === this.player[1]) {
+        if (this.player[0].point === this.player[1].point) {
             this.initPlayerPoint()
         }
     }
@@ -239,6 +263,7 @@ export default class BattleCtrl extends cc.Component {
             var player1 = cc.instantiate(this.player1);
             player1.scale = this.activeBattleData.scale;
             player1.rotation = this.player[0].rotation;
+            player1.zIndex = 10;
             player1.setPosition(this.BattleRegion.width / this.activeBattleData.column * column + this.BattleRegion.width / this.activeBattleData.column / 2, - this.BattleRegion.height / this.activeBattleData.row * row - this.BattleRegion.height / this.activeBattleData.row / 2);
             layoutNode.addChild(player1);
         }
@@ -246,12 +271,50 @@ export default class BattleCtrl extends cc.Component {
             var player2 = cc.instantiate(this.player2);
             player2.scale = this.activeBattleData.scale;
             player2.rotation = this.player[1].rotation;
+            player2.zIndex = 10;
             player2.setPosition(this.BattleRegion.width / this.activeBattleData.column * column + this.BattleRegion.width / this.activeBattleData.column / 2, - this.BattleRegion.height / this.activeBattleData.row * row - this.BattleRegion.height / this.activeBattleData.row / 2);
             layoutNode.addChild(player2);
         }
     }
-    onBack(){
+    // 返回大厅
+    onBack() {
         this.node.destroy();
+        this.webScoket.sendMessage({
+            msg: 28
+        })
+        clearInterval(this.propsTime);
+    }
+    // 获取道具可生成区域
+    propsRefreshInterval() {
+        this.propsInterval = [];
+        clearInterval(this.propsTime)
+        var interval = this.setArray[this.player[0].point];
+        for(let i = 0; i < this.setArray.length; i++) {
+            if(this.setArray[i] === interval) {
+                this.propsInterval.push(i);
+            }
+        }
+        console.log(this.propsInterval)
+        this.propsTime = setInterval(() => {
+            var point = this.propsInterval[Math.random() * this.propsInterval.length >> 0]
+            this.webScoket.sendMessage({
+                msg: 29,
+                data: {
+                    point: point
+                }
+            })
+            var prop = cc.instantiate(this.props)
+            prop.zIndex = 5;
+            this.BattleRegion.children[point].addChild(prop);
+        }, 5000)
+    }
+    // 点击再來一局修改准备状态
+    onClickRestart() {
+        this.webScoket.sendMessage({
+            msg: 27
+        })
+        this.GameStatus.active = false;
+        this.ready.active = true;
     }
     public initScore(type) {
         var self = this;
@@ -280,14 +343,8 @@ export default class BattleCtrl extends cc.Component {
             self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
         }
     }
-    public restart(type) {
-        if(type === 0) {
-            var score = this.MainPlayerScore.getComponent(cc.Label).string;
-            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        } else {
-            var score = this.VicePlayerScore.getComponent(cc.Label).string;
-            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
-        }
+    // 重新开始
+    public restart() {
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();
@@ -298,10 +355,39 @@ export default class BattleCtrl extends cc.Component {
             this.generateMap();
         }
     }
-    
+    /**
+     * type: 游戏玩家区分 1是主玩家 0是副玩家
+     */
+    public gameOver(type) {
+        if(type === 0) {
+            this.GameStatus.getChildByName('bunko').getComponent(cc.Sprite).spriteFrame = this.defeat;
+        } else {
+            this.GameStatus.getChildByName('bunko').getComponent(cc.Sprite).spriteFrame = this.victory;
+        }
+        this.GameStatus.active = true;
+        clearInterval(this.propsTime)
+    }
+    public scoreCount(type) {
+        if(type === 0) {
+            var score = this.MainPlayerScore.getComponent(cc.Label).string;
+            this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        } else {
+            var score = this.VicePlayerScore.getComponent(cc.Label).string;
+            this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
+        }
+    }
+    // 生成道具
+    public generateProps(res) {
+        var prop = cc.instantiate(this.props)
+        prop.zIndex = 5;
+        this.BattleRegion.children[res.data.point].addChild(prop);
+    }
+    // 生成地图
     public generateMap() {
         var self = this;
-        self.linkedMap = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point).generate();
+        var mapClass = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point);
+        self.linkedMap = mapClass.generate();
+        this.setArray = mapClass.setArray;
         self.externalCell();
         for (let i = 0; i < self.cells; i++) {
             self.generateRegion(i);
@@ -323,7 +409,9 @@ export default class BattleCtrl extends cc.Component {
                 linkedMap: self.linkedMap
             }
         })
+        this.propsRefreshInterval()
     }
+    // 获取地图信息
     public getMap(response) {
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
@@ -346,5 +434,8 @@ export default class BattleCtrl extends cc.Component {
         }
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
         console.log(1)
+    }
+    public viceLeave() {
+        this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！'
     }
 }

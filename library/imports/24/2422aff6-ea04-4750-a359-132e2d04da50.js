@@ -16,6 +16,7 @@ var LinkedMap = /** @class */ (function () {
         this.player_2 = 0;
         this.linkedMap = {};
         this.unionSets = null;
+        this.setArray = null;
         this.column = column;
         this.row = row;
         this.cells = column * row;
@@ -31,6 +32,8 @@ var LinkedMap = /** @class */ (function () {
                 this.addLinkedMap(cellPairs[0], cellPairs[1]);
             }
         }
+        this.setArray = this.unionSets.setArray;
+        console.log(this.setArray);
         return this.linkedMap;
     };
     LinkedMap.prototype.playerLinked = function () {

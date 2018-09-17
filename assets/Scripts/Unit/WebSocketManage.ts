@@ -8,8 +8,9 @@ export default class WebSocketManage extends cc.Component {
 
     start() {
         let self = this;
-        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
-        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
+        this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://app.i-mineral.cn/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
         }
@@ -17,7 +18,7 @@ export default class WebSocketManage extends cc.Component {
             console.log("连接服务器失败");
         };
         this.ws.onclose = function (event) {
-            console.log("服务器关闭");
+            console.log("服务器关闭", event);
         };
         // 监听消息接收
         this.ws.onmessage = function (event) {
@@ -44,11 +45,25 @@ export default class WebSocketManage extends cc.Component {
             if(response.dataMessage === '3') {
                 self.TransferClass.fireButtleForOperationCtrl(response);
             }
-            if(response.dataMessage === 'selfToSelf') {
-                self.TransferClass.selfToSelfForOperationCtrl(response);
+            // 死亡
+            if(response.dataMessage === '4') {
+                console.log('4')
+                self.TransferClass.dieForTankCtrl(response);
+            }
+            // 重新开始
+            if(response.dataMessage === '5') {
+                console.log(response)
+                self.TransferClass.restartForBattleCtrl(response);
+            }
+            // 对方离开房间
+            if(response.dataMessage === '6') {
+                self.TransferClass.leaveForBattleCtrl(response);
+            }
+            // 收到道具生成信息
+            if(response.dataMessage === '7') {
+                self.TransferClass.genteraPropsForBattleCtrl(response);
             }
         };
-
     }
     public sendMessage(JSONmessage) {
         let message = JSON.stringify(JSONmessage);

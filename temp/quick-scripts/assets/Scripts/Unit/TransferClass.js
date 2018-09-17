@@ -7,6 +7,7 @@ var HomePageCtrl_1 = require("../Page/HomePageCtrl");
 var MatchingCtrl_1 = require("../Page/MatchingCtrl");
 var BattleCtrl_1 = require("../Page/BattleCtrl");
 var PlayerOperationCtrl_1 = require("../Parts/PlayerOperationCtrl");
+var TankCtrl_1 = require("../Parts/TankCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -31,6 +32,7 @@ var Transfer = /** @class */ (function (_super) {
         _this.Operation = null;
         return _this;
     }
+    // 主玩家
     // 获取用户信息
     Transfer.prototype.getUserDataForHomePageCtrl = function (res) {
         var homePageCtrl = null;
@@ -70,13 +72,71 @@ var Transfer = /** @class */ (function (_super) {
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
         operationCtrl.addReceiveButtle(res);
     };
-    // 个人位置延迟
-    Transfer.prototype.selfToSelfForOperationCtrl = function (res) {
-        return;
-        var operationCtrl = null;
-        this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
-        operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
-        operationCtrl.setSelfTankData(res);
+    // 死亡
+    Transfer.prototype.dieForTankCtrl = function (res) {
+        // 0代表副玩家
+        var player = null;
+        var children = cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').children;
+        cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).scoreCount(res.data.scoreType);
+        if (res.data.scoreType === 1 && cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).playerName === 'tank_1' ||
+            res.data.scoreType === 0 && cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).playerName === 'tank_2') {
+            cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).gameOver(0);
+        }
+        else {
+            cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).gameOver(1);
+        }
+        // 移除碰撞子弹节点
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].getChildByName(res.data.buttleName)) {
+                children[i].getChildByName(res.data.buttleName).destroy();
+                break;
+            }
+        }
+        if (res.data.scoreType === 0) {
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].getChildByName('tank_2')) {
+                    player = children[i].getChildByName('tank_2');
+                    console.log(2);
+                    var playerCompeont = player.getComponent(TankCtrl_1.default);
+                    playerCompeont.gameOver(res);
+                    return;
+                }
+            }
+        }
+        else {
+            for (var i = 0; i < children.length; i++) {
+                if (children[i].getChildByName('tank_1')) {
+                    player = children[i].getChildByName('tank_1');
+                    console.log(1);
+                    var playerCompeont = player.getComponent(TankCtrl_1.default);
+                    playerCompeont.gameOver(res);
+                    return;
+                }
+            }
+        }
+    };
+    // 重新开始
+    Transfer.prototype.restartForBattleCtrl = function (res) {
+        var battlePageCtrl = null;
+        this.BattlePage = cc.find('Canvas/BattlePagePanel');
+        battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
+        battlePageCtrl.ready.active = false;
+        if (battlePageCtrl.playerName === 'tank_1') {
+            battlePageCtrl.restart();
+        }
+    };
+    // 对方离开房间
+    Transfer.prototype.leaveForBattleCtrl = function (res) {
+        var battlePageCtrl = null;
+        this.BattlePage = cc.find('Canvas/BattlePagePanel');
+        battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
+        battlePageCtrl.viceLeave();
+    };
+    Transfer.prototype.genteraPropsForBattleCtrl = function (res) {
+        var battlePageCtrl = null;
+        this.BattlePage = cc.find('Canvas/BattlePagePanel');
+        battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
+        battlePageCtrl.generateProps(res);
     };
     Transfer = __decorate([
         ccclass

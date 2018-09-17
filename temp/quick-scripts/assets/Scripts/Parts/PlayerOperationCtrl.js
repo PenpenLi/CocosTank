@@ -98,7 +98,8 @@ var NewClass = /** @class */ (function (_super) {
             });
             if (len < 5) {
                 self.i = (self.i + 1) % 5;
-                self.generateBullet("tank_buttle_" + self.i);
+                self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i);
+                console.log("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i);
             }
         });
     };
@@ -114,7 +115,7 @@ var NewClass = /** @class */ (function (_super) {
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2 + buttle.width * scale / 2 + 1;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2;
         var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
         var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
         buttle.setPosition(x, y);
@@ -195,16 +196,36 @@ var NewClass = /** @class */ (function (_super) {
         }
         if (this.viceActionList.length !== 0) {
             // 位置联调
-            if (this.viceActionList[0].type === 0) {
-                this.vicePlayer.x = this.viceActionList[0].x;
-                this.vicePlayer.y = this.viceActionList[0].y;
-                this.vicePlayer.rotation = this.viceActionList[0].rotation;
-                this.viceActionList.splice(0, 1);
+            for (var i = 0; i < this.viceActionList.length; i++) {
+                if (this.viceActionList[0] && this.viceActionList[0].type === 0) {
+                    this.vicePlayer.x = this.viceActionList[0].x;
+                    this.vicePlayer.y = this.viceActionList[0].y;
+                    this.vicePlayer.rotation = this.viceActionList[0].rotation;
+                    this.viceActionList.splice(0, 1);
+                }
+                else if (this.viceActionList[0].type === 1) { // 子弹发射
+                    this.generateReceiveButtle(this.viceActionList[0]);
+                    this.viceActionList.splice(0, 1);
+                }
             }
-            else if (this.viceActionList[0].type === 1) { // 子弹发射
-                this.generateReceiveButtle(this.viceActionList[0]);
-                this.viceActionList.splice(0, 1);
-            }
+            // if (this.viceActionList[0] && this.viceActionList[0].type === 0) {
+            //     this.vicePlayer.x = this.viceActionList[0].x;
+            //     this.vicePlayer.y = this.viceActionList[0].y;
+            //     this.vicePlayer.rotation = this.viceActionList[0].rotation;
+            //     this.viceActionList.splice(0, 1);
+            // } else if (this.viceActionList[0].type === 1) { // 子弹发射
+            //     this.generateReceiveButtle(this.viceActionList[0])
+            //     this.viceActionList.splice(0, 1);
+            // }
+            // if (this.viceActionList[0] && this.viceActionList[0].type === 0) {
+            //     this.vicePlayer.x = this.viceActionList[0].x;
+            //     this.vicePlayer.y = this.viceActionList[0].y;
+            //     this.vicePlayer.rotation = this.viceActionList[0].rotation;
+            //     this.viceActionList.splice(0, 1);
+            // } else if (this.viceActionList[0].type === 1) { // 子弹发射
+            //     this.generateReceiveButtle(this.viceActionList[0])
+            //     this.viceActionList.splice(0, 1);
+            // }
         }
     };
     NewClass.prototype.sendTankData = function () {
@@ -214,15 +235,13 @@ var NewClass = /** @class */ (function (_super) {
             y: this.currentPlayer.y,
             rotation: this.currentPlayer.rotation
         });
-        if (this.mainActionList.length > 2) {
+        if (this.mainActionList.length > 0) {
             this.WebScoket.sendMessage({
                 msg: 22,
                 data: this.mainActionList
             });
             this.mainActionList = [];
         }
-    };
-    NewClass.prototype.selfToSelfForOperationCtrl = function (response) {
     };
     NewClass.prototype.setOtherTankDataFor2 = function (response) {
         for (var i = 0; i < response.data.length; i++) {

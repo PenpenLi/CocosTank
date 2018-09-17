@@ -3,7 +3,6 @@ cc._RF.push(module, '33ad7W4Sq9CJ4BpgZFyxICj', 'TankCtrl', __filename);
 // Scripts/Parts/TankCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var BattleCtrl_1 = require("../Page/BattleCtrl");
 var WebSocketManage_1 = require("../Unit/WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
@@ -19,41 +18,71 @@ var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.Boom = null;
         // webScoket脚本
         _this.WebScoket = null;
+        _this.flag = true;
         return _this;
     }
     NewClass.prototype.start = function () {
         this.playerRg = this.getComponent(cc.RigidBody);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
     };
-    NewClass.prototype.update = function () {
+    NewClass.prototype.onBeginContact = function (contact, selfCollider, otherCollider) {
+        var self = this;
+        if (this.flag) {
+            var othername = otherCollider.node.name.substring(5, 11);
+            console.log("flog:" + othername);
+            var loser = this.node.name;
+            var scoreType = 0;
+            if (othername === 'buttle') {
+                this.flag = false;
+                var x = selfCollider.node.x;
+                var y = selfCollider.node.y;
+                var parent = selfCollider.node.parent;
+                var boom = cc.instantiate(this.Boom);
+                boom.setPosition(x, y);
+                parent.addChild(boom);
+                otherCollider.node.destroy();
+                selfCollider.node.destroy();
+                if (loser === 'tank_1') {
+                    scoreType = 1;
+                }
+                this.WebScoket.sendMessage({
+                    msg: 25,
+                    data: {
+                        scoreType: scoreType,
+                        buttleName: otherCollider.node.name
+                    }
+                });
+                // this.WebScoket.sendMessage({
+                //     msg: 27
+                // })
+                // if (cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).playerName === 'tank_1') {
+                //     setTimeout(() => {
+                //         cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).restart();
+                //     }, 2000);
+                // }
+            }
+        }
     };
-    NewClass.prototype.onCollisionEnter = function (other, self) {
-        var otherName = other.node.name.substring(5, 11);
-        var loser = self.node.name;
-        var scoreType = 0;
-        var mainPlayer = 0;
-        if (cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).playerName === 'tank_1') {
-            mainPlayer = 1;
-        }
-        if (loser === 'tank_1') {
-            scoreType = 1;
-        }
-        if (otherName === 'buttle') {
-            console.log('die');
-            this.node.destroy();
-            var node = other.node;
-            node.destroy();
-            cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).restart(scoreType);
-            // this.WebScoket.sendMessage({
-            //     msg: 25,
-            //     data: {
-            //         type: mainPlayer
-            //     }
-            // })
-        }
+    NewClass.prototype.gameOver = function (response) {
+        var x = this.node.x;
+        var y = this.node.y;
+        var parent = this.node.parent;
+        var boom = cc.instantiate(this.Boom);
+        boom.setPosition(x, y);
+        parent.addChild(boom);
+        this.node.destroy();
+        // if (cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).playerName === 'tank_1') {
+        //     setTimeout(() => {
+        //         cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).restart();
+        //     }, 2000);
+        // }
     };
+    __decorate([
+        property(cc.Prefab)
+    ], NewClass.prototype, "Boom", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

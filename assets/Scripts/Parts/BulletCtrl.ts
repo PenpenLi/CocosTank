@@ -1,4 +1,3 @@
-import { pIn } from '../../../creator';
 import WebSocketManage from '../Unit/WebSocketManage';
 // Learn TypeScript:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
@@ -14,41 +13,29 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
-    
+
     private WebScoket: WebSocketManage = null;
-    
+
     private speedX = 5;
 
     private speedY = 5;
+
+    private buttle: cc.RigidBody;
     start() {
+        this.buttle = this.node.getComponent(cc.RigidBody);
+        var speed = 300;
+        var x = speed * Math.sin(Math.PI * this.node.rotation / 180)
+        var y = speed * Math.cos(Math.PI * this.node.rotation / 180)
+        this.buttle.linearVelocity = new cc.Vec2(x, y)
         var self = this;
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         setTimeout(() => {
-            if(self.node){
+            if (self.node) {
                 self.node.destroy();
             }
         }, 5000);
     }
     update(dt) {
-        var rotation = this.node.rotation;
-        this.node.x += this.speedX * Math.sin(Math.PI * rotation / 180);
-        this.node.y += this.speedY* Math.cos(Math.PI * rotation / 180);
-    }
-    onCollisionEnter(other, self) {
-        switch (other.tag) {
-            case 0:
-                this.speedY *= -1; 
-                break;
-            case 1:
-                this.speedX *= -1; 
-                break;
-            case 2:
-                this.speedY *= -1; 
-                break;
-            case 3:
-                this.speedX *= -1; 
-                break;
-        }
     }
     onDestroy() {
         this.node.destroy();

@@ -32,10 +32,13 @@
       },
       {
         "__id__": 6
+      },
+      {
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 8
     },
     "_id": "",
     "_opacity": 255,
@@ -100,6 +103,18 @@
     "_atlas": null
   },
   {
+    "__type__": "33ad7W4Sq9CJ4BpgZFyxICj",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "Boom": {
+      "__uuid__": "bf148a4f-6c36-4cae-83a9-a8a23f4fce48"
+    }
+  },
+  {
     "__type__": "cc.RigidBody",
     "_name": "",
     "_objFlags": 0,
@@ -120,7 +135,7 @@
     "_angularVelocity": 0,
     "_fixedRotation": false,
     "enabledContactListener": true,
-    "bullet": true
+    "bullet": false
   },
   {
     "__type__": "cc.PhysicsBoxCollider",
@@ -138,155 +153,64 @@
     "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": -0.1,
-      "y": 9.8
+      "x": 0.2,
+      "y": -4.7
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 62.7,
-      "height": 108.5
+      "width": 63.3,
+      "height": 80.6
     }
   },
   {
-    "__type__": "33ad7W4Sq9CJ4BpgZFyxICj",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true
-  },
-  {
-    "__type__": "cc.PolygonCollider",
+    "__type__": "cc.PhysicsBoxCollider",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "tag": 5,
+    "tag": 0,
+    "_density": 1,
+    "_sensor": false,
+    "_friction": 0.2,
+    "_restitution": 0,
+    "body": null,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": -20.4,
+      "y": 35.1
     },
-    "points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -3.5,
-        "y": 45
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -3.5,
-        "y": 24
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -14.5,
-        "y": 24
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -14.5,
-        "y": 28
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -16.5,
-        "y": 30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -28.5,
-        "y": 30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -30.5,
-        "y": 27
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -30.5,
-        "y": -43
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -28.5,
-        "y": -45
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -15.5,
-        "y": -45
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -14.5,
-        "y": -40
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 14.5,
-        "y": -40
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 15.5,
-        "y": -45
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 28.5,
-        "y": -45
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 30.5,
-        "y": -43
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 31.5,
-        "y": -27
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 30.5,
-        "y": 27
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 28.5,
-        "y": 30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 16.5,
-        "y": 30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 14.5,
-        "y": 28
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 14.5,
-        "y": 24
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 3.5,
-        "y": 24
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 3.5,
-        "y": 45
-      }
-    ]
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 22.1,
+      "height": 19.8
+    }
+  },
+  {
+    "__type__": "cc.PhysicsBoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_density": 1,
+    "_sensor": false,
+    "_friction": 0.2,
+    "_restitution": 0,
+    "body": null,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 20.6,
+      "y": 35.4
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 21.7,
+      "height": 19.2
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
