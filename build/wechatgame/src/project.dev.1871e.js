@@ -94,6 +94,7 @@ require = function() {
         _this.victory = null;
         _this.ready = null;
         _this.propsTime = null;
+        _this.propsList = [ "prop_1", "prop_2", "prop_3", "prop_4", "prop_5", "prop_6", "prop_7" ];
         return _this;
       }
       BattleCtrl.prototype.start = function() {
@@ -261,24 +262,36 @@ require = function() {
         });
         clearInterval(this.propsTime);
       };
+      BattleCtrl.prototype.genearteProp = function(point, rotation, type) {
+        var prop = cc.instantiate(this.props);
+        cc.loader.loadRes(type, cc.SpriteFrame, function(err, spriteFrame) {
+          prop.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        prop.zIndex = 5;
+        prop.rotation = rotation;
+        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.scale = this.activeBattleData.scale;
+        this.BattleRegion.children[point].addChild(prop);
+      };
       BattleCtrl.prototype.propsRefreshInterval = function() {
         var _this = this;
         this.propsInterval = [];
         clearInterval(this.propsTime);
         var interval = this.setArray[this.player[0].point];
         for (var i = 0; i < this.setArray.length; i++) this.setArray[i] === interval && this.propsInterval.push(i);
-        console.log(this.propsInterval);
         this.propsTime = setInterval(function() {
           var point = _this.propsInterval[Math.random() * _this.propsInterval.length >> 0];
+          var rotation = 360 * Math.random() >> 0;
+          var propType = _this.propsList[Math.random() * _this.propsList.length >> 0];
           _this.webScoket.sendMessage({
             msg: 29,
             data: {
-              point: point
+              point: point,
+              rotation: rotation,
+              propType: propType
             }
           });
-          var prop = cc.instantiate(_this.props);
-          prop.zIndex = 5;
-          _this.BattleRegion.children[point].addChild(prop);
+          _this.genearteProp(point, rotation, propType);
         }, 5e3);
       };
       BattleCtrl.prototype.onClickRestart = function() {
@@ -325,12 +338,15 @@ require = function() {
           self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
         }
       };
-      BattleCtrl.prototype.restart = function() {
+      BattleCtrl.prototype._onRemoveNode = function() {
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();
         this.BottomCell.removeAllChildren();
         this.BattleRegion.removeAllChildren();
+      };
+      BattleCtrl.prototype.restart = function() {
+        this._onRemoveNode();
         if ("tank_2" !== this.playerName) {
           this.initBattleData();
           this.generateMap();
@@ -349,11 +365,6 @@ require = function() {
           var score = this.VicePlayerScore.getComponent(cc.Label).string;
           this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + "";
         }
-      };
-      BattleCtrl.prototype.generateProps = function(res) {
-        var prop = cc.instantiate(this.props);
-        prop.zIndex = 5;
-        this.BattleRegion.children[res.data.point].addChild(prop);
       };
       BattleCtrl.prototype.generateMap = function() {
         var self = this;
@@ -380,11 +391,7 @@ require = function() {
         this.propsRefreshInterval();
       };
       BattleCtrl.prototype.getMap = function(response) {
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
+        this._onRemoveNode();
         var self = this;
         self.playerName = "tank_2";
         self.linkedMap = response.data.linkedMap;
@@ -396,7 +403,6 @@ require = function() {
         for (var i = 0; i < cells; i++) self.generateRegion(i);
         this.BattleRegion.parent.getChildByName("operation") && this.BattleRegion.parent.getChildByName("operation").destroy();
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1);
       };
       BattleCtrl.prototype.viceLeave = function() {
         this.ready.getChildByName("labelStatus").getComponent(cc.Label).string = "对方已退出房间！";
@@ -461,7 +467,7 @@ require = function() {
       }
       NewClass.prototype.start = function() {
         this.buttle = this.node.getComponent(cc.RigidBody);
-        var speed = 300;
+        var speed = 500;
         var x = speed * Math.sin(Math.PI * this.node.rotation / 180);
         var y = speed * Math.cos(Math.PI * this.node.rotation / 180);
         this.buttle.linearVelocity = new cc.Vec2(x, y);
@@ -483,6 +489,34 @@ require = function() {
   }, {
     "../Unit/WebSocketManage": "WebSocketManage"
   } ],
+  Buttle6Ctrl: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "022778WYX5Og5WwOArqNwHE", "Buttle6Ctrl");
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var NewClass = function(_super) {
+      __extends(NewClass, _super);
+      function NewClass() {
+        return null !== _super && _super.apply(this, arguments) || this;
+      }
+      NewClass.prototype.start = function() {
+        var manager = cc.director.getCollisionManager();
+        manager.enabled = false;
+        setTimeout(function() {
+          manager.enabled = true;
+        }, 3e3);
+      };
+      NewClass.prototype.onCollisionEnter = function(other, self) {
+        console.log("1");
+      };
+      NewClass = __decorate([ ccclass ], NewClass);
+      return NewClass;
+    }(cc.Component);
+    exports.default = NewClass;
+    cc._RF.pop();
+  }, {} ],
   CellCtrl: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "1a3ddLI5Y9ET54Wf+qMBtnj", "CellCtrl");
@@ -512,7 +546,6 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
-    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -530,13 +563,30 @@ require = function() {
         return _this;
       }
       NewClass.prototype.start = function() {
+        wx.showShareMenu();
+        wx.login({
+          success: function(res) {
+            console.log(res);
+          }
+        });
+        wx.authorize({
+          scope: "scope.userInfo"
+        });
         this.ping.zIndex = 9999;
         this.getPing();
       };
       NewClass.prototype.OnClickStartButton = function() {
-        var webscoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
-        webscoket.sendMessage({
-          msg: 1
+        wx.getSetting({
+          success: function(res) {
+            res.authSetting["scope.userInfo"] && wx.getUserInfo({
+              success: function(res) {
+                console.log(res);
+              }
+            });
+          },
+          fail: function(res) {
+            console.log(res);
+          }
         });
       };
       NewClass.prototype.OnClickSoundButton = function(event) {
@@ -581,9 +631,7 @@ require = function() {
     }(cc.Component);
     exports.default = NewClass;
     cc._RF.pop();
-  }, {
-    "../Unit/WebSocketManage": "WebSocketManage"
-  } ],
+  }, {} ],
   LinkedMap: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "2422a/26gRHUKNZEy4tBNpQ", "LinkedMap");
@@ -876,6 +924,7 @@ require = function() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.BattleRegion = null;
         _this.Buttle = null;
+        _this.Buttle6 = null;
         _this.currentPlayer = null;
         _this.vicePlayer = null;
         _this.rotationStatus = 0;
@@ -890,7 +939,10 @@ require = function() {
           bottom: false,
           left: false
         };
+        _this.buttleType = 6;
+        _this.buttle1Status = false;
         _this.i = 0;
+        _this.Density = 0;
         return _this;
       }
       NewClass.prototype.start = function() {
@@ -899,6 +951,49 @@ require = function() {
         this.getPlayer(this.BattleCtrl.playerName);
         this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
         this.onEventListener();
+      };
+      NewClass.prototype.update = function(dt) {
+        if (this.buttle1Status) {
+          this.Density++;
+          if (this.Density % 5 === 0) {
+            this.i++;
+            var len = 0;
+            this.currentPlayer.parent.children.map(function(node) {
+              node.name.length > 11 && len++;
+            });
+            len < 20 && this.generateBullet("tank_buttle_" + this.currentPlayer.name.substring(5, 6) + "_" + this.i, 5 - 10 * Math.random() >> 0);
+          }
+        }
+        this.Density++;
+        if (this.currentPlayerKeyBord.left) {
+          this.currentPlayer.rotation - 5 < 0 ? this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5 : this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.right) {
+          this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.top) {
+          var speed = 5;
+          this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
+          this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.bottom) {
+          var speed = 5;
+          this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
+          this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
+          this.sendTankData();
+        }
+        if (0 !== this.viceActionList.length) for (var i = 0; i < this.viceActionList.length; i++) if (this.viceActionList[0] && 0 === this.viceActionList[0].type) {
+          this.vicePlayer.x = this.viceActionList[0].x;
+          this.vicePlayer.y = this.viceActionList[0].y;
+          this.vicePlayer.rotation = this.viceActionList[0].rotation;
+          this.viceActionList.splice(0, 1);
+        } else if (1 === this.viceActionList[0].type) {
+          this.generateReceiveButtle(this.viceActionList[0]);
+          this.viceActionList.splice(0, 1);
+        }
       };
       NewClass.prototype.onEventListener = function() {
         var self = this;
@@ -938,41 +1033,58 @@ require = function() {
         this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_END, function(event) {
           self.currentPlayerKeyBord.bottom = false;
         });
-        this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
+        0 === this.buttleType && this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
           var len = 0;
           self.currentPlayer.parent.children.map(function(node) {
             node.name.length > 11 && len++;
           });
           if (len < 5) {
             self.i = (self.i + 1) % 5;
-            self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i);
-            console.log("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i);
+            self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i, 0);
           }
         });
+        6 === this.buttleType && this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
+          var buttle = cc.instantiate(self.Buttle6);
+          buttle.name = "tank_buttle6_";
+          buttle.scale = self.currentPlayer.scale;
+          buttle.rotation = self.currentPlayer.rotation;
+          buttle.zIndex = -1;
+          buttle.setPosition(self.currentPlayer.x, self.currentPlayer.y);
+          self.currentPlayer.parent.addChild(buttle);
+        });
+        if (1 === this.buttleType) {
+          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
+            self.buttle1Status = true;
+          });
+          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_END, function(event) {
+            self.buttle1Status = false;
+          });
+          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+            self.buttle1Status = false;
+          });
+        }
       };
-      NewClass.prototype.generateBullet = function(name) {
+      NewClass.prototype.generateBullet = function(name, offset) {
         var buttle = cc.instantiate(this.Buttle);
         buttle.name = name;
-        var scale = this.currentPlayer.scale;
-        var rotation = this.currentPlayer.rotation;
-        buttle.scale = scale;
-        buttle.rotation = rotation;
+        buttle.scale = this.currentPlayer.scale;
+        buttle.rotation = this.currentPlayer.rotation + offset;
         buttle.zIndex = -1;
         var centerPointx = this.currentPlayer.x;
         var centerPointy = this.currentPlayer.y;
         var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * scale / 2;
-        var x = (buttleY - centerPointy) * Math.sin(Math.PI * rotation / 180) + centerPointx;
-        var y = (buttleY - centerPointy) * Math.cos(Math.PI * rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * rotation / 180) + centerPointy;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * this.currentPlayer.scale / 2;
+        var x = (buttleY - centerPointy) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointx;
+        var y = (buttleY - centerPointy) * Math.cos(Math.PI * this.currentPlayer.rotation + offset / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointy;
         buttle.setPosition(x, y);
         this.currentPlayer.parent.addChild(buttle);
         this.mainActionList.push({
           type: 1,
           buttleName: buttle.name,
-          scale: scale,
+          scale: this.currentPlayer.scale,
           x: x,
           y: y,
-          rotation: rotation
+          rotation: this.currentPlayer.rotation + offset
         });
         this.WebScoket.sendMessage({
           msg: 22,
@@ -1002,37 +1114,6 @@ require = function() {
           if (this.currentPlayer && this.vicePlayer) return;
         }
       };
-      NewClass.prototype.update = function(dt) {
-        if (this.currentPlayerKeyBord.left) {
-          this.currentPlayer.rotation - 5 < 0 ? this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5 : this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.right) {
-          this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.top) {
-          var speed = 5;
-          this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-          this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.bottom) {
-          var speed = 5;
-          this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-          this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-          this.sendTankData();
-        }
-        if (0 !== this.viceActionList.length) for (var i = 0; i < this.viceActionList.length; i++) if (this.viceActionList[0] && 0 === this.viceActionList[0].type) {
-          this.vicePlayer.x = this.viceActionList[0].x;
-          this.vicePlayer.y = this.viceActionList[0].y;
-          this.vicePlayer.rotation = this.viceActionList[0].rotation;
-          this.viceActionList.splice(0, 1);
-        } else if (1 === this.viceActionList[0].type) {
-          this.generateReceiveButtle(this.viceActionList[0]);
-          this.viceActionList.splice(0, 1);
-        }
-      };
       NewClass.prototype.sendTankData = function() {
         this.mainActionList.push({
           type: 0,
@@ -1052,6 +1133,7 @@ require = function() {
         for (var i = 0; i < response.data.length; i++) this.viceActionList.push(response.data[i]);
       };
       __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle", void 0);
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle6", void 0);
       NewClass = __decorate([ ccclass ], NewClass);
       return NewClass;
     }(cc.Component);
@@ -1071,13 +1153,41 @@ require = function() {
     var NewClass = function(_super) {
       __extends(NewClass, _super);
       function NewClass() {
-        return null !== _super && _super.apply(this, arguments) || this;
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.nodeDestoryTime = null;
+        _this.propType = "";
+        return _this;
       }
       NewClass.prototype.start = function() {
+        var _this = this;
+        this.propType = this.node.getComponent(cc.Sprite).spriteFrame.name;
         var self = this;
         setTimeout(function() {
-          self.node.destroy();
-        }, 15e3);
+          self.onNodeTwinkle();
+          setTimeout(function() {
+            clearTimeout(self.nodeDestoryTime);
+            _this.node && self.node.destroy();
+          }, 3e3);
+        }, 12e3);
+      };
+      NewClass.prototype.onNodeTwinkle = function() {
+        var _this = this;
+        var self = this;
+        this.nodeDestoryTime = setTimeout(function() {
+          if (!_this.node) return;
+          self.node.opacity = 20;
+          setTimeout(function() {
+            self.node.opacity = 200;
+            self.onNodeTwinkle();
+          }, 200);
+        }, 200);
+      };
+      NewClass.prototype.onCollisionEnter = function(other, self) {
+        var spriteFrameName = other.node.name + "_" + this.node.getComponent(cc.Sprite).spriteFrame.name.substring(5, 6);
+        cc.loader.loadRes(spriteFrameName, cc.SpriteFrame, function(err, spriteFrame) {
+          other.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        self.node.destroy();
       };
       NewClass = __decorate([ ccclass ], NewClass);
       return NewClass;
@@ -1110,10 +1220,10 @@ require = function() {
         var self = this;
         if (this.flag) {
           var othername = otherCollider.node.name.substring(5, 11);
-          console.log("flog:" + othername);
           var loser = this.node.name;
           var scoreType = 0;
           if ("buttle" === othername) {
+            cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation") && cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation").destroy();
             this.flag = false;
             var x = selfCollider.node.x;
             var y = selfCollider.node.y;
@@ -1135,6 +1245,7 @@ require = function() {
         }
       };
       NewClass.prototype.gameOver = function(response) {
+        cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation") && cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation").destroy();
         var x = this.node.x;
         var y = this.node.y;
         var parent = this.node.parent;
@@ -1220,14 +1331,12 @@ require = function() {
         if (0 === res.data.scoreType) {
           for (var i = 0; i < children.length; i++) if (children[i].getChildByName("tank_2")) {
             player = children[i].getChildByName("tank_2");
-            console.log(2);
             var playerCompeont = player.getComponent(TankCtrl_1.default);
             playerCompeont.gameOver(res);
             return;
           }
         } else for (var i = 0; i < children.length; i++) if (children[i].getChildByName("tank_1")) {
           player = children[i].getChildByName("tank_1");
-          console.log(1);
           var playerCompeont = player.getComponent(TankCtrl_1.default);
           playerCompeont.gameOver(res);
           return;
@@ -1250,7 +1359,7 @@ require = function() {
         var battlePageCtrl = null;
         this.BattlePage = cc.find("Canvas/BattlePagePanel");
         battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
-        battlePageCtrl.generateProps(res);
+        battlePageCtrl.genearteProp(res.data.point, res.data.rotation, res.data.propType);
       };
       Transfer = __decorate([ ccclass ], Transfer);
       return Transfer;
@@ -1281,12 +1390,12 @@ require = function() {
       }
       WebSocketManage.prototype.start = function() {
         var self = this;
-        this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
         this.ws.onopen = function(event) {
           console.log("服务器已打开");
         };
         this.ws.onerror = function(event) {
-          console.log("连接服务器失败");
+          console.log("连接服务器失败", event);
         };
         this.ws.onclose = function(event) {
           console.log("服务器关闭", event);
@@ -1298,14 +1407,8 @@ require = function() {
           "1" === response.dataMessage && self.TransferClass.getMapForBattlePageCtrl(response);
           "2" === response.dataMessage && self.TransferClass.positionUnicomForOperationCtrl(response);
           "3" === response.dataMessage && self.TransferClass.fireButtleForOperationCtrl(response);
-          if ("4" === response.dataMessage) {
-            console.log("4");
-            self.TransferClass.dieForTankCtrl(response);
-          }
-          if ("5" === response.dataMessage) {
-            console.log(response);
-            self.TransferClass.restartForBattleCtrl(response);
-          }
+          "4" === response.dataMessage && self.TransferClass.dieForTankCtrl(response);
+          "5" === response.dataMessage && self.TransferClass.restartForBattleCtrl(response);
           "6" === response.dataMessage && self.TransferClass.leaveForBattleCtrl(response);
           "7" === response.dataMessage && self.TransferClass.genteraPropsForBattleCtrl(response);
         };
@@ -1329,4 +1432,4 @@ require = function() {
     cc.director.getPhysicsManager().gravity = cc.v2();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "BattleCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);
+}, {}, [ "BattleCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "Buttle6Ctrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);

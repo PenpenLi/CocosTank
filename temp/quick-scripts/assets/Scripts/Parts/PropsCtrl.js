@@ -16,13 +16,48 @@ var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
     function NewClass() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.nodeDestoryTime = null;
+        _this.propType = '';
+        return _this;
+        // update (dt) {}
     }
     NewClass.prototype.start = function () {
+        var _this = this;
+        this.propType = this.node.getComponent(cc.Sprite).spriteFrame.name;
         var self = this;
         setTimeout(function () {
-            self.node.destroy();
-        }, 15000);
+            self.onNodeTwinkle();
+            setTimeout(function () {
+                clearTimeout(self.nodeDestoryTime);
+                if (_this.node) {
+                    self.node.destroy();
+                }
+            }, 3000);
+        }, 12000);
+    };
+    // 消失前三秒闪烁
+    NewClass.prototype.onNodeTwinkle = function () {
+        var _this = this;
+        var self = this;
+        this.nodeDestoryTime = setTimeout(function () {
+            if (!_this.node) {
+                return;
+            }
+            self.node.opacity = 20;
+            setTimeout(function () {
+                self.node.opacity = 200;
+                self.onNodeTwinkle();
+            }, 200);
+        }, 200);
+    };
+    // 碰撞事件
+    NewClass.prototype.onCollisionEnter = function (other, self) {
+        var spriteFrameName = other.node.name + "_" + this.node.getComponent(cc.Sprite).spriteFrame.name.substring(5, 6);
+        cc.loader.loadRes(spriteFrameName, cc.SpriteFrame, function (err, spriteFrame) {
+            other.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        self.node.destroy();
     };
     NewClass = __decorate([
         ccclass

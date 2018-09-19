@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "tank_1_7",
+    "texture": "34c73a62-8cd9-4b51-9c2e-234b07b36c98",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      63,
+      91
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      63,
+      91
+    ]
+  }
+}

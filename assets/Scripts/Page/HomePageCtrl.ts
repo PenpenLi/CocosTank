@@ -1,47 +1,70 @@
 import WebSocketManage from '../Unit/WebSocketManage';
 import { AudioSource } from '../../creator';
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component 
-{
-    @property (cc.Prefab)
-    lobbyPanel:cc.Prefab = null;
-    @property (cc.SpriteFrame)
-    openSoundSprite:cc.SpriteFrame = null;
-    @property (cc.SpriteFrame)
-    closeSoundSprite:cc.SpriteFrame = null;
-    @property (cc.AudioSource)
-    bgSound:AudioSource = null;
-    public IsSound:boolean = true;//是否开启音效
-    
-    @property (cc.Node)
+export default class NewClass extends cc.Component {
+    @property(cc.Prefab)
+    lobbyPanel: cc.Prefab = null;
+    @property(cc.SpriteFrame)
+    openSoundSprite: cc.SpriteFrame = null;
+    @property(cc.SpriteFrame)
+    closeSoundSprite: cc.SpriteFrame = null;
+    @property(cc.AudioSource)
+    bgSound: AudioSource = null;
+    public IsSound: boolean = true;//是否开启音效
+
+    @property(cc.Node)
     private ping: cc.Node = null;
     public UserData = {};
     public enemyUserData = {};
-    @property (cc.Node)
+    @property(cc.Node)
     private WebScoketNode: cc.Node = null;
     start() {
+        // wx.showShareMenu();
+        // wx.login({
+        //     success: function(res) {
+        //         console.log(res)
+        //     }
+        // })
+        // wx.authorize({ scope: 'scope.userInfo' })
+
         this.ping.zIndex = 9999;
         this.getPing()
     }
     /**
      * 点击开始
      */
-    OnClickStartButton()
-    {
-        var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
-        webscoket.sendMessage({msg: 1})
+    OnClickStartButton() {
+        // wx.shareAppMessage({
+        //     title: '转发标题'
+        // })
+
+        // wx.getSetting({
+        //     success: function(res) {
+        //         if(res.authSetting['scope.userInfo']) {
+        //             wx.getUserInfo({
+        //                 success: function(res) {
+        //                     console.log(res)
+        //                 }
+        //             })
+        //         }
+        //     },
+        //     fail: function(res){
+        //         console.log(res)
+        //     }
+        // })
+        // var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
+        // webscoket.sendMessage({msg: 1})
     }
     /**
      * 点击声音按钮
      */
-    OnClickSoundButton(event)
-    {
+    OnClickSoundButton(event) {
         this.IsSound = !this.IsSound;
-        var buttonSprite:cc.Sprite = event.target.getComponent(cc.Sprite);
-        this.IsSound ? (buttonSprite.spriteFrame = this.openSoundSprite, this.bgSound.resume()) : (buttonSprite.spriteFrame = this.closeSoundSprite,this.bgSound.pause())
+        var buttonSprite: cc.Sprite = event.target.getComponent(cc.Sprite);
+        this.IsSound ? (buttonSprite.spriteFrame = this.openSoundSprite, this.bgSound.resume()) : (buttonSprite.spriteFrame = this.closeSoundSprite, this.bgSound.pause())
     }
     getPing() {
         var self = this;
@@ -56,9 +79,9 @@ export default class NewClass extends cc.Component
         xmlHttp.onreadystatechange = state_Change;
         xmlHttp.open('GET', url, true);
         xmlHttp.send(null);
-        function state_Change(){
-            if(xmlHttp.readyState === 4) {
-                if(xmlHttp.status === 200) {
+        function state_Change() {
+            if (xmlHttp.readyState === 4) {
+                if (xmlHttp.status === 200) {
                     var end = new Date().getTime();
                     self.ping.getComponent(cc.Label).string = (end - start) + 'ms'
                 }

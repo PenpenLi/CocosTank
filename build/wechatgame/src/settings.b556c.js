@@ -4,19 +4,22 @@ window._CCSettings = {
         "Tank_1",
         "Tank_2",
         "wall",
-        "buttle"
+        "buttle",
+        "props"
     ],
     collisionMatrix: [
         [
             false,
             false,
             true,
+            true,
             true
         ],
         [
             false,
             false,
             true,
+            true,
             true
         ],
         [
@@ -29,6 +32,13 @@ window._CCSettings = {
             true,
             true,
             true,
+            false
+        ],
+        [
+            true,
+            true,
+            false,
+            false,
             false
         ]
     ],
@@ -90,6 +100,15 @@ window._CCSettings = {
             ],
             "87do6rKPFGkJNRjQCV0sPz": [
                 "resources/bullet.png",
+                "cc.Texture2D"
+            ],
+            "897HlopzpIRYxhCJA7cQPW": [
+                "resources/bullet_6",
+                "cc.SpriteFrame",
+                1
+            ],
+            "20/pZbEElOPrn5ARSBhxfX": [
+                "resources/bullet_6.png",
                 "cc.Texture2D"
             ],
             "8cqlats2tA16LOAYwbgwOi": [
@@ -353,6 +372,60 @@ window._CCSettings = {
                 "resources/prop_1.jpg",
                 "cc.Texture2D"
             ],
+            f4bLbdtjpF4ZV2o1a5ZeF5: [
+                "resources/prop_2",
+                "cc.SpriteFrame",
+                1
+            ],
+            f918KOqvBMZazCdMvmx6bI: [
+                "resources/prop_2.jpg",
+                "cc.Texture2D"
+            ],
+            "2c7Hy4qsJD+5kq4QePC5Mu": [
+                "resources/prop_3",
+                "cc.SpriteFrame",
+                1
+            ],
+            b70aYtMpNIkKLpYXbSWxsT: [
+                "resources/prop_3.jpg",
+                "cc.Texture2D"
+            ],
+            e5Af23oplOY7VuzsSBHFNg: [
+                "resources/prop_4",
+                "cc.SpriteFrame",
+                1
+            ],
+            "6fC/VlSK5LDrZj30/QGSqa": [
+                "resources/prop_4.jpg",
+                "cc.Texture2D"
+            ],
+            "06AkQdPS5Aw5JK4/+JMtHC": [
+                "resources/prop_5",
+                "cc.SpriteFrame",
+                1
+            ],
+            "f4Tew9/SVJHbXmkZAquCZK": [
+                "resources/prop_5.jpg",
+                "cc.Texture2D"
+            ],
+            "2cpCftyZBMUrExoDDFUAjz": [
+                "resources/prop_6",
+                "cc.SpriteFrame",
+                1
+            ],
+            "2ath4K2UBNQ5qP+RhDDxZv": [
+                "resources/prop_6.jpg",
+                "cc.Texture2D"
+            ],
+            "7aXNpKlKlGx4ofQ0G94Zxo": [
+                "resources/prop_7",
+                "cc.SpriteFrame",
+                1
+            ],
+            "1cP2yc0J5Iso6OitsRael1": [
+                "resources/prop_7.jpg",
+                "cc.Texture2D"
+            ],
             "19yt1tyydMzaS/R80O5f6G": [
                 "resources/return",
                 "cc.SpriteFrame",
@@ -416,6 +489,69 @@ window._CCSettings = {
                 "resources/tank_1.png",
                 "cc.Texture2D"
             ],
+            "37dXSX0YVAOpYKRJbN1pep": [
+                "resources/tank_1_1",
+                "cc.SpriteFrame",
+                1
+            ],
+            "11YBsUqxxGnJ0nml43gMUr": [
+                "resources/tank_1_1.png",
+                "cc.Texture2D"
+            ],
+            "0aJMDlEL1DQZl0ftQB62ke": [
+                "resources/tank_1_2",
+                "cc.SpriteFrame",
+                1
+            ],
+            "23a8Jtk5tBg4DctEW39fz9": [
+                "resources/tank_1_2.png",
+                "cc.Texture2D"
+            ],
+            "8acjzAUvxE9pFYp5hKvnYN": [
+                "resources/tank_1_3",
+                "cc.SpriteFrame",
+                1
+            ],
+            "5chXg9zDVK8pFQQ9+KO/Sa": [
+                "resources/tank_1_3.png",
+                "cc.Texture2D"
+            ],
+            "41PybPKtxGCaEotRtaKBhF": [
+                "resources/tank_1_4",
+                "cc.SpriteFrame",
+                1
+            ],
+            "97x9JLrkBDGb158Nb1O48o": [
+                "resources/tank_1_4.png",
+                "cc.Texture2D"
+            ],
+            "c1dL0bR+tBHLDSGefS+KU8": [
+                "resources/tank_1_5",
+                "cc.SpriteFrame",
+                1
+            ],
+            "3cHPszLfFICoafeiSfAYkb": [
+                "resources/tank_1_5.png",
+                "cc.Texture2D"
+            ],
+            "408pyzFXdAlYtqGjCJ74+Y": [
+                "resources/tank_1_6",
+                "cc.SpriteFrame",
+                1
+            ],
+            "e4+TZOTbJF3aZb/izZlhKT": [
+                "resources/tank_1_6.png",
+                "cc.Texture2D"
+            ],
+            "4dN+fj1RtHybdsFPg8MPgR": [
+                "resources/tank_1_7",
+                "cc.SpriteFrame",
+                1
+            ],
+            "34xzpijNlLUZwuI0sHs2yY": [
+                "resources/tank_1_7.png",
+                "cc.Texture2D"
+            ],
             "dftBzIBDpCq4jzvp+V/29F": [
                 "resources/tank_2",
                 "cc.SpriteFrame",
@@ -423,6 +559,69 @@ window._CCSettings = {
             ],
             "46jYpxAE9AlbucD+Ph1RUM": [
                 "resources/tank_2.png",
+                "cc.Texture2D"
+            ],
+            fcGkaVU9JJlo7Vzgrz5Jt9: [
+                "resources/tank_2_1",
+                "cc.SpriteFrame",
+                1
+            ],
+            "5aw+T3+VpD4Yd3zXEAMeHz": [
+                "resources/tank_2_1.png",
+                "cc.Texture2D"
+            ],
+            "3bqNK7EbFAPZ0/J36XG7i/": [
+                "resources/tank_2_2",
+                "cc.SpriteFrame",
+                1
+            ],
+            "56hICFDntJOoD2wCkCjHJH": [
+                "resources/tank_2_2.png",
+                "cc.Texture2D"
+            ],
+            "134zy0kelBFJXHrgl5HwkY": [
+                "resources/tank_2_3",
+                "cc.SpriteFrame",
+                1
+            ],
+            "153WvjhyBBqISkJEs3R1kQ": [
+                "resources/tank_2_3.png",
+                "cc.Texture2D"
+            ],
+            "39JvWkLVhJE57noC0WKDNv": [
+                "resources/tank_2_4",
+                "cc.SpriteFrame",
+                1
+            ],
+            "66OszwqgBObK1kdPvRQdjL": [
+                "resources/tank_2_4.png",
+                "cc.Texture2D"
+            ],
+            c1gYG1RfRKwIH3M6LLyTIV: [
+                "resources/tank_2_5",
+                "cc.SpriteFrame",
+                1
+            ],
+            fbMIY17UZPmb1gpHdWkobh: [
+                "resources/tank_2_5.png",
+                "cc.Texture2D"
+            ],
+            "60ZF6T4rVDG5ck/rD5/3IO": [
+                "resources/tank_2_6",
+                "cc.SpriteFrame",
+                1
+            ],
+            "bdlJydt1JFMZUcLh+r3WNv": [
+                "resources/tank_2_6.png",
+                "cc.Texture2D"
+            ],
+            "3dlyA3sStEdJdyhkD8fgDy": [
+                "resources/tank_2_7",
+                "cc.SpriteFrame",
+                1
+            ],
+            "71m0T+Yn5CmZstj1rKgzin": [
+                "resources/tank_2_7.png",
                 "cc.Texture2D"
             ],
             "7bGdEvAqhKnq19lLukZ6sK": [
@@ -564,7 +763,7 @@ window._CCSettings = {
         }
     ],
     packedAssets: {
-        "021c447f3": [
+        "0914d80c2": [
             "05rPMycf9OyKhNwEPoSIoE",
             "07djK+W+BB9a9DuZlxP8sz",
             "09E1+u/VpM2p0a9CDZBI00",
@@ -600,6 +799,7 @@ window._CCSettings = {
             "85s2wXxiZHw5RaVz+imUgy",
             "87IBSx8lxM3qZUr9oU3qZs",
             "87pvjHi0ZGCK9/SL0yDP1Z",
+            "897HlopzpIRYxhCJA7cQPW",
             "8cqlats2tA16LOAYwbgwOi",
             "8c20Sso/ZEn7NUfNSM+EBh",
             "8eGRTXil5Amqqs2tPWDlao",
@@ -616,6 +816,7 @@ window._CCSettings = {
             "a97MfzDzBOAIfjVV7pDTW/",
             "afsfqgtW1CloUAz8ZhttQU",
             "b3MxEEwvREtIVp4UDvCmLf",
+            "b5lmGd/bBEPofaJyDflb7d",
             "bdhycmj0tE+aTMDiNrYOFi",
             "bea2ay+2pHe5C3YSwRP06J",
             "bfFIpPbDZMroOpqKI/T85I",
@@ -641,19 +842,40 @@ window._CCSettings = {
     orientation: "landscape",
     debug: true,
     md5AssetsMap: {
-        "02/021c447f3.json": "4613c",
+        "06/0602441d-3d2e-40c3-924a-e3ff8932d1c2.json": "a6722",
+        "09/0914d80c2.json": "78f44",
+        "0a/0a24c0e5-10bd-4341-9974-7ed401eb691e.json": "c9a0d",
+        "13/13e33cb4-91e9-4114-95c7-ae09791f0918.json": "35650",
         "1f/1f033a4c-82f5-45ab-8cb0-e25cf0d1a8a1.json": "613b9",
+        "2c/2ca427ed-c990-4c52-b131-a030c55008f3.json": "501e5",
+        "2c/2cec7cb8-aac2-43fb-992a-e1078f0b932e.json": "d7649",
+        "37/37757497-d185-403a-960a-4496cdd697a9.json": "78987",
+        "39/3926f5a4-2d58-4913-9ee7-a02d1628336f.json": "e1410",
+        "3b/3ba8d2bb-11b1-403d-9d3f-277e971bb8bf.json": "1705b",
+        "3d/3d972037-b12b-4474-9772-8640fc7e00f2.json": "72784",
+        "40/40f29cb3-1577-4095-8b6a-1a3089ef8f98.json": "0d077",
+        "41/413f26cf-2adc-4609-a128-b51b5a281845.json": "32c41",
+        "4d/4d37e7e3-d51b-47c9-b76c-14f83c30f811.json": "3ad24",
         "5c/5c8a01a0-3dc8-4ad4-81f6-4d2a94437cc8.json": "fe6ea",
         "5c/5cce768a-a052-45ad-8dbe-4fd2eca5eccd.json": "14608",
+        "60/60645e93-e2b5-431b-9724-feb0f9ff720e.json": "331a2",
+        "7a/7a5cda4a-94a9-46c7-8a1f-4341bde19c68.json": "df356",
         "81/8121f703-aa03-4491-80c6-d5fd36756246.json": "1fb8b",
+        "8a/8a723cc0-52fc-44f6-9158-a7984abe760d.json": "7095a",
+        "c1/c174bd1b-47eb-411c-b0d2-19e7d2f8a53c.json": "e8eae",
+        "c1/c18181b5-45f4-4ac0-81f7-33a2cbc93215.json": "0f043",
+        "e5/e501fdb7-a299-4e63-b56e-cec4811c5360.json": "792e8",
         "e7/e7d03350-4f45-486b-91d7-71403494a696.json": "a9712",
         "e8/e82d18fe-246d-45b8-876b-c46d066eecba.json": "bba9f",
+        "f4/f46cb6dd-b63a-45e1-9576-a356b965e179.json": "17ba5",
+        "fc/fc1a4695-53d2-4996-8ed5-ce0af3e49b7d.json": "4e4f8",
         "assets/resources/aaa.png": "50e53",
         "assets/resources/bg_sound.mp3": "0f1b7",
         "assets/resources/bj_1.jpg": "4ab07",
         "assets/resources/bj_3.jpg": "6daae",
         "assets/resources/bj_5_1.jpg": "60579",
         "assets/resources/bj_5.jpg": "2be7a",
+        "assets/resources/bullet_6.png": "cd72d",
         "assets/resources/bullet.png": "723ac",
         "assets/resources/button_1.png": "1b460",
         "assets/resources/button_2.png": "02527",
@@ -684,13 +906,33 @@ window._CCSettings = {
         "assets/resources/logo_3.png": "26831",
         "assets/resources/newParticle.png": "adfe1",
         "assets/resources/prop_1.jpg": "30f23",
+        "assets/resources/prop_2.jpg": "63c77",
+        "assets/resources/prop_3.jpg": "b7f39",
+        "assets/resources/prop_4.jpg": "909e2",
+        "assets/resources/prop_5.jpg": "88702",
+        "assets/resources/prop_6.jpg": "380ba",
+        "assets/resources/prop_7.jpg": "10796",
         "assets/resources/return.png": "75455",
         "assets/resources/round_3.png": "633dd",
         "assets/resources/round_4.png": "f3961",
         "assets/resources/sound_1.png": "9574a",
         "assets/resources/sound_2.png": "d6283",
         "assets/resources/sound_3.png": "ad478",
+        "assets/resources/tank_1_1.png": "4456e",
+        "assets/resources/tank_1_2.png": "632a0",
+        "assets/resources/tank_1_3.png": "51dde",
+        "assets/resources/tank_1_4.png": "e1503",
+        "assets/resources/tank_1_5.png": "09dd8",
+        "assets/resources/tank_1_6.png": "3566c",
+        "assets/resources/tank_1_7.png": "552fa",
         "assets/resources/tank_1.png": "0c31a",
+        "assets/resources/tank_2_1.png": "f3edf",
+        "assets/resources/tank_2_2.png": "21643",
+        "assets/resources/tank_2_3.png": "cd898",
+        "assets/resources/tank_2_4.png": "78f51",
+        "assets/resources/tank_2_5.png": "5091d",
+        "assets/resources/tank_2_6.png": "5569f",
+        "assets/resources/tank_2_7.png": "eb16b",
         "assets/resources/tank_2.png": "b6832",
         "assets/resources/translucent_2.png": "6fd77",
         "assets/resources/translucent_3.png": "c2f08",

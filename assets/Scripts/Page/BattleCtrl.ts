@@ -10,12 +10,9 @@ import HomePageCtrl from './HomePageCtrl';
 // Learn life-cycle callbacks:
 //  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
 //  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-
 const { ccclass, property } = cc._decorator;
-
 @ccclass
 export default class BattleCtrl extends cc.Component {
-
     @property(cc.Prefab)
     private wall_column_1: cc.Prefab = null;
     @property(cc.Prefab)
@@ -78,10 +75,8 @@ export default class BattleCtrl extends cc.Component {
     public setArray = null;
     // 道具刷新区间
     private propsInterval = [];
-
     @property(cc.Prefab)
     private props: cc.Prefab = null;
-
     // 主玩家头像
     @property(cc.Node)
     private MainPlayerHeadImg: cc.Node = null;
@@ -92,7 +87,7 @@ export default class BattleCtrl extends cc.Component {
     @property(cc.Node)
     private MainPlayerScore: cc.Node = null;
     // 副玩家头像
-    @property (cc.Node)
+    @property(cc.Node)
     private VicePlayerHeadImg: cc.Node = null;
     // 副玩家名字
     @property(cc.Node)
@@ -101,21 +96,23 @@ export default class BattleCtrl extends cc.Component {
     @property(cc.Node)
     private VicePlayerScore: cc.Node = null;
     // 游戏结束显示节点
-    @property (cc.Node)
+    @property(cc.Node)
     private GameStatus: cc.Node = null;
-    @property (cc.SpriteFrame)
+    @property(cc.SpriteFrame)
     private defeat: cc.SpriteFrame = null;
-    @property (cc.SpriteFrame)
+    @property(cc.SpriteFrame)
     private victory: cc.SpriteFrame = null;
-    @property (cc.Node)
+    @property(cc.Node)
     public ready: cc.Node = null;
-
     private propsTime = null;
+    // 道具图标列表
+    private propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_4', 'prop_5', 'prop_6', 'prop_7'];
+    
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
     }
-    
+
     initBattleData() {
         let self = this;
         this.externalResources = [
@@ -132,7 +129,7 @@ export default class BattleCtrl extends cc.Component {
         this.cells = this.activeBattleData.column * this.activeBattleData.row
         this.initPlayerPoint();
     }
-    
+
     // 双方玩家位置随机
     initPlayerPoint() {
         this.player = [];
@@ -284,28 +281,41 @@ export default class BattleCtrl extends cc.Component {
         })
         clearInterval(this.propsTime);
     }
+    // 生成道具
+    public genearteProp(point, rotation, type) {
+        var prop = cc.instantiate(this.props);
+        cc.loader.loadRes(type, cc.SpriteFrame, function(err, spriteFrame) {
+            prop.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        })
+        prop.zIndex = 5;
+        prop.rotation = rotation;
+        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.scale = this.activeBattleData.scale;
+        this.BattleRegion.children[point].addChild(prop);
+    }
     // 获取道具可生成区域
     propsRefreshInterval() {
         this.propsInterval = [];
         clearInterval(this.propsTime)
         var interval = this.setArray[this.player[0].point];
-        for(let i = 0; i < this.setArray.length; i++) {
-            if(this.setArray[i] === interval) {
+        for (let i = 0; i < this.setArray.length; i++) {
+            if (this.setArray[i] === interval) {
                 this.propsInterval.push(i);
             }
         }
-        console.log(this.propsInterval)
         this.propsTime = setInterval(() => {
-            var point = this.propsInterval[Math.random() * this.propsInterval.length >> 0]
+            var point = this.propsInterval[Math.random() * this.propsInterval.length >> 0];
+            var rotation = Math.random() * 360 >> 0;
+            var propType = this.propsList[Math.random() * this.propsList.length >> 0]
             this.webScoket.sendMessage({
                 msg: 29,
                 data: {
-                    point: point
+                    point: point,
+                    rotation: rotation,
+                    propType: propType
                 }
             })
-            var prop = cc.instantiate(this.props)
-            prop.zIndex = 5;
-            this.BattleRegion.children[point].addChild(prop);
+            this.genearteProp(point, rotation, propType);
         }, 5000)
     }
     // 点击再來一局修改准备状态
@@ -322,7 +332,7 @@ export default class BattleCtrl extends cc.Component {
         var userData = homePageCtrl.UserData;
         var enemyUserData = homePageCtrl.enemyUserData;
         // 该玩家是主玩家
-        if(type === 0) {
+        if (type === 0) {
             cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
                 self.MainPlayerHeadImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
             })
@@ -343,13 +353,16 @@ export default class BattleCtrl extends cc.Component {
             self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
         }
     }
-    // 重新开始
-    public restart() {
+    _onRemoveNode(){
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();
         this.BottomCell.removeAllChildren();
         this.BattleRegion.removeAllChildren();
+    }
+    // 重新开始
+    public restart() {
+        this._onRemoveNode();
         if (this.playerName !== 'tank_2') {
             this.initBattleData();
             this.generateMap();
@@ -359,7 +372,7 @@ export default class BattleCtrl extends cc.Component {
      * type: 游戏玩家区分 1是主玩家 0是副玩家
      */
     public gameOver(type) {
-        if(type === 0) {
+        if (type === 0) {
             this.GameStatus.getChildByName('bunko').getComponent(cc.Sprite).spriteFrame = this.defeat;
         } else {
             this.GameStatus.getChildByName('bunko').getComponent(cc.Sprite).spriteFrame = this.victory;
@@ -368,19 +381,13 @@ export default class BattleCtrl extends cc.Component {
         clearInterval(this.propsTime)
     }
     public scoreCount(type) {
-        if(type === 0) {
+        if (type === 0) {
             var score = this.MainPlayerScore.getComponent(cc.Label).string;
             this.MainPlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
         } else {
             var score = this.VicePlayerScore.getComponent(cc.Label).string;
             this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
         }
-    }
-    // 生成道具
-    public generateProps(res) {
-        var prop = cc.instantiate(this.props)
-        prop.zIndex = 5;
-        this.BattleRegion.children[res.data.point].addChild(prop);
     }
     // 生成地图
     public generateMap() {
@@ -392,7 +399,7 @@ export default class BattleCtrl extends cc.Component {
         for (let i = 0; i < self.cells; i++) {
             self.generateRegion(i);
         }
-        if(this.BattleRegion.parent.getChildByName('operation')) {
+        if (this.BattleRegion.parent.getChildByName('operation')) {
             this.BattleRegion.parent.getChildByName('operation').destroy();
         }
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
@@ -413,11 +420,7 @@ export default class BattleCtrl extends cc.Component {
     }
     // 获取地图信息
     public getMap(response) {
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
+        this._onRemoveNode();
         var self = this
         self.playerName = 'tank_2'
         self.linkedMap = response.data.linkedMap;
@@ -429,11 +432,10 @@ export default class BattleCtrl extends cc.Component {
         for (let i = 0; i < cells; i++) {
             self.generateRegion(i)
         }
-        if(this.BattleRegion.parent.getChildByName('operation')) {
+        if (this.BattleRegion.parent.getChildByName('operation')) {
             this.BattleRegion.parent.getChildByName('operation').destroy();
         }
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1)
     }
     public viceLeave() {
         this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！'

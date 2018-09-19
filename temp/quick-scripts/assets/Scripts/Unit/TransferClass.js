@@ -96,7 +96,6 @@ var Transfer = /** @class */ (function (_super) {
             for (var i = 0; i < children.length; i++) {
                 if (children[i].getChildByName('tank_2')) {
                     player = children[i].getChildByName('tank_2');
-                    console.log(2);
                     var playerCompeont = player.getComponent(TankCtrl_1.default);
                     playerCompeont.gameOver(res);
                     return;
@@ -107,7 +106,6 @@ var Transfer = /** @class */ (function (_super) {
             for (var i = 0; i < children.length; i++) {
                 if (children[i].getChildByName('tank_1')) {
                     player = children[i].getChildByName('tank_1');
-                    console.log(1);
                     var playerCompeont = player.getComponent(TankCtrl_1.default);
                     playerCompeont.gameOver(res);
                     return;
@@ -136,7 +134,7 @@ var Transfer = /** @class */ (function (_super) {
         var battlePageCtrl = null;
         this.BattlePage = cc.find('Canvas/BattlePagePanel');
         battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
-        battlePageCtrl.generateProps(res);
+        battlePageCtrl.genearteProp(res.data.point, res.data.rotation, res.data.propType);
     };
     Transfer = __decorate([
         ccclass

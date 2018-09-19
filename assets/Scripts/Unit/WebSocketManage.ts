@@ -8,14 +8,14 @@ export default class WebSocketManage extends cc.Component {
 
     start() {
         let self = this;
-        // this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
-        this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
+        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
         // this.ws = new WebSocket("ws://app.i-mineral.cn/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
         }
         this.ws.onerror = function (event) {
-            console.log("连接服务器失败");
+            console.log("连接服务器失败", event);
         };
         this.ws.onclose = function (event) {
             console.log("服务器关闭", event);
@@ -47,12 +47,10 @@ export default class WebSocketManage extends cc.Component {
             }
             // 死亡
             if(response.dataMessage === '4') {
-                console.log('4')
                 self.TransferClass.dieForTankCtrl(response);
             }
             // 重新开始
             if(response.dataMessage === '5') {
-                console.log(response)
                 self.TransferClass.restartForBattleCtrl(response);
             }
             // 对方离开房间

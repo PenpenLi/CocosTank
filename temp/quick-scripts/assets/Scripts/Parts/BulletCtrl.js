@@ -25,7 +25,7 @@ var NewClass = /** @class */ (function (_super) {
     }
     NewClass.prototype.start = function () {
         this.buttle = this.node.getComponent(cc.RigidBody);
-        var speed = 300;
+        var speed = 500;
         var x = speed * Math.sin(Math.PI * this.node.rotation / 180);
         var y = speed * Math.cos(Math.PI * this.node.rotation / 180);
         this.buttle.linearVelocity = new cc.Vec2(x, y);

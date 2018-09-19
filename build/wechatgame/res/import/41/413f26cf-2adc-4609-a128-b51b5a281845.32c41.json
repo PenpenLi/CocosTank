@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "tank_1_4",
+    "texture": "97x9JLrkBDGb158Nb1O48o",
+    "rect": [
+      0,
+      0,
+      63,
+      90
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      63,
+      90
+    ]
+  }
+}

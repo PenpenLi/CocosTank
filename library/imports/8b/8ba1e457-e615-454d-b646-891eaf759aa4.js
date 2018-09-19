@@ -79,6 +79,8 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.victory = null;
         _this.ready = null;
         _this.propsTime = null;
+        // 道具图标列表
+        _this.propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_4', 'prop_5', 'prop_6', 'prop_7'];
         return _this;
     }
     BattleCtrl.prototype.start = function () {
@@ -251,6 +253,18 @@ var BattleCtrl = /** @class */ (function (_super) {
         });
         clearInterval(this.propsTime);
     };
+    // 生成道具
+    BattleCtrl.prototype.genearteProp = function (point, rotation, type) {
+        var prop = cc.instantiate(this.props);
+        cc.loader.loadRes(type, cc.SpriteFrame, function (err, spriteFrame) {
+            prop.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+        prop.zIndex = 5;
+        prop.rotation = rotation;
+        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.scale = this.activeBattleData.scale;
+        this.BattleRegion.children[point].addChild(prop);
+    };
     // 获取道具可生成区域
     BattleCtrl.prototype.propsRefreshInterval = function () {
         var _this = this;
@@ -262,18 +276,19 @@ var BattleCtrl = /** @class */ (function (_super) {
                 this.propsInterval.push(i);
             }
         }
-        console.log(this.propsInterval);
         this.propsTime = setInterval(function () {
             var point = _this.propsInterval[Math.random() * _this.propsInterval.length >> 0];
+            var rotation = Math.random() * 360 >> 0;
+            var propType = _this.propsList[Math.random() * _this.propsList.length >> 0];
             _this.webScoket.sendMessage({
                 msg: 29,
                 data: {
-                    point: point
+                    point: point,
+                    rotation: rotation,
+                    propType: propType
                 }
             });
-            var prop = cc.instantiate(_this.props);
-            prop.zIndex = 5;
-            _this.BattleRegion.children[point].addChild(prop);
+            _this.genearteProp(point, rotation, propType);
         }, 5000);
     };
     // 点击再來一局修改准备状态
@@ -311,13 +326,16 @@ var BattleCtrl = /** @class */ (function (_super) {
             self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
         }
     };
-    // 重新开始
-    BattleCtrl.prototype.restart = function () {
+    BattleCtrl.prototype._onRemoveNode = function () {
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();
         this.BottomCell.removeAllChildren();
         this.BattleRegion.removeAllChildren();
+    };
+    // 重新开始
+    BattleCtrl.prototype.restart = function () {
+        this._onRemoveNode();
         if (this.playerName !== 'tank_2') {
             this.initBattleData();
             this.generateMap();
@@ -345,12 +363,6 @@ var BattleCtrl = /** @class */ (function (_super) {
             var score = this.VicePlayerScore.getComponent(cc.Label).string;
             this.VicePlayerScore.getComponent(cc.Label).string = parseInt(score) + 1 + '';
         }
-    };
-    // 生成道具
-    BattleCtrl.prototype.generateProps = function (res) {
-        var prop = cc.instantiate(this.props);
-        prop.zIndex = 5;
-        this.BattleRegion.children[res.data.point].addChild(prop);
     };
     // 生成地图
     BattleCtrl.prototype.generateMap = function () {
@@ -383,11 +395,7 @@ var BattleCtrl = /** @class */ (function (_super) {
     };
     // 获取地图信息
     BattleCtrl.prototype.getMap = function (response) {
-        this.TopCell.removeAllChildren();
-        this.LeftCell.removeAllChildren();
-        this.RightCell.removeAllChildren();
-        this.BottomCell.removeAllChildren();
-        this.BattleRegion.removeAllChildren();
+        this._onRemoveNode();
         var self = this;
         self.playerName = 'tank_2';
         self.linkedMap = response.data.linkedMap;
@@ -403,7 +411,6 @@ var BattleCtrl = /** @class */ (function (_super) {
             this.BattleRegion.parent.getChildByName('operation').destroy();
         }
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
-        console.log(1);
     };
     BattleCtrl.prototype.viceLeave = function () {
         this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！';

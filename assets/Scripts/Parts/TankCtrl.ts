@@ -30,10 +30,12 @@ export default class NewClass extends cc.Component {
         var self =this;
         if (this.flag) {
             var othername = otherCollider.node.name.substring(5, 11);
-            console.log("flog:" + othername)
             var loser = this.node.name;
             var scoreType = 0;
             if (othername === 'buttle') {
+                if(cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation')) {
+                    cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation').destroy();
+                }
                 this.flag = false;
                 var x = selfCollider.node.x;
                 var y = selfCollider.node.y;
@@ -65,6 +67,9 @@ export default class NewClass extends cc.Component {
         }
     }
     public gameOver(response) {
+        if(cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation')) {
+            cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation').destroy();
+        }
         var x = this.node.x;
         var y = this.node.y;
         var parent: cc.Node = this.node.parent;

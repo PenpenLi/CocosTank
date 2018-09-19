@@ -92,7 +92,6 @@ export default class Transfer extends cc.Component {
             for (let i = 0; i < children.length; i++) {
                 if (children[i].getChildByName('tank_2')) {
                     player = children[i].getChildByName('tank_2')
-                    console.log(2)
                     var playerCompeont = player.getComponent(TankCtrl);
                     playerCompeont.gameOver(res);
                     return
@@ -102,7 +101,6 @@ export default class Transfer extends cc.Component {
             for (let i = 0; i < children.length; i++) {
                 if (children[i].getChildByName('tank_1')) {
                     player = children[i].getChildByName('tank_1')
-                    console.log(1)
                     var playerCompeont = player.getComponent(TankCtrl);
                     playerCompeont.gameOver(res);
                     return
@@ -131,6 +129,6 @@ export default class Transfer extends cc.Component {
         var battlePageCtrl = null;
         this.BattlePage = cc.find('Canvas/BattlePagePanel');
         battlePageCtrl = this.BattlePage.getComponent(BattleCtrl);
-        battlePageCtrl.generateProps(res);
+        battlePageCtrl.genearteProp(res.data.point, res.data.rotation, res.data.propType);
     }
 }
