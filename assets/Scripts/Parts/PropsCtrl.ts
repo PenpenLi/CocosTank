@@ -1,3 +1,5 @@
+import PlayerOperationCtrl from './PlayerOperationCtrl';
+import BattleCtrl from '../Page/BattleCtrl';
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -13,10 +15,9 @@ const {ccclass, property} = cc._decorator;
 @ccclass
 export default class NewClass extends cc.Component {
     private nodeDestoryTime = null;
-    private propType = '';
     start () {
-        this.propType = this.node.getComponent(cc.Sprite).spriteFrame.name
         var self = this;
+        console.log(this.node.name)
         setTimeout(() => {
             self.onNodeTwinkle();
             setTimeout(() => {
@@ -43,7 +44,14 @@ export default class NewClass extends cc.Component {
     }
     // 碰撞事件
     onCollisionEnter(other, self) {
-        var spriteFrameName = `${other.node.name}_${this.node.getComponent(cc.Sprite).spriteFrame.name.substring(5, 6)}`
+        var propType = parseInt(this.node.name.substring(5, 6))
+        var spriteFrameName = `${other.node.name}_${propType}`
+        var playerName = cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).playerName;
+        if(other.node.name === playerName) {
+            cc.find('Canvas/BattlePagePanel/BattleBox/operation').getComponent(PlayerOperationCtrl).player.current.buttleType = propType
+        } else {
+            cc.find('Canvas/BattlePagePanel/BattleBox/operation').getComponent(PlayerOperationCtrl).player.vice.buttleType = propType
+        }
         cc.loader.loadRes(spriteFrameName, cc.SpriteFrame, function(err, spriteFrame) {
             other.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         })

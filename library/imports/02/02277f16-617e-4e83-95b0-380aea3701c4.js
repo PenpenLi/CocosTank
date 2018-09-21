@@ -26,7 +26,7 @@ var NewClass = /** @class */ (function (_super) {
         }, 3000);
     };
     NewClass.prototype.onCollisionEnter = function (other, self) {
-        console.log('1');
+        console.log('11111');
     };
     NewClass = __decorate([
         ccclass

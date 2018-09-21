@@ -106,7 +106,7 @@ export default class BattleCtrl extends cc.Component {
     public ready: cc.Node = null;
     private propsTime = null;
     // 道具图标列表
-    private propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_4', 'prop_5', 'prop_6', 'prop_7'];
+    private propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_6'];
     
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
@@ -289,7 +289,7 @@ export default class BattleCtrl extends cc.Component {
         })
         prop.zIndex = 5;
         prop.rotation = rotation;
-        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.name = type;
         prop.scale = this.activeBattleData.scale;
         this.BattleRegion.children[point].addChild(prop);
     }

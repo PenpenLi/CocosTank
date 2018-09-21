@@ -40,7 +40,7 @@
     "relativePath": "prefab"
   },
   "8431b4ee-4683-4a39-a2f5-7f3a2ef5bbeb": {
-    "asset": 1537252629457,
+    "asset": 1537344500302,
     "meta": 1536114526567,
     "relativePath": "resources"
   },
@@ -520,7 +520,7 @@
     "relativePath": "Prefabs\\Page"
   },
   "3aa6e1b8-7f6f-46a3-8f3e-cfc0ee04add2": {
-    "asset": 1537166578246,
+    "asset": 1537344601603,
     "meta": 1536114526533,
     "relativePath": "Prefabs\\Parts"
   },
@@ -530,7 +530,7 @@
     "relativePath": "Scripts\\Page"
   },
   "1f291f1c-435a-452d-b9e3-63bc76ab1607": {
-    "asset": 1537168413112,
+    "asset": 1537427066601,
     "meta": 1536114526562,
     "relativePath": "Scripts\\Parts"
   },
@@ -580,8 +580,8 @@
     "relativePath": "resources\\vs.png"
   },
   "47a219cb-5a2b-4e86-b167-7e5a224a9f71": {
-    "asset": 1537344799758,
-    "meta": 1537344799767,
+    "asset": 1537436649984,
+    "meta": 1537436649997,
     "relativePath": "Prefabs\\Parts\\operation.prefab"
   },
   "df5b1029-87c2-4271-8c56-29beb5f5eedb": {
@@ -654,11 +654,6 @@
     "meta": 1537238316510,
     "relativePath": "Prefabs\\Parts\\props.prefab"
   },
-  "c388a8dc-0136-4fa5-bcee-3d00d96abe03": {
-    "asset": 1537177916566,
-    "meta": 1537177918106,
-    "relativePath": "Scripts\\Unit\\WebSocketManage.ts"
-  },
   "1c3f6c9c-d09e-48b2-8e8e-8adb1169e975": {
     "asset": 1537238665899,
     "meta": 1537238665941,
@@ -688,16 +683,6 @@
     "asset": 1537238665900,
     "meta": 1537238665963,
     "relativePath": "resources\\prop_5.jpg"
-  },
-  "f365f301-a243-4d86-80a2-c7cc1c53b814": {
-    "asset": 1537241473924,
-    "meta": 1537241479634,
-    "relativePath": "Scripts\\Unit\\TransferClass.ts"
-  },
-  "8ba1e457-e615-454d-b646-891eaf759aa4": {
-    "asset": 1537242272374,
-    "meta": 1537242626079,
-    "relativePath": "Scripts\\Page\\BattleCtrl.ts"
   },
   "236bc26d-939b-4183-80dc-b445b7f5fcfd": {
     "asset": 1537252624417,
@@ -774,39 +759,59 @@
     "meta": 1537258667112,
     "relativePath": "Scripts\\Parts\\BulletCtrl.ts"
   },
-  "33ad75b8-4aaf-4227-8069-819172c480a3": {
-    "asset": 1537261272300,
-    "meta": 1537261273303,
-    "relativePath": "Scripts\\Parts\\TankCtrl.ts"
-  },
-  "14414392-d98e-494f-bc51-fd881d73d733": {
-    "asset": 1537344462746,
-    "meta": 1537344468635,
-    "relativePath": "Scripts\\Parts\\PropsCtrl.ts"
-  },
   "20fe965b-1049-4e3e-b9f9-0114818717d7": {
     "asset": 1537344500299,
     "meta": 1537344500419,
     "relativePath": "resources\\bullet_6.png"
   },
   "b596619d-fdb0-443e-87da-2720df95bedd": {
-    "asset": 1537346006790,
-    "meta": 1537346006808,
+    "asset": 1537426690133,
+    "meta": 1537426690151,
     "relativePath": "Prefabs\\Parts\\bullet_6.prefab"
   },
+  "34123356-5484-4d53-ac64-a669ea1b3db4": {
+    "asset": 1537412796244,
+    "meta": 1537412797617,
+    "relativePath": "Scripts\\Page\\HomePageCtrl.ts"
+  },
+  "8ba1e457-e615-454d-b646-891eaf759aa4": {
+    "asset": 1537414834381,
+    "meta": 1537414835677,
+    "relativePath": "Scripts\\Page\\BattleCtrl.ts"
+  },
   "02277f16-617e-4e83-95b0-380aea3701c4": {
-    "asset": 1537345194540,
-    "meta": 1537345195570,
+    "asset": 1537426669594,
+    "meta": 1537426672273,
     "relativePath": "Scripts\\Parts\\Buttle6Ctrl.ts"
   },
+  "f365f301-a243-4d86-80a2-c7cc1c53b814": {
+    "asset": 1537431500642,
+    "meta": 1537431513697,
+    "relativePath": "Scripts\\Unit\\TransferClass.ts"
+  },
+  "c388a8dc-0136-4fa5-bcee-3d00d96abe03": {
+    "asset": 1537432606600,
+    "meta": 1537432822276,
+    "relativePath": "Scripts\\Unit\\WebSocketManage.ts"
+  },
+  "33ad75b8-4aaf-4227-8069-819172c480a3": {
+    "asset": 1537436172082,
+    "meta": 1537436173198,
+    "relativePath": "Scripts\\Parts\\TankCtrl.ts"
+  },
   "b0f884d1-389d-47fd-a3c8-7f64958700c0": {
-    "asset": 1537346092514,
-    "meta": 1537346245101,
+    "asset": 1537437768275,
+    "meta": 1537437771058,
     "relativePath": "Scripts\\Parts\\PlayerOperationCtrl.ts"
   },
-  "34123356-5484-4d53-ac64-a669ea1b3db4": {
-    "asset": 1537347645465,
-    "meta": 1537347647408,
-    "relativePath": "Scripts\\Page\\HomePageCtrl.ts"
+  "14414392-d98e-494f-bc51-fd881d73d733": {
+    "asset": 1537437459563,
+    "meta": 1537437771105,
+    "relativePath": "Scripts\\Parts\\PropsCtrl.ts"
+  },
+  "a981e77f-6242-4f9a-95c1-4cfe08889426": {
+    "asset": 1537437466016,
+    "meta": 1537437771229,
+    "relativePath": "Scripts\\Parts\\是的非法所得税地方.ts"
   }
 }

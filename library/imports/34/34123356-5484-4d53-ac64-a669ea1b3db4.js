@@ -3,6 +3,7 @@ cc._RF.push(module, '34123NWVIRNU6xkpmnqGz20', 'HomePageCtrl');
 // Scripts/Page/HomePageCtrl.ts
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
@@ -20,13 +21,13 @@ var NewClass = /** @class */ (function (_super) {
         return _this;
     }
     NewClass.prototype.start = function () {
-        wx.showShareMenu();
-        wx.login({
-            success: function (res) {
-                console.log(res);
-            }
-        });
-        wx.authorize({ scope: 'scope.userInfo' });
+        // wx.showShareMenu();
+        // wx.login({
+        //     success: function(res) {
+        //         console.log(res)
+        //     }
+        // })
+        // wx.authorize({ scope: 'scope.userInfo' })
         this.ping.zIndex = 9999;
         this.getPing();
     };
@@ -37,22 +38,22 @@ var NewClass = /** @class */ (function (_super) {
         // wx.shareAppMessage({
         //     title: '转发标题'
         // })
-        wx.getSetting({
-            success: function (res) {
-                if (res.authSetting['scope.userInfo']) {
-                    wx.getUserInfo({
-                        success: function (res) {
-                            console.log(res);
-                        }
-                    });
-                }
-            },
-            fail: function (res) {
-                console.log(res);
-            }
-        });
-        // var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
-        // webscoket.sendMessage({msg: 1})
+        // wx.getSetting({
+        //     success: function(res) {
+        //         if(res.authSetting['scope.userInfo']) {
+        //             wx.getUserInfo({
+        //                 success: function(res) {
+        //                     console.log(res)
+        //                 }
+        //             })
+        //         }
+        //     },
+        //     fail: function(res){
+        //         console.log(res)
+        //     }
+        // })
+        var webscoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
+        webscoket.sendMessage({ msg: 1 });
     };
     /**
      * 点击声音按钮

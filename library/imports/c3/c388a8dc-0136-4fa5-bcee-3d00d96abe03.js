@@ -49,9 +49,10 @@ var WebSocketManage = /** @class */ (function (_super) {
             if (response.dataMessage === '2') {
                 self.TransferClass.positionUnicomForOperationCtrl(response);
             }
-            if (response.dataMessage === '3') {
-                self.TransferClass.fireButtleForOperationCtrl(response);
-            }
+            // 子弹
+            // if(response.dataMessage === '3') {
+            //     self.TransferClass.fireButtleForOperationCtrl(response);
+            // }
             // 死亡
             if (response.dataMessage === '4') {
                 self.TransferClass.dieForTankCtrl(response);

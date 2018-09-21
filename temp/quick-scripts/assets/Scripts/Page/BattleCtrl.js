@@ -80,7 +80,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.ready = null;
         _this.propsTime = null;
         // 道具图标列表
-        _this.propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_4', 'prop_5', 'prop_6', 'prop_7'];
+        _this.propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_6'];
         return _this;
     }
     BattleCtrl.prototype.start = function () {
@@ -261,7 +261,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         });
         prop.zIndex = 5;
         prop.rotation = rotation;
-        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.name = type;
         prop.scale = this.activeBattleData.scale;
         this.BattleRegion.children[point].addChild(prop);
     };

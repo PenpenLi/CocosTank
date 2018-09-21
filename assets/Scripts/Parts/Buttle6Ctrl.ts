@@ -20,7 +20,7 @@ export default class NewClass extends cc.Component {
         }, 3000)
     }
     onCollisionEnter(other, self) {
-        console.log('1')
+        console.log('11111')
     }
     // update (dt) {}
 }

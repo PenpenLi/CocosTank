@@ -5,279 +5,229 @@ cc._RF.push(module, 'b0f88TROJ1H/aPIf2SVhwDA', 'PlayerOperationCtrl', __filename
 Object.defineProperty(exports, "__esModule", { value: true });
 var BattleCtrl_1 = require("../Page/BattleCtrl");
 var WebSocketManage_1 = require("../Unit/WebSocketManage");
-// Learn TypeScript:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.bullet = null;
+        // 战斗区域节点
         _this.BattleRegion = null;
-        _this.Buttle = null;
-        _this.Buttle6 = null;
-        // 当前玩家控制节点
-        _this.currentPlayer = null;
-        _this.vicePlayer = null;
-        // 旋转状态控制
-        _this.rotationStatus = 0;
-        // 移动状态控制
-        _this.moveStatus = 0;
-        // 战斗区域脚本
-        _this.BattleCtrl = null;
-        // webScoket脚本
-        _this.WebScoket = null;
-        _this.mainActionList = [];
-        _this.viceActionList = [];
-        _this.currentPlayerKeyBord = {
-            top: false,
+        // WebSocket节点
+        _this.WebSocket = null;
+        // 玩家相关数据
+        _this.player = {
+            current: {
+                node: null,
+                actionList: [],
+                fireStatus: 0,
+                bulletLimit: 0,
+                fireRate: 0,
+                buttleType: 0
+            },
+            vice: {
+                node: null,
+                actionList: [],
+                buttleType: 0
+            }
+        };
+        _this.operationStatus = {
+            up: false,
             right: false,
             bottom: false,
             left: false
         };
-        // 子弹类型
-        _this.buttleType = 6;
-        _this.buttle1Status = false;
-        // 用于控制坦克子弹的生成控制
-        _this.i = 0;
-        _this.Density = 0;
         return _this;
     }
     NewClass.prototype.start = function () {
         this.BattleRegion = this.node.parent.getChildByName('BattleRegion');
-        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl_1.default);
-        this.getPlayer(this.BattleCtrl.playerName);
-        this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
-        this.onEventListener();
+        this.WebSocket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
+        this._onGetPlayerNode(this.BattleRegion.parent.parent.getComponent(BattleCtrl_1.default).playerName);
+        this._onEventListener();
     };
     NewClass.prototype.update = function (dt) {
-        if (this.buttle1Status) {
-            this.Density++;
-            if (this.Density % 5 === 0) {
-                this.i++;
-                var len = 0;
-                this.currentPlayer.parent.children.map(function (node) {
-                    if (node.name.length > 11) {
-                        len++;
-                    }
-                });
-                if (len < 20) {
-                    this.generateBullet("tank_buttle_" + this.currentPlayer.name.substring(5, 6) + "_" + this.i, 5 - Math.random() * 10 >> 0);
-                }
-            }
+        if (this.operationStatus.up)
+            this.onCurrentOperation(0);
+        if (this.operationStatus.right)
+            this.onCurrentOperation(1);
+        if (this.operationStatus.bottom)
+            this.onCurrentOperation(2);
+        if (this.operationStatus.left)
+            this.onCurrentOperation(3);
+        if (this.player.current.fireStatus === 1) {
+            this.bulletLimit(5, 0);
+            this.player.current.fireStatus = 0;
         }
-        this.Density++;
-        if (this.currentPlayerKeyBord.left) {
-            if (this.currentPlayer.rotation - 5 < 0) {
-                this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5;
-            }
-            else {
-                this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
-            }
-            this.sendTankData();
+        // 加特林模式控制速率及偏移角度随机
+        if (this.player.current.fireStatus === 2 && this.player.current.fireRate % 5 === 0) {
+            this.bulletLimit(20, 8 - Math.random() * 16);
         }
-        if (this.currentPlayerKeyBord.right) {
-            this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
-            this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.top) {
-            var speed = 5;
-            this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-            this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-            this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.bottom) {
-            var speed = 5;
-            this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-            this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-            this.sendTankData();
-        }
-        if (this.viceActionList.length !== 0) {
-            // 位置联调
-            for (var i = 0; i < this.viceActionList.length; i++) {
-                if (this.viceActionList[0] && this.viceActionList[0].type === 0) {
-                    this.vicePlayer.x = this.viceActionList[0].x;
-                    this.vicePlayer.y = this.viceActionList[0].y;
-                    this.vicePlayer.rotation = this.viceActionList[0].rotation;
-                    this.viceActionList.splice(0, 1);
-                }
-                else if (this.viceActionList[0].type === 1) { // 子弹发射
-                    this.generateReceiveButtle(this.viceActionList[0]);
-                    this.viceActionList.splice(0, 1);
-                }
-            }
-        }
+        this.player.current.fireRate++;
+        this.onViceOperation();
     };
-    NewClass.prototype.onEventListener = function () {
-        var self = this;
-        this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.currentPlayerKeyBord.left = true;
-        });
-        this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.currentPlayerKeyBord.left = false;
-        });
-        this.node.getChildByName('left').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.currentPlayerKeyBord.left = false;
-        });
-        this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.currentPlayerKeyBord.right = true;
-        });
-        this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.currentPlayerKeyBord.right = false;
-        });
-        this.node.getChildByName('right').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.currentPlayerKeyBord.right = false;
-        });
-        this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.currentPlayerKeyBord.top = true;
-        });
-        this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.currentPlayerKeyBord.top = false;
-        });
-        this.node.getChildByName('up').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.currentPlayerKeyBord.top = false;
-        });
-        this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_START, function (event) {
-            self.currentPlayerKeyBord.bottom = true;
-        });
-        this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-            self.currentPlayerKeyBord.bottom = false;
-        });
-        this.node.getChildByName('bottom').on(cc.Node.EventType.TOUCH_END, function (event) {
-            self.currentPlayerKeyBord.bottom = false;
-        });
-        if (this.buttleType === 0) {
-            this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_START, function (event) {
-                var len = 0;
-                self.currentPlayer.parent.children.map(function (node) {
-                    if (node.name.length > 11) {
-                        len++;
-                    }
-                });
-                if (len < 5) {
-                    self.i = (self.i + 1) % 5;
-                    self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i, 0);
-                }
-            });
+    // 当前玩家移动操作
+    NewClass.prototype.onCurrentOperation = function (type) {
+        var speed = 5;
+        switch (type) {
+            case 0:
+                this.player.current.node.x += speed * Math.sin(Math.PI * this.player.current.node.rotation / 180);
+                this.player.current.node.y += speed * Math.cos(Math.PI * this.player.current.node.rotation / 180);
+                break;
+            case 1:
+                this.player.current.node.rotation = (this.player.current.node.rotation + 5) % 360;
+                break;
+            case 2:
+                this.player.current.node.x -= speed * Math.sin(Math.PI * this.player.current.node.rotation / 180);
+                this.player.current.node.y -= speed * Math.cos(Math.PI * this.player.current.node.rotation / 180);
+                break;
+            case 3:
+                this.player.current.node.rotation - 5 < 0 ?
+                    this.player.current.node.rotation = 360 - this.player.current.node.rotation - 5 :
+                    this.player.current.node.rotation -= 5;
+                break;
         }
-        if (this.buttleType === 6) {
-            this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_START, function (event) {
-                var buttle = cc.instantiate(self.Buttle6);
-                buttle.name = 'tank_buttle6_';
-                buttle.scale = self.currentPlayer.scale;
-                buttle.rotation = self.currentPlayer.rotation;
-                buttle.zIndex = -1;
-                buttle.setPosition(self.currentPlayer.x, self.currentPlayer.y);
-                self.currentPlayer.parent.addChild(buttle);
-            });
-        }
-        if (this.buttleType === 1) {
-            this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_START, function (event) {
-                self.buttle1Status = true;
-            });
-            this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_END, function (event) {
-                self.buttle1Status = false;
-            });
-            this.node.getChildByName('fire').on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
-                self.buttle1Status = false;
-            });
-        }
+        this.sendOperationData({
+            type: 0,
+            x: this.player.current.node.x,
+            y: this.player.current.node.y,
+            rotation: this.player.current.node.rotation
+        });
     };
-    // 子弹生成
-    NewClass.prototype.generateBullet = function (name, offset) {
-        var buttle = cc.instantiate(this.Buttle);
-        buttle.name = name;
-        buttle.scale = this.currentPlayer.scale;
-        buttle.rotation = this.currentPlayer.rotation + offset;
-        buttle.zIndex = -1;
-        var centerPointx = this.currentPlayer.x;
-        var centerPointy = this.currentPlayer.y;
-        var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * this.currentPlayer.scale / 2;
-        var x = (buttleY - centerPointy) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointx;
-        var y = (buttleY - centerPointy) * Math.cos(Math.PI * this.currentPlayer.rotation + offset / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointy;
-        buttle.setPosition(x, y);
-        this.currentPlayer.parent.addChild(buttle);
-        this.mainActionList.push({
-            type: 1,
-            buttleName: buttle.name,
-            scale: this.currentPlayer.scale,
-            x: x,
-            y: y,
-            rotation: this.currentPlayer.rotation + offset
-        });
-        this.WebScoket.sendMessage({
+    // 将自身操作信息发送给对方
+    NewClass.prototype.sendOperationData = function (data) {
+        this.player.current.actionList.push(data);
+        this.WebSocket.sendMessage({
             msg: 22,
-            data: this.mainActionList
+            data: this.player.current.actionList
         });
-        this.mainActionList = [];
+        this.player.current.actionList = [];
     };
-    NewClass.prototype.generateReceiveButtle = function (response) {
-        var buttle = cc.instantiate(this.Buttle);
-        buttle.name = response.buttleName;
-        buttle.scale = response.scale;
-        buttle.rotation = response.rotation;
-        buttle.setPosition(response.x, response.y);
-        this.vicePlayer.parent.addChild(buttle);
+    // 根据对方玩家操作队列依次改变对方玩家位置
+    NewClass.prototype.onViceOperation = function () {
+        if (this.player.vice.actionList.length === 0)
+            return;
+        for (var i = 0; i < this.player.vice.actionList.length; i++) {
+            if (this.player.vice.actionList[0] && this.player.vice.actionList[0].type === 0) {
+                this.player.vice.node.x = this.player.vice.actionList[0].x;
+                this.player.vice.node.y = this.player.vice.actionList[0].y;
+                this.player.vice.node.rotation = this.player.vice.actionList[0].rotation;
+                this.player.vice.actionList.splice(0, 1);
+            }
+            if (this.player.vice.actionList[0] && this.player.vice.actionList[0].type === 1) {
+                var bullet = this.generateBullet(this.player.vice.actionList[0]);
+                this.player.vice.node.parent.addChild(bullet);
+                this.player.vice.actionList.splice(0, 1);
+            }
+        }
     };
-    // 得到对面子弹生成信息，添加到我方区域
-    NewClass.prototype.addReceiveButtle = function (response) {
-        this.viceActionList.push(response);
-    };
-    // 获得玩家信息
-    NewClass.prototype.getPlayer = function (mainTank) {
-        var viceTank = 'tank_1';
-        if (mainTank === 'tank_1') {
-            viceTank = 'tank_2';
+    // 获取当前玩家节点以及敌方玩家节点
+    NewClass.prototype._onGetPlayerNode = function (mainNodeName) {
+        var viceNodeName = 'tank_1';
+        if (mainNodeName === 'tank_1') {
+            viceNodeName = 'tank_2';
         }
         var children = this.BattleRegion.children;
-        if (!children) {
+        if (!children)
             return;
-        }
         for (var i = 0; i < children.length; i++) {
-            if (children[i].getChildByName(mainTank)) {
-                this.currentPlayer = children[i].getChildByName(mainTank);
+            if (children[i].getChildByName(mainNodeName)) {
+                this.player.current.node = children[i].getChildByName(mainNodeName);
             }
-            if (children[i].getChildByName(viceTank)) {
-                this.vicePlayer = children[i].getChildByName(viceTank);
+            if (children[i].getChildByName(viceNodeName)) {
+                this.player.vice.node = children[i].getChildByName(viceNodeName);
             }
-            if (this.currentPlayer && this.vicePlayer) {
+            if (this.player.current.node && this.player.vice.node) {
                 return;
             }
         }
     };
-    NewClass.prototype.sendTankData = function () {
-        this.mainActionList.push({
-            type: 0,
-            x: this.currentPlayer.x,
-            y: this.currentPlayer.y,
-            rotation: this.currentPlayer.rotation
+    // 事件监听注册
+    NewClass.prototype._onEventListener = function () {
+        this._onMoveListener(this.node.getChildByName('left'), 'left');
+        this._onMoveListener(this.node.getChildByName('right'), 'right');
+        this._onMoveListener(this.node.getChildByName('bottom'), 'bottom');
+        this._onMoveListener(this.node.getChildByName('up'), 'up');
+        this._onFireListener();
+    };
+    // 移动事件注册
+    NewClass.prototype._onMoveListener = function (node, moveType) {
+        var _self = this;
+        node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            _self.operationStatus[moveType] = true;
         });
-        if (this.mainActionList.length > 0) {
-            this.WebScoket.sendMessage({
-                msg: 22,
-                data: this.mainActionList
+        node.on(cc.Node.EventType.TOUCH_END, function (event) {
+            _self.operationStatus[moveType] = false;
+        });
+        node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
+            _self.operationStatus[moveType] = false;
+        });
+    };
+    // 发射事件注册
+    NewClass.prototype._onFireListener = function () {
+        var _self = this;
+        var node = this.node.getChildByName('fire');
+        node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            _self.player.current.fireStatus = 2;
+        });
+    };
+    // 子弹发射出口生成位置计算
+    NewClass.prototype.bulletLocation = function () {
+        var centerX = this.player.current.node.x;
+        var CenterY = this.player.current.node.y;
+        var buttleX = centerX;
+        var buttleY = CenterY + this.player.current.node.height * this.player.current.node.scale / 2;
+        var x = (buttleY - CenterY) * Math.sin(Math.PI * this.player.current.node.rotation / 180) + centerX;
+        var y = (buttleY - CenterY) * Math.cos(Math.PI * this.player.current.node.rotation / 180) + (buttleX - centerX) * Math.sin(Math.PI * this.player.current.node.rotation / 180) + CenterY;
+        return {
+            x: x,
+            y: y
+        };
+    };
+    NewClass.prototype.generateBullet = function (data) {
+        var bullet = cc.instantiate(this.bullet);
+        bullet.name = data.name;
+        bullet.scale = data.scale;
+        bullet.rotation = data.rotation;
+        bullet.setPosition(data.x, data.y);
+        return bullet;
+    };
+    // 子弹数量控制
+    NewClass.prototype.bulletLimit = function (maxNumber, offset) {
+        var len = 0;
+        this.player.current.node.parent.children.map(function (node) {
+            if (node.name.length > 11) {
+                len++;
+            }
+        });
+        if (len < maxNumber) {
+            this.player.current.bulletLimit = (this.player.current.bulletLimit + 1) % maxNumber;
+            var point = this.bulletLocation();
+            var data = {
+                name: "tank_buttle_" + this.player.current.node.name.substring(5, 6) + "_" + this.player.current.bulletLimit,
+                scale: this.player.current.node.scale,
+                rotation: this.player.current.node.rotation + offset,
+                x: point.x,
+                y: point.y
+            };
+            var bullet = this.generateBullet(data);
+            this.player.current.node.parent.addChild(bullet);
+            this.sendOperationData({
+                type: 1,
+                name: bullet.name,
+                scale: bullet.scale,
+                x: bullet.x,
+                y: bullet.y,
+                rotation: bullet.rotation
             });
-            this.mainActionList = [];
         }
     };
-    NewClass.prototype.setOtherTankDataFor2 = function (response) {
-        for (var i = 0; i < response.data.length; i++) {
-            this.viceActionList.push(response.data[i]);
-        }
+    // 获取对方玩家操作信息添加到操作队列中
+    NewClass.prototype.getViceOperationData = function (res) {
+        this.player.vice.actionList.push(res.data[0]);
     };
     __decorate([
         property(cc.Prefab)
-    ], NewClass.prototype, "Buttle", void 0);
-    __decorate([
-        property(cc.Prefab)
-    ], NewClass.prototype, "Buttle6", void 0);
+    ], NewClass.prototype, "bullet", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

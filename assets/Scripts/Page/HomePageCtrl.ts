@@ -55,8 +55,8 @@ export default class NewClass extends cc.Component {
         //         console.log(res)
         //     }
         // })
-        // var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
-        // webscoket.sendMessage({msg: 1})
+        var webscoket = this.WebScoketNode.getComponent(WebSocketManage);
+        webscoket.sendMessage({msg: 1})
     }
     /**
      * 点击声音按钮

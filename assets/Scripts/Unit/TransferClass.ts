@@ -59,7 +59,7 @@ export default class Transfer extends cc.Component {
         var operationCtrl = null;
         this.Operation = cc.find('Canvas/BattlePagePanel/BattleBox/operation');
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl);
-        operationCtrl.setOtherTankDataFor2(res)
+        operationCtrl.getViceOperationData(res)
     }
     // 开炮
     public fireButtleForOperationCtrl(res) {
