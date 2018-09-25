@@ -31,6 +31,7 @@ export default class Transfer extends cc.Component {
 
     // 获取用户信息
     public getUserDataForHomePageCtrl(res) {
+        console.log(res)
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl);
@@ -38,6 +39,7 @@ export default class Transfer extends cc.Component {
     }
     // 切换匹配状态
     public generateMapForHomePageCtrl(res) {
+        console.log(res)
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl);

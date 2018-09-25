@@ -58,8 +58,6 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.playerName = 'tank_1';
         // 根据双方玩家位置生成的区间数组
         _this.setArray = null;
-        // 道具刷新区间
-        _this.propsInterval = [];
         _this.props = null;
         // 主玩家头像
         _this.MainPlayerHeadImg = null;
@@ -114,7 +112,7 @@ var BattleCtrl = /** @class */ (function (_super) {
             point: Math.random() * this.cells >> 0,
             rotation: Math.random() * 180 >> 0
         });
-        if (this.player[0].point === this.player[1].point) {
+        if (this.player[0].point - this.player[1].point > -3 && this.player[0].point - this.player[1].point < 3) {
             this.initPlayerPoint();
         }
     };
@@ -268,16 +266,18 @@ var BattleCtrl = /** @class */ (function (_super) {
     // 获取道具可生成区域
     BattleCtrl.prototype.propsRefreshInterval = function () {
         var _this = this;
-        this.propsInterval = [];
+        var propsInterval = [];
+        var propsLocationList = [];
         clearInterval(this.propsTime);
         var interval = this.setArray[this.player[0].point];
         for (var i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i] === interval) {
-                this.propsInterval.push(i);
+                propsInterval.push(i);
             }
         }
         this.propsTime = setInterval(function () {
-            var point = _this.propsInterval[Math.random() * _this.propsInterval.length >> 0];
+            var point = _this.propLocation(propsInterval, propsLocationList);
+            propsLocationList.push(point);
             var rotation = Math.random() * 360 >> 0;
             var propType = _this.propsList[Math.random() * _this.propsList.length >> 0];
             _this.webScoket.sendMessage({
@@ -290,6 +290,23 @@ var BattleCtrl = /** @class */ (function (_super) {
             });
             _this.genearteProp(point, rotation, propType);
         }, 5000);
+        setTimeout(function () {
+            setInterval(function () {
+                if (propsLocationList.length !== 0) {
+                    propsLocationList.splice(0, 1);
+                }
+            }, 5000);
+        }, 12000);
+    };
+    BattleCtrl.prototype.propLocation = function (regionList, currentList) {
+        var point = regionList[Math.random() * regionList.length >> 0];
+        console.log(point, currentList);
+        if (currentList.indexOf(point) === -1) {
+            return point;
+        }
+        else {
+            return this.propLocation(regionList, currentList);
+        }
     };
     // 点击再來一局修改准备状态
     BattleCtrl.prototype.onClickRestart = function () {
@@ -302,7 +319,7 @@ var BattleCtrl = /** @class */ (function (_super) {
     BattleCtrl.prototype.initScore = function (type) {
         var self = this;
         var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl_1.default);
-        var userData = homePageCtrl.UserData;
+        var userData = homePageCtrl.userInfo;
         var enemyUserData = homePageCtrl.enemyUserData;
         // 该玩家是主玩家
         if (type === 0) {

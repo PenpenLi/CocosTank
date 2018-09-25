@@ -94,7 +94,7 @@ require = function() {
         _this.victory = null;
         _this.ready = null;
         _this.propsTime = null;
-        _this.propsList = [ "prop_1", "prop_2", "prop_3", "prop_4", "prop_5", "prop_6", "prop_7" ];
+        _this.propsList = [ "prop_1", "prop_2", "prop_3", "prop_6" ];
         return _this;
       }
       BattleCtrl.prototype.start = function() {
@@ -269,7 +269,7 @@ require = function() {
         });
         prop.zIndex = 5;
         prop.rotation = rotation;
-        prop.getComponent(cc.Sprite).spriteFrame.name = type;
+        prop.name = type;
         prop.scale = this.activeBattleData.scale;
         this.BattleRegion.children[point].addChild(prop);
       };
@@ -495,28 +495,44 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
       function NewClass() {
-        return null !== _super && _super.apply(this, arguments) || this;
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.WebScoket = null;
+        return _this;
       }
       NewClass.prototype.start = function() {
+        var _self = this;
+        this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
         var manager = cc.director.getCollisionManager();
         manager.enabled = false;
         setTimeout(function() {
+          _self.node.opacity = 20;
           manager.enabled = true;
         }, 3e3);
       };
       NewClass.prototype.onCollisionEnter = function(other, self) {
-        console.log("1");
+        var scoreType = 0;
+        "tank_1" === other.node.name && (scoreType = 1);
+        this.WebScoket.sendMessage({
+          msg: 25,
+          data: {
+            scoreType: scoreType,
+            buttleName: this.node.name
+          }
+        });
       };
       NewClass = __decorate([ ccclass ], NewClass);
       return NewClass;
     }(cc.Component);
     exports.default = NewClass;
     cc._RF.pop();
-  }, {} ],
+  }, {
+    "../Unit/WebSocketManage": "WebSocketManage"
+  } ],
   CellCtrl: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "1a3ddLI5Y9ET54Wf+qMBtnj", "CellCtrl");
@@ -546,6 +562,7 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
@@ -560,13 +577,29 @@ require = function() {
         _this.UserData = {};
         _this.enemyUserData = {};
         _this.WebScoketNode = null;
+        _this.userInfo = {
+          openid: "",
+          nickname: "",
+          headimgurl: ""
+        };
+        _this.WebSocket = null;
         return _this;
       }
       NewClass.prototype.start = function() {
+        var _self = this;
+        this.WebSocket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
         wx.showShareMenu();
         wx.login({
           success: function(res) {
-            console.log(res);
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+              if (4 === xhr.readyState && xhr.status >= 200 && xhr.status < 400) {
+                var response = JSON.parse(xhr.responseText);
+                _self.userInfo.openid = response.openid;
+              }
+            };
+            xhr.open("GET", "http://172.17.0.13:8080/tankWar/acceputJSCODE.do?JSCODE=" + res.code, true);
+            xhr.send();
           }
         });
         wx.authorize({
@@ -576,11 +609,26 @@ require = function() {
         this.getPing();
       };
       NewClass.prototype.OnClickStartButton = function() {
+        var _self = this;
+        console.log(_self.userInfo, "===");
         wx.getSetting({
           success: function(res) {
+            console.log(_self.userInfo);
             res.authSetting["scope.userInfo"] && wx.getUserInfo({
               success: function(res) {
-                console.log(res);
+                res = res.userInfo;
+                _self.userInfo.nickname = res.nickName;
+                _self.userInfo.headimgurl = res.avatarUrl;
+                console.log(_self.userInfo);
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function() {
+                  4 === xhr.readyState && xhr.status >= 200 && xhr.status < 400 && console.log("1");
+                };
+                xhr.open("GET", "http://172.17.0.13:8080/tankWar/wechatUserinfo.do?openid=" + _self.userInfo.openid + "&nickname=" + _self.userInfo.nickname + "&headimgurl=" + _self.userInfo.headimgurl, true);
+                xhr.send();
+                _self.WebSocket.sendMessage({
+                  msg: 1
+                });
               }
             });
           },
@@ -631,7 +679,9 @@ require = function() {
     }(cc.Component);
     exports.default = NewClass;
     cc._RF.pop();
-  }, {} ],
+  }, {
+    "../Unit/WebSocketManage": "WebSocketManage"
+  } ],
   LinkedMap: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "2422a/26gRHUKNZEy4tBNpQ", "LinkedMap");
@@ -745,10 +795,10 @@ require = function() {
       NewClass.prototype.start = function() {
         var self = this;
         this.HomePage = cc.find("Canvas/HomePagePanel");
-        var homePage = this.HomePage.getComponent(HomePageCtrl_1.default).UserData;
-        this.userName.getComponent(cc.Label).string = homePage.nickname;
+        var homePage = this.HomePage.getComponent(HomePageCtrl_1.default);
+        this.userName.getComponent(cc.Label).string = homePage.userInfo.nickname;
         cc.loader.load({
-          url: homePage.headimgurl,
+          url: homePage.userInfo.headimgurl,
           type: "png"
         }, function(err, texture) {
           self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
@@ -840,7 +890,7 @@ require = function() {
       NewClass.prototype.start = function() {
         var self = this;
         this.HomePage = cc.find("Canvas/HomePagePanel");
-        this.userData = this.HomePage.getComponent(HomePageCtrl_1.default).UserData;
+        this.userData = this.HomePage.getComponent(HomePageCtrl_1.default).userInfo;
         cc.loader.load({
           url: self.userData.headimgurl,
           type: "png"
@@ -922,218 +972,231 @@ require = function() {
       __extends(NewClass, _super);
       function NewClass() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.bullet = null;
+        _this.bullet6 = null;
         _this.BattleRegion = null;
-        _this.Buttle = null;
-        _this.Buttle6 = null;
-        _this.currentPlayer = null;
-        _this.vicePlayer = null;
-        _this.rotationStatus = 0;
-        _this.moveStatus = 0;
-        _this.BattleCtrl = null;
-        _this.WebScoket = null;
-        _this.mainActionList = [];
-        _this.viceActionList = [];
-        _this.currentPlayerKeyBord = {
-          top: false,
+        _this.WebSocket = null;
+        _this.player = {
+          current: {
+            node: null,
+            actionList: [],
+            fireStatus: 0,
+            bulletLimit: 0,
+            fireRate: 0,
+            buttleType: 0
+          },
+          vice: {
+            node: null,
+            actionList: [],
+            buttleType: 0
+          }
+        };
+        _this.operationStatus = {
+          up: false,
           right: false,
           bottom: false,
           left: false
         };
-        _this.buttleType = 6;
-        _this.buttle1Status = false;
-        _this.i = 0;
-        _this.Density = 0;
         return _this;
       }
       NewClass.prototype.start = function() {
         this.BattleRegion = this.node.parent.getChildByName("BattleRegion");
-        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl_1.default);
-        this.getPlayer(this.BattleCtrl.playerName);
-        this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
-        this.onEventListener();
+        this.WebSocket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
+        this._onGetPlayerNode(this.BattleRegion.parent.parent.getComponent(BattleCtrl_1.default).playerName);
+        this._onEventListener();
       };
       NewClass.prototype.update = function(dt) {
-        if (this.buttle1Status) {
-          this.Density++;
-          if (this.Density % 5 === 0) {
-            this.i++;
-            var len = 0;
-            this.currentPlayer.parent.children.map(function(node) {
-              node.name.length > 11 && len++;
-            });
-            len < 20 && this.generateBullet("tank_buttle_" + this.currentPlayer.name.substring(5, 6) + "_" + this.i, 5 - 10 * Math.random() >> 0);
-          }
+        this.operationStatus.up && this.onCurrentOperation(0);
+        this.operationStatus.right && this.onCurrentOperation(1);
+        this.operationStatus.bottom && this.onCurrentOperation(2);
+        this.operationStatus.left && this.onCurrentOperation(3);
+        if (1 === this.player.current.fireStatus) {
+          this.bulletLimit(0, 5, 0);
+          this.player.current.fireStatus = 0;
         }
-        this.Density++;
-        if (this.currentPlayerKeyBord.left) {
-          this.currentPlayer.rotation - 5 < 0 ? this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5 : this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.right) {
-          this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.top) {
-          var speed = 5;
-          this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-          this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-          this.sendTankData();
-        }
-        if (this.currentPlayerKeyBord.bottom) {
-          var speed = 5;
-          this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
-          this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
-          this.sendTankData();
-        }
-        if (0 !== this.viceActionList.length) for (var i = 0; i < this.viceActionList.length; i++) if (this.viceActionList[0] && 0 === this.viceActionList[0].type) {
-          this.vicePlayer.x = this.viceActionList[0].x;
-          this.vicePlayer.y = this.viceActionList[0].y;
-          this.vicePlayer.rotation = this.viceActionList[0].rotation;
-          this.viceActionList.splice(0, 1);
-        } else if (1 === this.viceActionList[0].type) {
-          this.generateReceiveButtle(this.viceActionList[0]);
-          this.viceActionList.splice(0, 1);
-        }
+        2 === this.player.current.fireStatus && this.player.current.fireRate % 5 === 0 && this.bulletLimit(1, 20, 8 - 16 * Math.random());
+        this.player.current.fireRate++;
+        this.onViceOperation();
       };
-      NewClass.prototype.onEventListener = function() {
-        var self = this;
-        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_START, function(event) {
-          self.currentPlayerKeyBord.left = true;
-        });
-        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_END, function(event) {
-          self.currentPlayerKeyBord.left = false;
-        });
-        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
-          self.currentPlayerKeyBord.left = false;
-        });
-        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_START, function(event) {
-          self.currentPlayerKeyBord.right = true;
-        });
-        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
-          self.currentPlayerKeyBord.right = false;
-        });
-        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_END, function(event) {
-          self.currentPlayerKeyBord.right = false;
-        });
-        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_START, function(event) {
-          self.currentPlayerKeyBord.top = true;
-        });
-        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
-          self.currentPlayerKeyBord.top = false;
-        });
-        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_END, function(event) {
-          self.currentPlayerKeyBord.top = false;
-        });
-        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_START, function(event) {
-          self.currentPlayerKeyBord.bottom = true;
-        });
-        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
-          self.currentPlayerKeyBord.bottom = false;
-        });
-        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_END, function(event) {
-          self.currentPlayerKeyBord.bottom = false;
-        });
-        0 === this.buttleType && this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
-          var len = 0;
-          self.currentPlayer.parent.children.map(function(node) {
-            node.name.length > 11 && len++;
-          });
-          if (len < 5) {
-            self.i = (self.i + 1) % 5;
-            self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i, 0);
-          }
-        });
-        6 === this.buttleType && this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
-          var buttle = cc.instantiate(self.Buttle6);
-          buttle.name = "tank_buttle6_";
-          buttle.scale = self.currentPlayer.scale;
-          buttle.rotation = self.currentPlayer.rotation;
-          buttle.zIndex = -1;
-          buttle.setPosition(self.currentPlayer.x, self.currentPlayer.y);
-          self.currentPlayer.parent.addChild(buttle);
-        });
-        if (1 === this.buttleType) {
-          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
-            self.buttle1Status = true;
-          });
-          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_END, function(event) {
-            self.buttle1Status = false;
-          });
-          this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
-            self.buttle1Status = false;
-          });
+      NewClass.prototype.onCurrentOperation = function(type) {
+        var speed = 5;
+        switch (type) {
+         case 0:
+          this.player.current.node.x += speed * Math.sin(Math.PI * this.player.current.node.rotation / 180);
+          this.player.current.node.y += speed * Math.cos(Math.PI * this.player.current.node.rotation / 180);
+          break;
+
+         case 1:
+          this.player.current.node.rotation = (this.player.current.node.rotation + 5) % 360;
+          break;
+
+         case 2:
+          this.player.current.node.x -= speed * Math.sin(Math.PI * this.player.current.node.rotation / 180);
+          this.player.current.node.y -= speed * Math.cos(Math.PI * this.player.current.node.rotation / 180);
+          break;
+
+         case 3:
+          this.player.current.node.rotation - 5 < 0 ? this.player.current.node.rotation = 360 - this.player.current.node.rotation - 5 : this.player.current.node.rotation -= 5;
         }
-      };
-      NewClass.prototype.generateBullet = function(name, offset) {
-        var buttle = cc.instantiate(this.Buttle);
-        buttle.name = name;
-        buttle.scale = this.currentPlayer.scale;
-        buttle.rotation = this.currentPlayer.rotation + offset;
-        buttle.zIndex = -1;
-        var centerPointx = this.currentPlayer.x;
-        var centerPointy = this.currentPlayer.y;
-        var buttleX = this.currentPlayer.x;
-        var buttleY = this.currentPlayer.y + this.currentPlayer.height * this.currentPlayer.scale / 2;
-        var x = (buttleY - centerPointy) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointx;
-        var y = (buttleY - centerPointy) * Math.cos(Math.PI * this.currentPlayer.rotation + offset / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * this.currentPlayer.rotation + offset / 180) + centerPointy;
-        buttle.setPosition(x, y);
-        this.currentPlayer.parent.addChild(buttle);
-        this.mainActionList.push({
-          type: 1,
-          buttleName: buttle.name,
-          scale: this.currentPlayer.scale,
-          x: x,
-          y: y,
-          rotation: this.currentPlayer.rotation + offset
+        this.sendOperationData({
+          type: 0,
+          x: this.player.current.node.x,
+          y: this.player.current.node.y,
+          rotation: this.player.current.node.rotation
         });
-        this.WebScoket.sendMessage({
+      };
+      NewClass.prototype.sendOperationData = function(data) {
+        this.player.current.actionList.push(data);
+        this.WebSocket.sendMessage({
           msg: 22,
-          data: this.mainActionList
+          data: this.player.current.actionList
         });
-        this.mainActionList = [];
+        this.player.current.actionList = [];
       };
-      NewClass.prototype.generateReceiveButtle = function(response) {
-        var buttle = cc.instantiate(this.Buttle);
-        buttle.name = response.buttleName;
-        buttle.scale = response.scale;
-        buttle.rotation = response.rotation;
-        buttle.setPosition(response.x, response.y);
-        this.vicePlayer.parent.addChild(buttle);
+      NewClass.prototype.onViceOperation = function() {
+        if (0 === this.player.vice.actionList.length) return;
+        for (var i = 0; i < this.player.vice.actionList.length; i++) {
+          if (this.player.vice.actionList[0] && 0 === this.player.vice.actionList[0].type) {
+            this.player.vice.node.x = this.player.vice.actionList[0].x;
+            this.player.vice.node.y = this.player.vice.actionList[0].y;
+            this.player.vice.node.rotation = this.player.vice.actionList[0].rotation;
+            this.player.vice.actionList.splice(0, 1);
+          }
+          if (this.player.vice.actionList[0] && 1 === this.player.vice.actionList[0].type) {
+            var bullet = this.generateBullet(this.player.vice.actionList[0], 1);
+            console.log(bullet);
+            this.player.vice.node.parent.addChild(bullet);
+            this.player.vice.actionList.splice(0, 1);
+          }
+        }
       };
-      NewClass.prototype.addReceiveButtle = function(response) {
-        this.viceActionList.push(response);
-      };
-      NewClass.prototype.getPlayer = function(mainTank) {
-        var viceTank = "tank_1";
-        "tank_1" === mainTank && (viceTank = "tank_2");
+      NewClass.prototype._onGetPlayerNode = function(mainNodeName) {
+        var viceNodeName = "tank_1";
+        "tank_1" === mainNodeName && (viceNodeName = "tank_2");
         var children = this.BattleRegion.children;
         if (!children) return;
         for (var i = 0; i < children.length; i++) {
-          children[i].getChildByName(mainTank) && (this.currentPlayer = children[i].getChildByName(mainTank));
-          children[i].getChildByName(viceTank) && (this.vicePlayer = children[i].getChildByName(viceTank));
-          if (this.currentPlayer && this.vicePlayer) return;
+          children[i].getChildByName(mainNodeName) && (this.player.current.node = children[i].getChildByName(mainNodeName));
+          children[i].getChildByName(viceNodeName) && (this.player.vice.node = children[i].getChildByName(viceNodeName));
+          if (this.player.current.node && this.player.vice.node) return;
         }
       };
-      NewClass.prototype.sendTankData = function() {
-        this.mainActionList.push({
-          type: 0,
-          x: this.currentPlayer.x,
-          y: this.currentPlayer.y,
-          rotation: this.currentPlayer.rotation
+      NewClass.prototype._onEventListener = function() {
+        this._onMoveListener(this.node.getChildByName("left"), "left");
+        this._onMoveListener(this.node.getChildByName("right"), "right");
+        this._onMoveListener(this.node.getChildByName("bottom"), "bottom");
+        this._onMoveListener(this.node.getChildByName("up"), "up");
+        this._onFireListener();
+      };
+      NewClass.prototype._onMoveListener = function(node, moveType) {
+        var _self = this;
+        node.on(cc.Node.EventType.TOUCH_START, function(event) {
+          _self.operationStatus[moveType] = true;
         });
-        if (this.mainActionList.length > 0) {
-          this.WebScoket.sendMessage({
-            msg: 22,
-            data: this.mainActionList
+        node.on(cc.Node.EventType.TOUCH_END, function(event) {
+          _self.operationStatus[moveType] = false;
+        });
+        node.on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          _self.operationStatus[moveType] = false;
+        });
+      };
+      NewClass.prototype._onFireListener = function() {
+        var _self = this;
+        var node = this.node.getChildByName("fire");
+        node.on(cc.Node.EventType.TOUCH_START, function(event) {
+          if (0 === _self.player.current.buttleType) _self.player.current.fireStatus = 1; else if (1 === _self.player.current.buttleType) _self.player.current.fireStatus = 2; else if (6 === _self.player.current.buttleType) {
+            var bullet = _self.generateBullet({
+              name: "tank_buttle_" + _self.player.current.node.name.substring(5, 6) + "_" + _self.player.current.bulletLimit,
+              bulletType: 6,
+              scale: _self.player.current.node.scale,
+              rotation: _self.player.current.node.rotation,
+              x: _self.player.current.node.x,
+              y: _self.player.current.node.y
+            }, 0);
+            _self.sendOperationData({
+              type: 1,
+              bulletType: 6,
+              name: bullet.name,
+              scale: bullet.scale,
+              x: bullet.x,
+              y: bullet.y,
+              rotation: bullet.rotation
+            });
+            _self.player.current.node.parent.addChild(bullet);
+          }
+        });
+        node.on(cc.Node.EventType.TOUCH_END, function(event) {
+          _self.player.current.fireStatus = 0;
+        });
+        node.on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          _self.player.current.fireStatus = 0;
+        });
+      };
+      NewClass.prototype.bulletLocation = function() {
+        var centerX = this.player.current.node.x;
+        var CenterY = this.player.current.node.y;
+        var buttleX = centerX;
+        var buttleY = CenterY + this.player.current.node.height * this.player.current.node.scale / 2;
+        var x = (buttleY - CenterY) * Math.sin(Math.PI * this.player.current.node.rotation / 180) + centerX;
+        var y = (buttleY - CenterY) * Math.cos(Math.PI * this.player.current.node.rotation / 180) + (buttleX - centerX) * Math.sin(Math.PI * this.player.current.node.rotation / 180) + CenterY;
+        return {
+          x: x,
+          y: y
+        };
+      };
+      NewClass.prototype.generateBullet = function(data, type) {
+        console.log(data);
+        var bullet;
+        if (1 === data.bulletType || 0 === data.bulletType) {
+          bullet = cc.instantiate(this.bullet);
+          bullet.setPosition(data.x, data.y);
+        }
+        if (6 === data.bulletType) if (0 === type) {
+          bullet = cc.instantiate(this.bullet6);
+          bullet.setPosition(this.player.current.node.x, this.player.current.node.y);
+        } else {
+          bullet = cc.instantiate(this.bullet6);
+          bullet.setPosition(this.player.vice.node.x, this.player.vice.node.y);
+        }
+        bullet.name = data.name;
+        bullet.scale = data.scale;
+        bullet.rotation = data.rotation;
+        return bullet;
+      };
+      NewClass.prototype.bulletLimit = function(bulletType, maxNumber, offset) {
+        var len = 0;
+        this.player.current.node.parent.children.map(function(node) {
+          node.name.length > 11 && len++;
+        });
+        if (len < maxNumber) {
+          this.player.current.bulletLimit = (this.player.current.bulletLimit + 1) % maxNumber;
+          var point = this.bulletLocation();
+          var data = {
+            name: "tank_buttle_" + this.player.current.node.name.substring(5, 6) + "_" + this.player.current.bulletLimit,
+            bulletType: bulletType,
+            scale: this.player.current.node.scale,
+            rotation: this.player.current.node.rotation + offset,
+            x: point.x,
+            y: point.y
+          };
+          var bullet = this.generateBullet(data, 0);
+          this.player.current.node.parent.addChild(bullet);
+          this.sendOperationData({
+            type: 1,
+            bulletType: bulletType,
+            name: bullet.name,
+            scale: bullet.scale,
+            x: bullet.x,
+            y: bullet.y,
+            rotation: bullet.rotation
           });
-          this.mainActionList = [];
         }
       };
-      NewClass.prototype.setOtherTankDataFor2 = function(response) {
-        for (var i = 0; i < response.data.length; i++) this.viceActionList.push(response.data[i]);
+      NewClass.prototype.getViceOperationData = function(res) {
+        this.player.vice.actionList.push(res.data[0]);
       };
-      __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle", void 0);
-      __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle6", void 0);
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "bullet", void 0);
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "bullet6", void 0);
       NewClass = __decorate([ ccclass ], NewClass);
       return NewClass;
     }(cc.Component);
@@ -1149,19 +1212,20 @@ require = function() {
     Object.defineProperty(exports, "__esModule", {
       value: true
     });
+    var PlayerOperationCtrl_1 = require("./PlayerOperationCtrl");
+    var BattleCtrl_1 = require("../Page/BattleCtrl");
     var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
     var NewClass = function(_super) {
       __extends(NewClass, _super);
       function NewClass() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.nodeDestoryTime = null;
-        _this.propType = "";
         return _this;
       }
       NewClass.prototype.start = function() {
         var _this = this;
-        this.propType = this.node.getComponent(cc.Sprite).spriteFrame.name;
         var self = this;
+        console.log(this.node.name);
         setTimeout(function() {
           self.onNodeTwinkle();
           setTimeout(function() {
@@ -1183,7 +1247,10 @@ require = function() {
         }, 200);
       };
       NewClass.prototype.onCollisionEnter = function(other, self) {
-        var spriteFrameName = other.node.name + "_" + this.node.getComponent(cc.Sprite).spriteFrame.name.substring(5, 6);
+        var propType = parseInt(this.node.name.substring(5, 6));
+        var spriteFrameName = other.node.name + "_" + propType;
+        var playerName = cc.find("Canvas/BattlePagePanel").getComponent(BattleCtrl_1.default).playerName;
+        other.node.name === playerName ? cc.find("Canvas/BattlePagePanel/BattleBox/operation").getComponent(PlayerOperationCtrl_1.default).player.current.buttleType = propType : cc.find("Canvas/BattlePagePanel/BattleBox/operation").getComponent(PlayerOperationCtrl_1.default).player.vice.buttleType = propType;
         cc.loader.loadRes(spriteFrameName, cc.SpriteFrame, function(err, spriteFrame) {
           other.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
@@ -1194,7 +1261,10 @@ require = function() {
     }(cc.Component);
     exports.default = NewClass;
     cc._RF.pop();
-  }, {} ],
+  }, {
+    "../Page/BattleCtrl": "BattleCtrl",
+    "./PlayerOperationCtrl": "PlayerOperationCtrl"
+  } ],
   TankCtrl: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "33ad7W4Sq9CJ4BpgZFyxICj", "TankCtrl");
@@ -1209,49 +1279,30 @@ require = function() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.Boom = null;
         _this.WebScoket = null;
-        _this.flag = true;
         return _this;
       }
       NewClass.prototype.start = function() {
-        this.playerRg = this.getComponent(cc.RigidBody);
         this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
       };
       NewClass.prototype.onBeginContact = function(contact, selfCollider, otherCollider) {
-        var self = this;
-        if (this.flag) {
-          var othername = otherCollider.node.name.substring(5, 11);
-          var loser = this.node.name;
+        var otherName = otherCollider.node.name.substring(5, 11);
+        if ("buttle" === otherName) {
           var scoreType = 0;
-          if ("buttle" === othername) {
-            cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation") && cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation").destroy();
-            this.flag = false;
-            var x = selfCollider.node.x;
-            var y = selfCollider.node.y;
-            var parent = selfCollider.node.parent;
-            var boom = cc.instantiate(this.Boom);
-            boom.setPosition(x, y);
-            parent.addChild(boom);
-            otherCollider.node.destroy();
-            selfCollider.node.destroy();
-            "tank_1" === loser && (scoreType = 1);
-            this.WebScoket.sendMessage({
-              msg: 25,
-              data: {
-                scoreType: scoreType,
-                buttleName: otherCollider.node.name
-              }
-            });
-          }
+          "tank_1" === this.node.name && (scoreType = 1);
+          this.WebScoket.sendMessage({
+            msg: 25,
+            data: {
+              scoreType: scoreType,
+              buttleName: otherCollider.node.name
+            }
+          });
         }
       };
       NewClass.prototype.gameOver = function(response) {
         cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation") && cc.find("Canvas/BattlePagePanel/BattleBox/BattleRegion").parent.getChildByName("operation").destroy();
-        var x = this.node.x;
-        var y = this.node.y;
-        var parent = this.node.parent;
         var boom = cc.instantiate(this.Boom);
-        boom.setPosition(x, y);
-        parent.addChild(boom);
+        boom.setPosition(this.node.x, this.node.y);
+        this.node.parent.addChild(boom);
         this.node.destroy();
       };
       __decorate([ property(cc.Prefab) ], NewClass.prototype, "Boom", void 0);
@@ -1311,7 +1362,7 @@ require = function() {
         var operationCtrl = null;
         this.Operation = cc.find("Canvas/BattlePagePanel/BattleBox/operation");
         operationCtrl = this.Operation.getComponent(PlayerOperationCtrl_1.default);
-        operationCtrl.setOtherTankDataFor2(res);
+        operationCtrl.getViceOperationData(res);
       };
       Transfer.prototype.fireButtleForOperationCtrl = function(res) {
         var operationCtrl = null;
@@ -1406,7 +1457,6 @@ require = function() {
           "0" === response.dataMessage && self.TransferClass.generateMapForHomePageCtrl(response);
           "1" === response.dataMessage && self.TransferClass.getMapForBattlePageCtrl(response);
           "2" === response.dataMessage && self.TransferClass.positionUnicomForOperationCtrl(response);
-          "3" === response.dataMessage && self.TransferClass.fireButtleForOperationCtrl(response);
           "4" === response.dataMessage && self.TransferClass.dieForTankCtrl(response);
           "5" === response.dataMessage && self.TransferClass.restartForBattleCtrl(response);
           "6" === response.dataMessage && self.TransferClass.leaveForBattleCtrl(response);
@@ -1431,5 +1481,267 @@ require = function() {
     cc.director.getPhysicsManager().enabled = true;
     cc.director.getPhysicsManager().gravity = cc.v2();
     cc._RF.pop();
-  }, {} ]
-}, {}, [ "BattleCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "Buttle6Ctrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);
+  }, {} ],
+  "是的非法所得税地方": [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "a981ed/YkJPmpXBTP4IiJQm", "是的非法所得税地方");
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var BattleCtrl_1 = require("../Page/BattleCtrl");
+    var WebSocketManage_1 = require("../Unit/WebSocketManage");
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var NewClass = function(_super) {
+      __extends(NewClass, _super);
+      function NewClass() {
+        var _this = null !== _super && _super.apply(this, arguments) || this;
+        _this.BattleRegion = null;
+        _this.Buttle = null;
+        _this.Buttle6 = null;
+        _this.currentPlayer = null;
+        _this.vicePlayer = null;
+        _this.rotationStatus = 0;
+        _this.moveStatus = 0;
+        _this.BattleCtrl = null;
+        _this.WebScoket = null;
+        _this.mainActionList = [];
+        _this.viceActionList = [];
+        _this.currentPlayerKeyBord = {
+          top: false,
+          right: false,
+          bottom: false,
+          left: false
+        };
+        _this.buttleTypeForMain = 6;
+        _this.buttleTypeForVice = 6;
+        _this.buttleType = 0;
+        _this.buttle1Status = false;
+        _this.i = 0;
+        _this.Density = 0;
+        return _this;
+      }
+      NewClass.prototype.start = function() {
+        this.BattleRegion = this.node.parent.getChildByName("BattleRegion");
+        this.BattleCtrl = this.node.parent.parent.getComponent(BattleCtrl_1.default);
+        this.getPlayer(this.BattleCtrl.playerName);
+        this.WebScoket = cc.find("WebScoket").getComponent(WebSocketManage_1.default);
+        this.onEventListener();
+      };
+      NewClass.prototype.update = function(dt) {
+        if (this.buttle1Status && this.Density % 5 === 0) {
+          this.i++;
+          var len = 0;
+          this.currentPlayer.parent.children.map(function(node) {
+            node.name.length > 11 && len++;
+          });
+          len < 20 && this.generateBullet("tank_buttle_" + this.currentPlayer.name.substring(5, 6) + "_" + this.i, 5 - 10 * Math.random() >> 0);
+        }
+        this.Density++;
+        if (this.currentPlayerKeyBord.left) {
+          this.currentPlayer.rotation - 5 < 0 ? this.currentPlayer.rotation = 360 - this.currentPlayer.rotation - 5 : this.currentPlayer.rotation = this.currentPlayer.rotation - 5;
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.right) {
+          this.currentPlayer.rotation = (this.currentPlayer.rotation + 5) % 360;
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.top) {
+          var speed = 5;
+          this.currentPlayer.x += speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
+          this.currentPlayer.y += speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
+          this.sendTankData();
+        }
+        if (this.currentPlayerKeyBord.bottom) {
+          var speed = 5;
+          this.currentPlayer.x -= speed * Math.sin(Math.PI * this.currentPlayer.rotation / 180);
+          this.currentPlayer.y -= speed * Math.cos(Math.PI * this.currentPlayer.rotation / 180);
+          this.sendTankData();
+        }
+        if (0 !== this.viceActionList.length) for (var i = 0; i < this.viceActionList.length; i++) if (this.viceActionList[0] && 0 === this.viceActionList[0].type) {
+          this.vicePlayer.x = this.viceActionList[0].x;
+          this.vicePlayer.y = this.viceActionList[0].y;
+          this.vicePlayer.rotation = this.viceActionList[0].rotation;
+          this.viceActionList.splice(0, 1);
+        } else if (1 === this.viceActionList[0].type) {
+          console.log();
+          if (0 === this.viceActionList[0].buttleType || 1 === this.viceActionList[0].buttleType) {
+            this.generateReceiveButtle(this.viceActionList[0]);
+            this.viceActionList.splice(0, 1);
+          } else if (6 === this.viceActionList[0].buttleType) {
+            console.log("1");
+            var buttle = cc.instantiate(this.Buttle6);
+            buttle.name = "tank_buttle6_";
+            buttle.scale = this.viceActionList[0].scale;
+            buttle.rotation = this.viceActionList[0].rotation;
+            buttle.zIndex = -1;
+            buttle.setPosition(this.viceActionList[0].x, this.viceActionList[0].y);
+            this.currentPlayer.parent.addChild(buttle);
+          }
+        }
+      };
+      NewClass.prototype.onEventListener = function() {
+        var self = this;
+        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_START, function(event) {
+          self.currentPlayerKeyBord.left = true;
+        });
+        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_END, function(event) {
+          self.currentPlayerKeyBord.left = false;
+        });
+        this.node.getChildByName("left").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          self.currentPlayerKeyBord.left = false;
+        });
+        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_START, function(event) {
+          self.currentPlayerKeyBord.right = true;
+        });
+        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          self.currentPlayerKeyBord.right = false;
+        });
+        this.node.getChildByName("right").on(cc.Node.EventType.TOUCH_END, function(event) {
+          self.currentPlayerKeyBord.right = false;
+        });
+        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_START, function(event) {
+          self.currentPlayerKeyBord.top = true;
+        });
+        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          self.currentPlayerKeyBord.top = false;
+        });
+        this.node.getChildByName("up").on(cc.Node.EventType.TOUCH_END, function(event) {
+          self.currentPlayerKeyBord.top = false;
+        });
+        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_START, function(event) {
+          self.currentPlayerKeyBord.bottom = true;
+        });
+        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          self.currentPlayerKeyBord.bottom = false;
+        });
+        this.node.getChildByName("bottom").on(cc.Node.EventType.TOUCH_END, function(event) {
+          self.currentPlayerKeyBord.bottom = false;
+        });
+        this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_START, function(event) {
+          "tank_1" === self.currentPlayer.name ? this.buttleType = self.buttleTypeForMain : this.buttleType = self.buttleTypeForVice;
+          if (0 === this.buttleType) {
+            var len = 0;
+            self.currentPlayer.parent.children.map(function(node) {
+              node.name.length > 11 && len++;
+            });
+            if (len < 5) {
+              self.i = (self.i + 1) % 5;
+              self.generateBullet("tank_buttle_" + self.currentPlayer.name.substring(5, 6) + "_" + self.i, 0);
+            }
+          }
+          1 === this.buttleType && (self.buttle1Status = true);
+          if (6 === this.buttleType) {
+            var buttle = cc.instantiate(self.Buttle6);
+            buttle.name = "tank_buttle6_";
+            buttle.scale = self.currentPlayer.scale;
+            buttle.rotation = self.currentPlayer.rotation;
+            buttle.zIndex = -1;
+            buttle.setPosition(self.currentPlayer.x, self.currentPlayer.y);
+            self.mainActionList.push({
+              type: 1,
+              buttleType: self.buttleType,
+              buttleName: buttle.name,
+              scale: buttle.scale,
+              x: self.currentPlayer.x,
+              y: self.currentPlayer.y,
+              rotation: buttle.rotation
+            });
+            self.WebScoket.sendMessage({
+              msg: 22,
+              data: this.mainActionList
+            });
+            self.mainActionList = [];
+            self.currentPlayer.parent.addChild(buttle);
+          }
+        });
+        this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_END, function(event) {
+          self.buttle1Status = false;
+        });
+        this.node.getChildByName("fire").on(cc.Node.EventType.TOUCH_CANCEL, function(event) {
+          self.buttle1Status = false;
+        });
+      };
+      NewClass.prototype.generateBullet = function(name, offset) {
+        var buttle = cc.instantiate(this.Buttle);
+        buttle.name = name;
+        buttle.scale = this.currentPlayer.scale;
+        buttle.rotation = this.currentPlayer.rotation + offset;
+        buttle.zIndex = -1;
+        0 !== this.buttleType && 1 !== this.buttleType || this.buttleForDefault(buttle);
+        this.currentPlayer.parent.addChild(buttle);
+        this.WebScoket.sendMessage({
+          msg: 22,
+          data: this.mainActionList
+        });
+        this.mainActionList = [];
+      };
+      NewClass.prototype.buttleForDefault = function(buttle) {
+        var centerPointx = this.currentPlayer.x;
+        var centerPointy = this.currentPlayer.y;
+        var buttleX = this.currentPlayer.x;
+        var buttleY = this.currentPlayer.y + this.currentPlayer.height * this.currentPlayer.scale / 2;
+        var x = (buttleY - centerPointy) * Math.sin(Math.PI * buttle.rotation / 180) + centerPointx;
+        var y = (buttleY - centerPointy) * Math.cos(Math.PI * buttle.rotation / 180) + (buttleX - centerPointx) * Math.sin(Math.PI * buttle.rotation / 180) + centerPointy;
+        buttle.setPosition(x, y);
+        this.mainActionList.push({
+          type: 1,
+          buttleType: this.buttleType,
+          buttleName: buttle.name,
+          scale: buttle.scale,
+          x: x,
+          y: y,
+          rotation: buttle.rotation
+        });
+      };
+      NewClass.prototype.generateReceiveButtle = function(response) {
+        var buttle = cc.instantiate(this.Buttle);
+        buttle.name = response.buttleName;
+        buttle.scale = response.scale;
+        buttle.rotation = response.rotation;
+        buttle.setPosition(response.x, response.y);
+        this.vicePlayer.parent.addChild(buttle);
+      };
+      NewClass.prototype.addReceiveButtle = function(response) {
+        this.viceActionList.push(response);
+      };
+      NewClass.prototype.getPlayer = function(mainTank) {
+        var viceTank = "tank_1";
+        "tank_1" === mainTank && (viceTank = "tank_2");
+        var children = this.BattleRegion.children;
+        if (!children) return;
+        for (var i = 0; i < children.length; i++) {
+          children[i].getChildByName(mainTank) && (this.currentPlayer = children[i].getChildByName(mainTank));
+          children[i].getChildByName(viceTank) && (this.vicePlayer = children[i].getChildByName(viceTank));
+          if (this.currentPlayer && this.vicePlayer) return;
+        }
+      };
+      NewClass.prototype.sendTankData = function() {
+        this.mainActionList.push({
+          type: 0,
+          x: this.currentPlayer.x,
+          y: this.currentPlayer.y,
+          rotation: this.currentPlayer.rotation
+        });
+        if (this.mainActionList.length > 0) {
+          this.WebScoket.sendMessage({
+            msg: 22,
+            data: this.mainActionList
+          });
+          this.mainActionList = [];
+        }
+      };
+      NewClass.prototype.setOtherTankDataFor2 = function(response) {
+        for (var i = 0; i < response.data.length; i++) this.viceActionList.push(response.data[i]);
+      };
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle", void 0);
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "Buttle6", void 0);
+      NewClass = __decorate([ ccclass ], NewClass);
+      return NewClass;
+    }(cc.Component);
+    exports.default = NewClass;
+    cc._RF.pop();
+  }, {
+    "../Page/BattleCtrl": "BattleCtrl",
+    "../Unit/WebSocketManage": "WebSocketManage"
+  } ]
+}, {}, [ "BattleCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "Buttle6Ctrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "是的非法所得税地方", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);

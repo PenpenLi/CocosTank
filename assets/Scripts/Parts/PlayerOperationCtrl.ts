@@ -6,6 +6,8 @@ const { ccclass, property } = cc._decorator;
 export default class NewClass extends cc.Component {
     @property(cc.Prefab)
     private bullet: cc.Prefab = null;
+    @property(cc.Prefab)
+    private bullet6: cc.Prefab = null;
     // 战斗区域节点
     private BattleRegion: cc.Node = null;
     // WebSocket节点
@@ -44,12 +46,12 @@ export default class NewClass extends cc.Component {
         if (this.operationStatus.bottom) this.onCurrentOperation(2);
         if (this.operationStatus.left) this.onCurrentOperation(3);
         if (this.player.current.fireStatus === 1) {
-            this.bulletLimit(5, 0);
+            this.bulletLimit(0, 5, 0);
             this.player.current.fireStatus = 0;
         }
         // 加特林模式控制速率及偏移角度随机
-        if(this.player.current.fireStatus === 2 && this.player.current.fireRate % 5 === 0) {
-            this.bulletLimit(20, 8 - Math.random() * 16);
+        if (this.player.current.fireStatus === 2 && this.player.current.fireRate % 5 === 0) {
+            this.bulletLimit(1, 20, 8 - Math.random() * 16);
         }
         this.player.current.fireRate++;
         this.onViceOperation()
@@ -102,7 +104,7 @@ export default class NewClass extends cc.Component {
                 this.player.vice.actionList.splice(0, 1);
             }
             if (this.player.vice.actionList[0] && this.player.vice.actionList[0].type === 1) {
-                var bullet = this.generateBullet(this.player.vice.actionList[0])
+                var bullet = this.generateBullet(this.player.vice.actionList[0], 1)
                 this.player.vice.node.parent.addChild(bullet);
                 this.player.vice.actionList.splice(0, 1);
             }
@@ -154,7 +156,37 @@ export default class NewClass extends cc.Component {
         var _self = this;
         var node = this.node.getChildByName('fire');
         node.on(cc.Node.EventType.TOUCH_START, function (event) {
-            _self.player.current.fireStatus = 2;
+            // 普通炮弹类型
+            if (_self.player.current.buttleType === 0) {
+                _self.player.current.fireStatus = 1;
+            } else if (_self.player.current.buttleType === 1) { // 加特林道具
+                _self.player.current.fireStatus = 2;
+            } else if (_self.player.current.buttleType === 6) {
+                var bullet = _self.generateBullet({
+                    name: `tank_buttle_${_self.player.current.node.name.substring(5, 6)}_${_self.player.current.bulletLimit}`,
+                    bulletType: 6,
+                    scale: _self.player.current.node.scale,
+                    rotation: _self.player.current.node.rotation,
+                    x: _self.player.current.node.x,
+                    y: _self.player.current.node.y
+                }, 0);
+                _self.sendOperationData({
+                    type: 1,
+                    bulletType: 6,
+                    name: bullet.name,
+                    scale: bullet.scale,
+                    x: bullet.x,
+                    y: bullet.y,
+                    rotation: bullet.rotation
+                });
+                _self.player.current.node.parent.addChild(bullet);
+            }
+        })
+        node.on(cc.Node.EventType.TOUCH_END, function (event) {
+            _self.player.current.fireStatus = 0
+        })
+        node.on(cc.Node.EventType.TOUCH_CANCEL, function (event) {
+            _self.player.current.fireStatus = 0
         })
     }
     // 子弹发射出口生成位置计算
@@ -170,16 +202,28 @@ export default class NewClass extends cc.Component {
             y: y
         }
     }
-    generateBullet(data) {
-        var bullet = cc.instantiate(this.bullet);
+    generateBullet(data, type) {
+        var bullet: cc.Node;
+        if (data.bulletType === 1 || data.bulletType === 0) {
+            bullet = cc.instantiate(this.bullet);
+            bullet.setPosition(data.x, data.y);
+        }
+        if (data.bulletType === 6) {
+            if (type === 0) {
+                bullet = cc.instantiate(this.bullet6);
+                bullet.setPosition(this.player.current.node.x, this.player.current.node.y);
+            } else {
+                bullet = cc.instantiate(this.bullet6);
+                bullet.setPosition(this.player.vice.node.x, this.player.vice.node.y);
+            }
+        }
         bullet.name = data.name;
         bullet.scale = data.scale;
         bullet.rotation = data.rotation;
-        bullet.setPosition(data.x, data.y);
         return bullet;
     }
     // 子弹数量控制
-    bulletLimit(maxNumber, offset) {
+    bulletLimit(bulletType, maxNumber, offset) {
         var len = 0;
         this.player.current.node.parent.children.map((node) => {
             if (node.name.length > 11) {
@@ -191,15 +235,17 @@ export default class NewClass extends cc.Component {
             var point = this.bulletLocation();
             var data = {
                 name: `tank_buttle_${this.player.current.node.name.substring(5, 6)}_${this.player.current.bulletLimit}`,
+                bulletType: bulletType,
                 scale: this.player.current.node.scale,
                 rotation: this.player.current.node.rotation + offset,
                 x: point.x,
                 y: point.y
             }
-            var bullet = this.generateBullet(data);
+            var bullet = this.generateBullet(data, 0);
             this.player.current.node.parent.addChild(bullet);
             this.sendOperationData({
                 type: 1,
+                bulletType: bulletType,
                 name: bullet.name,
                 scale: bullet.scale,
                 x: bullet.x,

@@ -45,7 +45,7 @@ export default class NewClass extends cc.Component {
     start() {
         var self = this;
         this.HomePage = cc.find('Canvas/HomePagePanel');
-        this.userData = this.HomePage.getComponent(HomePageCtrl).UserData;
+        this.userData = this.HomePage.getComponent(HomePageCtrl).userInfo;
         cc.loader.load({ url: self.userData.headimgurl, type: 'png' }, function (err, texture) {
             self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
         })

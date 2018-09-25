@@ -21,69 +21,33 @@ var NewClass = /** @class */ (function (_super) {
         _this.Boom = null;
         // webScoket脚本
         _this.WebScoket = null;
-        _this.flag = true;
         return _this;
     }
     NewClass.prototype.start = function () {
-        this.playerRg = this.getComponent(cc.RigidBody);
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
     };
     NewClass.prototype.onBeginContact = function (contact, selfCollider, otherCollider) {
-        var self = this;
-        if (this.flag) {
-            var othername = otherCollider.node.name.substring(5, 11);
-            var loser = this.node.name;
+        var otherName = otherCollider.node.name.substring(5, 11);
+        if (otherName === 'buttle') {
             var scoreType = 0;
-            if (othername === 'buttle') {
-                if (cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation')) {
-                    cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation').destroy();
+            if (this.node.name === 'tank_1')
+                scoreType = 1;
+            this.WebScoket.sendMessage({
+                msg: 25,
+                data: {
+                    scoreType: scoreType,
+                    buttleName: otherCollider.node.name
                 }
-                this.flag = false;
-                var x = selfCollider.node.x;
-                var y = selfCollider.node.y;
-                var parent = selfCollider.node.parent;
-                var boom = cc.instantiate(this.Boom);
-                boom.setPosition(x, y);
-                parent.addChild(boom);
-                otherCollider.node.destroy();
-                selfCollider.node.destroy();
-                if (loser === 'tank_1') {
-                    scoreType = 1;
-                }
-                this.WebScoket.sendMessage({
-                    msg: 25,
-                    data: {
-                        scoreType: scoreType,
-                        buttleName: otherCollider.node.name
-                    }
-                });
-                // this.WebScoket.sendMessage({
-                //     msg: 27
-                // })
-                // if (cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).playerName === 'tank_1') {
-                //     setTimeout(() => {
-                //         cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).restart();
-                //     }, 2000);
-                // }
-            }
+            });
         }
     };
     NewClass.prototype.gameOver = function (response) {
-        if (cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation')) {
+        if (cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation'))
             cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').parent.getChildByName('operation').destroy();
-        }
-        var x = this.node.x;
-        var y = this.node.y;
-        var parent = this.node.parent;
         var boom = cc.instantiate(this.Boom);
-        boom.setPosition(x, y);
-        parent.addChild(boom);
+        boom.setPosition(this.node.x, this.node.y);
+        this.node.parent.addChild(boom);
         this.node.destroy();
-        // if (cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).playerName === 'tank_1') {
-        //     setTimeout(() => {
-        //         cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).restart();
-        //     }, 2000);
-        // }
     };
     __decorate([
         property(cc.Prefab)

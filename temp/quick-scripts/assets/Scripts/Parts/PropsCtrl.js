@@ -42,9 +42,8 @@ var NewClass = /** @class */ (function (_super) {
         var _this = this;
         var self = this;
         this.nodeDestoryTime = setTimeout(function () {
-            if (!_this.node) {
+            if (!_this.node)
                 return;
-            }
             self.node.opacity = 20;
             setTimeout(function () {
                 self.node.opacity = 200;

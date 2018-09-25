@@ -32,9 +32,7 @@ export default class NewClass extends cc.Component {
     onNodeTwinkle() {
         var self = this;
         this.nodeDestoryTime = setTimeout(() => {
-            if(!this.node){
-                return
-            } 
+            if(!this.node) return;
             self.node.opacity = 20;
             setTimeout(() => {
                 self.node.opacity = 200;

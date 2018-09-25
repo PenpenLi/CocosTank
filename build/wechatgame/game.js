@@ -4,5 +4,5 @@ window.DOMParser = Parser.DOMParser;
 require('libs/wx-downloader.js');
 wxDownloader.REMOTE_SERVER_ROOT = "http://app.ei-marketing.net/Tank_resources";
 wxDownloader.SUBCONTEXT_ROOT = "";
-require('src/settings.b556c');
-require('main.685cc');
+require('src/settings.53867');
+require('main.a1363');

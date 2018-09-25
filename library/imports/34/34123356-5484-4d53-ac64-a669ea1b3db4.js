@@ -15,16 +15,31 @@ var NewClass = /** @class */ (function (_super) {
         _this.bgSound = null;
         _this.IsSound = true; //是否开启音效
         _this.ping = null;
-        _this.UserData = {};
         _this.enemyUserData = {};
         _this.WebScoketNode = null;
+        _this.userInfo = {
+            openid: '',
+            nickname: '',
+            headimgurl: ''
+        };
+        _this.WebSocket = null;
         return _this;
     }
     NewClass.prototype.start = function () {
+        var _self = this;
+        this.WebSocket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
         // wx.showShareMenu();
         // wx.login({
         //     success: function(res) {
-        //         console.log(res)
+        //         var xhr = new XMLHttpRequest();
+        //         xhr.onreadystatechange = function() {
+        //             if(xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 400)) {
+        //                 var response = JSON.parse(xhr.responseText);
+        //                 _self.userInfo.openid = response.openid;
+        //             }
+        //         }
+        //         xhr.open('GET', `http://172.17.0.13:8080/tankWar/acceputJSCODE.do?JSCODE=${res.code}`, true);
+        //         xhr.send();
         //     }
         // })
         // wx.authorize({ scope: 'scope.userInfo' })
@@ -35,15 +50,26 @@ var NewClass = /** @class */ (function (_super) {
      * 点击开始
      */
     NewClass.prototype.OnClickStartButton = function () {
+        var _self = this;
+        console.log(_self.userInfo, '===');
         // wx.shareAppMessage({
         //     title: '转发标题'
         // })
         // wx.getSetting({
         //     success: function(res) {
+        //         console.log(_self.userInfo)
         //         if(res.authSetting['scope.userInfo']) {
         //             wx.getUserInfo({
         //                 success: function(res) {
-        //                     console.log(res)
+        //                     res = res.userInfo;
+        //                     _self.userInfo.nickname = res.nickName
+        //                     _self.userInfo.headimgurl = res.avatarUrl
+        //                     console.log(_self.userInfo)
+        //                     var xhr = new XMLHttpRequest();
+        //                     xhr.onreadystatechange = function() {
+        //                     }
+        //                     xhr.open('GET', `http://172.17.0.13:8080/tankWar/wechatUserinfo.do?openid=${_self.userInfo.openid}&nickname=${_self.userInfo.nickname}&headimgurl=${_self.userInfo.headimgurl}`, true);
+        //                     xhr.send();
         //                 }
         //             })
         //         }
@@ -52,8 +78,7 @@ var NewClass = /** @class */ (function (_super) {
         //         console.log(res)
         //     }
         // })
-        var webscoket = this.WebScoketNode.getComponent(WebSocketManage_1.default);
-        webscoket.sendMessage({ msg: 1 });
+        _self.WebSocket.sendMessage({ msg: 1 });
     };
     /**
      * 点击声音按钮
@@ -86,7 +111,7 @@ var NewClass = /** @class */ (function (_super) {
         }
     };
     NewClass.prototype.getUserData = function (response) {
-        this.UserData = response.data;
+        this.userInfo = response.data;
         var lobbyPanelPage = cc.instantiate(this.lobbyPanel);
         lobbyPanelPage.parent = this.node.parent;
         this.enabled = false;

@@ -73,8 +73,6 @@ export default class BattleCtrl extends cc.Component {
     public playerName = 'tank_1'
     // 根据双方玩家位置生成的区间数组
     public setArray = null;
-    // 道具刷新区间
-    private propsInterval = [];
     @property(cc.Prefab)
     private props: cc.Prefab = null;
     // 主玩家头像
@@ -107,7 +105,7 @@ export default class BattleCtrl extends cc.Component {
     private propsTime = null;
     // 道具图标列表
     private propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_6'];
-    
+
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
@@ -141,7 +139,7 @@ export default class BattleCtrl extends cc.Component {
             point: Math.random() * this.cells >> 0,
             rotation: Math.random() * 180 >> 0
         });
-        if (this.player[0].point === this.player[1].point) {
+        if (this.player[0].point - this.player[1].point > -3 && this.player[0].point - this.player[1].point < 3) {
             this.initPlayerPoint()
         }
     }
@@ -284,7 +282,7 @@ export default class BattleCtrl extends cc.Component {
     // 生成道具
     public genearteProp(point, rotation, type) {
         var prop = cc.instantiate(this.props);
-        cc.loader.loadRes(type, cc.SpriteFrame, function(err, spriteFrame) {
+        cc.loader.loadRes(type, cc.SpriteFrame, function (err, spriteFrame) {
             prop.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         })
         prop.zIndex = 5;
@@ -295,16 +293,18 @@ export default class BattleCtrl extends cc.Component {
     }
     // 获取道具可生成区域
     propsRefreshInterval() {
-        this.propsInterval = [];
+        var propsInterval = [];
+        var propsLocationList = [];
         clearInterval(this.propsTime)
         var interval = this.setArray[this.player[0].point];
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i] === interval) {
-                this.propsInterval.push(i);
+                propsInterval.push(i);
             }
         }
         this.propsTime = setInterval(() => {
-            var point = this.propsInterval[Math.random() * this.propsInterval.length >> 0];
+            var point = this.propLocation(propsInterval, propsLocationList);
+            propsLocationList.push(point);
             var rotation = Math.random() * 360 >> 0;
             var propType = this.propsList[Math.random() * this.propsList.length >> 0]
             this.webScoket.sendMessage({
@@ -317,6 +317,22 @@ export default class BattleCtrl extends cc.Component {
             })
             this.genearteProp(point, rotation, propType);
         }, 5000)
+        setTimeout(() => {
+            setInterval(() => {
+                if(propsLocationList.length !== 0) {
+                    propsLocationList.splice(0, 1);
+                }
+            }, 5000)
+        }, 12000)
+    }
+    propLocation(regionList, currentList) {
+        var point = regionList[Math.random() * regionList.length >> 0];
+        console.log(point, currentList)
+        if (currentList.indexOf(point) === -1) { 
+            return point;
+        } else {
+            return this.propLocation(regionList, currentList);
+        }
     }
     // 点击再來一局修改准备状态
     onClickRestart() {
@@ -329,7 +345,7 @@ export default class BattleCtrl extends cc.Component {
     public initScore(type) {
         var self = this;
         var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl);
-        var userData = homePageCtrl.UserData;
+        var userData = homePageCtrl.userInfo;
         var enemyUserData = homePageCtrl.enemyUserData;
         // 该玩家是主玩家
         if (type === 0) {
@@ -353,7 +369,7 @@ export default class BattleCtrl extends cc.Component {
             self.MainPlayerName.getComponent(cc.Label).string = enemyUserData.nickname;
         }
     }
-    _onRemoveNode(){
+    _onRemoveNode() {
         this.TopCell.removeAllChildren();
         this.LeftCell.removeAllChildren();
         this.RightCell.removeAllChildren();

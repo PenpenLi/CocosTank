@@ -41,9 +41,9 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.start = function () {
         var self = this;
         this.HomePage = cc.find('Canvas/HomePagePanel');
-        var homePage = this.HomePage.getComponent(HomePageCtrl_1.default).UserData;
-        this.userName.getComponent(cc.Label).string = homePage.nickname;
-        cc.loader.load({ url: homePage.headimgurl, type: 'png' }, function (err, texture) {
+        var homePage = this.HomePage.getComponent(HomePageCtrl_1.default);
+        this.userName.getComponent(cc.Label).string = homePage.userInfo.nickname;
+        cc.loader.load({ url: homePage.userInfo.headimgurl, type: 'png' }, function (err, texture) {
             self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
         });
     };
