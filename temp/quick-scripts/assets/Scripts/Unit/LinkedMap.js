@@ -33,7 +33,6 @@ var LinkedMap = /** @class */ (function () {
             }
         }
         this.setArray = this.unionSets.setArray;
-        console.log(this.setArray);
         return this.linkedMap;
     };
     LinkedMap.prototype.playerLinked = function () {

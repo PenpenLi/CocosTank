@@ -19,16 +19,14 @@ var NewClass = /** @class */ (function (_super) {
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.WebScoket = null;
-        _this.speedX = 5;
-        _this.speedY = 5;
         return _this;
     }
     NewClass.prototype.start = function () {
-        this.buttle = this.node.getComponent(cc.RigidBody);
+        this.bullet = this.node.getComponent(cc.RigidBody);
         var speed = 500;
         var x = speed * Math.sin(Math.PI * this.node.rotation / 180);
         var y = speed * Math.cos(Math.PI * this.node.rotation / 180);
-        this.buttle.linearVelocity = new cc.Vec2(x, y);
+        this.bullet.linearVelocity = new cc.Vec2(x, y);
         var self = this;
         this.WebScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         setTimeout(function () {

@@ -13,7 +13,7 @@
       "id": "3d70340c-0e1a-4522-be4b-e006f7d64690"
     },
     {
-      "folded": true,
+      "folded": false,
       "id": "8431b4ee-4683-4a39-a2f5-7f3a2ef5bbeb"
     },
     {
@@ -335,6 +335,10 @@
     {
       "folded": true,
       "id": "22001fdf-7a64-4c73-98e8-ea61144783de"
+    },
+    {
+      "folded": true,
+      "id": "2c14141a-0b90-4de3-8fde-c89afe43a6ba"
     }
   ]
 }

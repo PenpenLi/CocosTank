@@ -17,7 +17,6 @@ export default class NewClass extends cc.Component {
     private nodeDestoryTime = null;
     start () {
         var self = this;
-        console.log(this.node.name)
         setTimeout(() => {
             self.onNodeTwinkle();
             setTimeout(() => {

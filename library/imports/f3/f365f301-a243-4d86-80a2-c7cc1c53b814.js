@@ -35,7 +35,6 @@ var Transfer = /** @class */ (function (_super) {
     // 主玩家
     // 获取用户信息
     Transfer.prototype.getUserDataForHomePageCtrl = function (res) {
-        console.log(res);
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
@@ -43,7 +42,6 @@ var Transfer = /** @class */ (function (_super) {
     };
     // 切换匹配状态
     Transfer.prototype.generateMapForHomePageCtrl = function (res) {
-        console.log(res);
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);

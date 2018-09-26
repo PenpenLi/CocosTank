@@ -78,7 +78,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.ready = null;
         _this.propsTime = null;
         // 道具图标列表
-        _this.propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_6'];
+        _this.propsList = ['prop_1', 'prop_3', 'prop_6'];
         return _this;
     }
     BattleCtrl.prototype.start = function () {
@@ -112,7 +112,7 @@ var BattleCtrl = /** @class */ (function (_super) {
             point: Math.random() * this.cells >> 0,
             rotation: Math.random() * 180 >> 0
         });
-        if (this.player[0].point - this.player[1].point > -3 && this.player[0].point - this.player[1].point < 3) {
+        if (this.player[0].point - this.player[1].point > -10 && this.player[0].point - this.player[1].point < 10) {
             this.initPlayerPoint();
         }
     };
@@ -300,7 +300,6 @@ var BattleCtrl = /** @class */ (function (_super) {
     };
     BattleCtrl.prototype.propLocation = function (regionList, currentList) {
         var point = regionList[Math.random() * regionList.length >> 0];
-        console.log(point, currentList);
         if (currentList.indexOf(point) === -1) {
             return point;
         }

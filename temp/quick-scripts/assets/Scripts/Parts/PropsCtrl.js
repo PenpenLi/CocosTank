@@ -26,7 +26,6 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.start = function () {
         var _this = this;
         var self = this;
-        console.log(this.node.name);
         setTimeout(function () {
             self.onNodeTwinkle();
             setTimeout(function () {

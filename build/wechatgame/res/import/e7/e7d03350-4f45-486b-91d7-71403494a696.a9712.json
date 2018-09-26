@@ -1,0 +1,21 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "round_4",
+    "texture": "212vufmVRBvYWYPVM9NG1p",
+    "rect": [
+      0,
+      0,
+      187,
+      187
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      187,
+      187
+    ]
+  }
+}

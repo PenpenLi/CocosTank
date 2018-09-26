@@ -5,6 +5,7 @@ cc._RF.push(module, 'b0f88TROJ1H/aPIf2SVhwDA', 'PlayerOperationCtrl', __filename
 Object.defineProperty(exports, "__esModule", { value: true });
 var BattleCtrl_1 = require("../Page/BattleCtrl");
 var WebSocketManage_1 = require("../Unit/WebSocketManage");
+var Buttle3Ctrl_1 = require("./Buttle3Ctrl");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
@@ -12,6 +13,8 @@ var NewClass = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.bullet = null;
         _this.bullet6 = null;
+        _this.bullet3 = null;
+        _this.currentSpecialBullet = null;
         // 战斗区域节点
         _this.BattleRegion = null;
         // WebSocket节点
@@ -175,7 +178,7 @@ var NewClass = /** @class */ (function (_super) {
             else if (_self.player.current.buttleType === 1) { // 加特林道具
                 _self.player.current.fireStatus = 2;
             }
-            else if (_self.player.current.buttleType === 6) {
+            else if (_self.player.current.buttleType === 6) { // 地雷
                 var bullet = _self.generateBullet({
                     name: "tank_buttle_" + _self.player.current.node.name.substring(5, 6) + "_" + _self.player.current.bulletLimit,
                     bulletType: 6,
@@ -194,6 +197,32 @@ var NewClass = /** @class */ (function (_super) {
                     rotation: bullet.rotation
                 });
                 _self.player.current.node.parent.addChild(bullet);
+            }
+            else if (_self.player.current.buttleType === 3) { // 重弹
+                var point = _self.bulletLocation();
+                var bullet = _self.generateBullet({
+                    name: "tank_buttle3",
+                    bulletType: 3,
+                    scale: _self.player.current.node.scale,
+                    rotation: _self.player.current.node.rotation,
+                    x: point.x,
+                    y: point.y
+                }, 0);
+                _self.currentSpecialBullet = bullet.getComponent(Buttle3Ctrl_1.default);
+                _self.player.current.buttleType = 31;
+                _self.sendOperationData({
+                    type: 1,
+                    bulletType: 3,
+                    name: bullet.name,
+                    scale: bullet.scale,
+                    x: bullet.x,
+                    y: bullet.y,
+                    rotation: bullet.rotation
+                });
+                _self.player.current.node.parent.addChild(bullet);
+            }
+            else if (_self.player.current.buttleType === 31) {
+                _self.currentSpecialBullet.boom();
             }
         });
         node.on(cc.Node.EventType.TOUCH_END, function (event) {
@@ -216,6 +245,10 @@ var NewClass = /** @class */ (function (_super) {
             y: y
         };
     };
+    /**
+     * data: 自带属性
+     * type: 0为我方生成否则为敌方生成
+     */
     NewClass.prototype.generateBullet = function (data, type) {
         var bullet;
         if (data.bulletType === 1 || data.bulletType === 0) {
@@ -231,6 +264,10 @@ var NewClass = /** @class */ (function (_super) {
                 bullet = cc.instantiate(this.bullet6);
                 bullet.setPosition(this.player.vice.node.x, this.player.vice.node.y);
             }
+        }
+        if (data.bulletType === 3) {
+            bullet = cc.instantiate(this.bullet3);
+            bullet.setPosition(data.x, data.y);
         }
         bullet.name = data.name;
         bullet.scale = data.scale;
@@ -279,6 +316,9 @@ var NewClass = /** @class */ (function (_super) {
     __decorate([
         property(cc.Prefab)
     ], NewClass.prototype, "bullet6", void 0);
+    __decorate([
+        property(cc.Prefab)
+    ], NewClass.prototype, "bullet3", void 0);
     NewClass = __decorate([
         ccclass
     ], NewClass);

@@ -24,7 +24,6 @@ export default class LinkedMap {
       }
     }
     this.setArray = this.unionSets.setArray
-    console.log(this.setArray)
     return this.linkedMap;
   }
   playerLinked() {

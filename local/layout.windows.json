@@ -43,7 +43,7 @@
                 "children": [
                   "scene"
                 ],
-                "height": 699,
+                "height": 693.984375,
                 "type": "panel",
                 "width": 1387
               },
@@ -53,7 +53,7 @@
                   "console",
                   "timeline"
                 ],
-                "height": 226,
+                "height": 231,
                 "type": "panel",
                 "width": 1387
               }
@@ -82,7 +82,8 @@
         "scene",
         "timeline"
       ]
-    }
+    },
+    "window-1537932370393": {}
   },
   "panels": {
     "project-settings": {

@@ -104,7 +104,7 @@ export default class BattleCtrl extends cc.Component {
     public ready: cc.Node = null;
     private propsTime = null;
     // 道具图标列表
-    private propsList = ['prop_1', 'prop_2', 'prop_3', 'prop_6'];
+    private propsList = ['prop_1', 'prop_3', 'prop_6'];
 
     start() {
         this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
@@ -139,7 +139,7 @@ export default class BattleCtrl extends cc.Component {
             point: Math.random() * this.cells >> 0,
             rotation: Math.random() * 180 >> 0
         });
-        if (this.player[0].point - this.player[1].point > -3 && this.player[0].point - this.player[1].point < 3) {
+        if (this.player[0].point - this.player[1].point > -10 && this.player[0].point - this.player[1].point < 10) {
             this.initPlayerPoint()
         }
     }
@@ -327,7 +327,6 @@ export default class BattleCtrl extends cc.Component {
     }
     propLocation(regionList, currentList) {
         var point = regionList[Math.random() * regionList.length >> 0];
-        console.log(point, currentList)
         if (currentList.indexOf(point) === -1) { 
             return point;
         } else {

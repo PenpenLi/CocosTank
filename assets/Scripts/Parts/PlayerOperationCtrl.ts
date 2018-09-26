@@ -1,5 +1,6 @@
 import BattleCtrl from '../Page/BattleCtrl';
 import WebSocketManage from '../Unit/WebSocketManage';
+import Bullet3 from './Buttle3Ctrl';
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -8,6 +9,10 @@ export default class NewClass extends cc.Component {
     private bullet: cc.Prefab = null;
     @property(cc.Prefab)
     private bullet6: cc.Prefab = null;
+    @property(cc.Prefab)
+    private bullet3: cc.Prefab = null;
+
+    private currentSpecialBullet = null;
     // 战斗区域节点
     private BattleRegion: cc.Node = null;
     // WebSocket节点
@@ -161,7 +166,7 @@ export default class NewClass extends cc.Component {
                 _self.player.current.fireStatus = 1;
             } else if (_self.player.current.buttleType === 1) { // 加特林道具
                 _self.player.current.fireStatus = 2;
-            } else if (_self.player.current.buttleType === 6) {
+            } else if (_self.player.current.buttleType === 6) { // 地雷
                 var bullet = _self.generateBullet({
                     name: `tank_buttle_${_self.player.current.node.name.substring(5, 6)}_${_self.player.current.bulletLimit}`,
                     bulletType: 6,
@@ -180,6 +185,30 @@ export default class NewClass extends cc.Component {
                     rotation: bullet.rotation
                 });
                 _self.player.current.node.parent.addChild(bullet);
+            } else if(_self.player.current.buttleType === 3) { // 重弹
+                var point = _self.bulletLocation();
+                var bullet = _self.generateBullet({
+                    name: `tank_buttle3`,
+                    bulletType: 3,
+                    scale: _self.player.current.node.scale,
+                    rotation: _self.player.current.node.rotation,
+                    x: point.x,
+                    y: point.y
+                }, 0)
+                _self.currentSpecialBullet = bullet.getComponent(Bullet3);
+                _self.player.current.buttleType = 31;
+                _self.sendOperationData({
+                    type: 1,
+                    bulletType: 3,
+                    name: bullet.name,
+                    scale: bullet.scale,
+                    x: bullet.x,
+                    y: bullet.y,
+                    rotation: bullet.rotation
+                });
+                _self.player.current.node.parent.addChild(bullet);
+            } else if(_self.player.current.buttleType === 31) {
+                _self.currentSpecialBullet.boom();
             }
         })
         node.on(cc.Node.EventType.TOUCH_END, function (event) {
@@ -202,7 +231,11 @@ export default class NewClass extends cc.Component {
             y: y
         }
     }
-    generateBullet(data, type) {
+    /**
+     * data: 自带属性
+     * type: 0为我方生成否则为敌方生成
+     */
+    public generateBullet(data, type) {
         var bullet: cc.Node;
         if (data.bulletType === 1 || data.bulletType === 0) {
             bullet = cc.instantiate(this.bullet);
@@ -216,6 +249,10 @@ export default class NewClass extends cc.Component {
                 bullet = cc.instantiate(this.bullet6);
                 bullet.setPosition(this.player.vice.node.x, this.player.vice.node.y);
             }
+        }
+        if(data.bulletType === 3) {
+            bullet = cc.instantiate(this.bullet3);
+            bullet.setPosition(data.x, data.y);
         }
         bullet.name = data.name;
         bullet.scale = data.scale;

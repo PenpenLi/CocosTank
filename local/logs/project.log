@@ -1,54 +1,132 @@
-2018-09-25T02:08:04.797Z - normal: Load ~/.CocosCreator/settings.json
-2018-09-25T02:08:04.807Z - normal: checking language setting...
-2018-09-25T02:08:04.807Z - normal: Language: zh
-2018-09-25T02:08:18.814Z - success: protocol editor-framework registered
-2018-09-25T02:08:18.814Z - success: protocol app registered
-2018-09-25T02:08:18.814Z - success: protocol theme registered
-2018-09-25T02:08:18.814Z - success: protocol packages registered
-2018-09-25T02:08:18.814Z - success: protocol unpack registerred
-2018-09-25T02:08:18.814Z - success: protocol disable-commonjs registerred
-2018-09-25T02:08:19.044Z - normal: connected!
-2018-09-25T02:08:19.044Z - normal: Check project D:\Git_rep\CocosTank
-2018-09-25T02:08:19.044Z - normal: Initializing Cocos2d
-2018-09-25T02:08:19.214Z - normal: Initializing Asset Database
-2018-09-25T02:08:19.534Z - success: protocol uuid registerred
-2018-09-25T02:08:19.534Z - success: protocol db registerred
-2018-09-25T02:08:19.534Z - success: protocol thumbnail registerred
-2018-09-25T02:08:19.534Z - normal: Loading editor/builtin packages
-2018-09-25T02:08:19.604Z - success: anysdk loaded
-2018-09-25T02:08:19.804Z - success: assets loaded
-2018-09-25T02:08:19.814Z - success: builder loaded
-2018-09-25T02:08:19.814Z - success: cocos-analytics loaded
-2018-09-25T02:08:19.814Z - success: console loaded
-2018-09-25T02:08:19.914Z - success: fb-instant-games loaded
-2018-09-25T02:08:19.944Z - success: hierarchy loaded
-2018-09-25T02:08:19.954Z - success: inspector loaded
-2018-09-25T02:08:19.954Z - success: keystore loaded
-2018-09-25T02:08:19.954Z - success: node-library loaded
-2018-09-25T02:08:19.954Z - success: package-asset loaded
-2018-09-25T02:08:19.954Z - success: preferences loaded
-2018-09-25T02:08:19.954Z - success: project-exporter loaded
-2018-09-25T02:08:19.974Z - success: project-importer loaded
-2018-09-25T02:08:19.974Z - success: project-settings loaded
-2018-09-25T02:08:19.974Z - success: ui-kit loaded
-2018-09-25T02:08:19.984Z - success: ui-grid loaded
-2018-09-25T02:08:19.984Z - success: scene loaded
-2018-09-25T02:08:19.984Z - success: sprite-editor loaded
-2018-09-25T02:08:19.994Z - success: store loaded
-2018-09-25T02:08:19.994Z - success: timeline loaded
-2018-09-25T02:08:19.994Z - normal: Loading builtin packages
-2018-09-25T02:08:19.994Z - success: asset-db-debugger loaded
-2018-09-25T02:08:19.994Z - success: code-editor loaded
-2018-09-25T02:08:20.004Z - success: color-picker loaded
-2018-09-25T02:08:20.004Z - success: package-manager loaded
-2018-09-25T02:08:20.014Z - success: sdkbox loaded
-2018-09-25T02:08:20.014Z - success: tester loaded
-2018-09-25T02:08:20.014Z - success: ui-kit-preview-extra loaded
-2018-09-25T02:08:20.014Z - success: ui-kit-preview loaded
-2018-09-25T02:08:20.014Z - success: ui-tree loaded
-2018-09-25T02:08:20.844Z - normal: Initializing project D:\Git_rep\CocosTank
-2018-09-25T02:08:20.864Z - normal: Loading packages
-2018-09-25T02:08:20.864Z - normal: Watching packages
-2018-09-25T02:08:20.914Z - normal: Run Application
-2018-09-25T02:08:22.824Z - success: preview server running at http://localhost:7456
-2018-09-25T02:08:27.841Z - normal: 1.9.1
+2018-09-26T02:16:43.891Z - normal: Load ~/.CocosCreator/settings.json
+2018-09-26T02:16:43.894Z - normal: checking language setting...
+2018-09-26T02:16:43.894Z - normal: Language: zh
+2018-09-26T02:16:49.272Z - success: protocol editor-framework registered
+2018-09-26T02:16:49.272Z - success: protocol app registered
+2018-09-26T02:16:49.272Z - success: protocol theme registered
+2018-09-26T02:16:49.272Z - success: protocol packages registered
+2018-09-26T02:16:49.272Z - success: protocol unpack registerred
+2018-09-26T02:16:49.272Z - success: protocol disable-commonjs registerred
+2018-09-26T02:16:49.561Z - normal: connected!
+2018-09-26T02:16:49.561Z - normal: Check project D:\Git_rep\CocosTank
+2018-09-26T02:16:49.563Z - normal: Initializing Cocos2d
+2018-09-26T02:16:51.975Z - normal: Initializing Asset Database
+2018-09-26T02:16:52.577Z - success: protocol uuid registerred
+2018-09-26T02:16:52.577Z - success: protocol db registerred
+2018-09-26T02:16:52.577Z - success: protocol thumbnail registerred
+2018-09-26T02:16:52.577Z - normal: Loading editor/builtin packages
+2018-09-26T02:16:52.982Z - success: anysdk loaded
+2018-09-26T02:16:53.752Z - success: assets loaded
+2018-09-26T02:16:53.788Z - success: builder loaded
+2018-09-26T02:16:53.812Z - success: cocos-analytics loaded
+2018-09-26T02:16:53.844Z - success: console loaded
+2018-09-26T02:16:53.887Z - success: fb-instant-games loaded
+2018-09-26T02:16:53.892Z - success: hierarchy loaded
+2018-09-26T02:16:53.906Z - success: inspector loaded
+2018-09-26T02:16:53.931Z - success: keystore loaded
+2018-09-26T02:16:53.943Z - success: node-library loaded
+2018-09-26T02:16:53.958Z - success: package-asset loaded
+2018-09-26T02:16:53.968Z - success: preferences loaded
+2018-09-26T02:16:53.983Z - success: project-exporter loaded
+2018-09-26T02:16:54.092Z - success: project-importer loaded
+2018-09-26T02:16:54.094Z - success: project-settings loaded
+2018-09-26T02:16:54.118Z - success: ui-kit loaded
+2018-09-26T02:16:54.149Z - success: ui-grid loaded
+2018-09-26T02:16:54.190Z - success: scene loaded
+2018-09-26T02:16:54.191Z - success: sprite-editor loaded
+2018-09-26T02:16:54.196Z - success: store loaded
+2018-09-26T02:16:54.200Z - success: timeline loaded
+2018-09-26T02:16:54.201Z - normal: Loading builtin packages
+2018-09-26T02:16:54.212Z - success: asset-db-debugger loaded
+2018-09-26T02:16:54.213Z - success: code-editor loaded
+2018-09-26T02:16:54.240Z - success: color-picker loaded
+2018-09-26T02:16:54.256Z - success: package-manager loaded
+2018-09-26T02:16:54.301Z - success: sdkbox loaded
+2018-09-26T02:16:54.314Z - success: tester loaded
+2018-09-26T02:16:54.315Z - success: ui-kit-preview-extra loaded
+2018-09-26T02:16:54.316Z - success: ui-kit-preview loaded
+2018-09-26T02:16:54.335Z - success: ui-tree loaded
+2018-09-26T02:16:59.755Z - normal: Initializing project D:\Git_rep\CocosTank
+2018-09-26T02:16:59.759Z - normal: Loading packages
+2018-09-26T02:16:59.762Z - normal: Watching packages
+2018-09-26T02:16:59.782Z - normal: Run Application
+2018-09-26T02:17:03.575Z - success: preview server running at http://localhost:7456
+2018-09-26T02:17:14.162Z - normal: 1.9.1
+2018-09-26T03:26:21.976Z - normal: Start building with options : {
+  "androidStudio": true,
+  "apiLevel": "",
+  "appABIs": [],
+  "appKey": "",
+  "appSecret": "",
+  "buildPath": "D:\\Git_rep\\CocosTank\\build",
+  "debug": true,
+  "dest": "D:\\Git_rep\\CocosTank\\build\\wechatgame",
+  "encryptJs": true,
+  "excludeScenes": [],
+  "excludedModules": [],
+  "fb-instant-games": {},
+  "includeAnySDK": false,
+  "includeEruda": false,
+  "includeSDKBox": false,
+  "inlineSpriteFrames": true,
+  "inlineSpriteFrames_native": true,
+  "jailbreakPlatform": false,
+  "md5Cache": true,
+  "mergeStartScene": false,
+  "oauthLoginServer": "",
+  "optimizeHotUpdate": false,
+  "orientation": {
+    "landscapeLeft": true,
+    "landscapeRight": true,
+    "portrait": false,
+    "upsideDown": false
+  },
+  "packageName": "org.cocos2d.Tank",
+  "platform": "wechatgame",
+  "previewHeight": "720",
+  "previewWidth": "1280",
+  "privateKey": "",
+  "qqplay": {
+    "REMOTE_SERVER_ROOT": "",
+    "orientation": "portrait"
+  },
+  "renderMode": "0",
+  "scenes": [
+    "872014b1-f25c-4cde-a654-afda14dea66c"
+  ],
+  "sourceMaps": false,
+  "startScene": "872014b1-f25c-4cde-a654-afda14dea66c",
+  "template": "link",
+  "title": "Tank",
+  "useDebugKeystore": true,
+  "vsVersion": "auto",
+  "webOrientation": "landscape",
+  "wechatgame": {
+    "REMOTE_SERVER_ROOT": "http://app.ei-marketing.net/Tank_resources",
+    "appid": "wxa5067d6a5dae5c1c",
+    "orientation": "landscape"
+  },
+  "xxteaKey": "c5422112-fb87-41",
+  "zipCompressJs": true,
+  "project": "D:\\Git_rep\\CocosTank",
+  "projectName": "Tank",
+  "debugBuildWorker": false
+}
+2018-09-26T03:26:21.978Z - normal: Building D:\Git_rep\CocosTank
+2018-09-26T03:26:21.978Z - normal: Destination D:\Git_rep\CocosTank\build\wechatgame
+2018-09-26T03:26:22.451Z - normal: Delete D:\Git_rep\CocosTank\build\wechatgame\**\*
+2018-09-26T03:26:25.301Z - normal: Compiled project javascript file successfully
+2018-09-26T03:26:25.302Z - normal: Start building assets
+2018-09-26T03:26:25.302Z - normal: Start spawn build-worker
+2018-09-26T03:26:25.921Z - normal: Finish spawn build-worker
+2018-09-26T03:26:25.921Z - normal: Start init build-worker
+2018-09-26T03:26:27.647Z - normal: 1.9.1
+2018-09-26T03:26:27.730Z - normal: Finish init build-worker
+2018-09-26T03:26:27.730Z - normal: Start build-assets in worker
+2018-09-26T03:26:28.831Z - normal: Finish build-assets in worker
+2018-09-26T03:26:28.842Z - normal: Finish building assets
+2018-09-26T03:26:28.876Z - normal: Start building raw assets
+2018-09-26T03:26:28.877Z - normal: Start building plugin scripts
+2018-09-26T03:26:29.068Z - normal: Finish building raw assets
+2018-09-26T03:26:29.092Z - normal: Generating main.js from D:\CocosCreator\resources\static\build-templates\shares\main.js
+2018-09-26T03:26:29.799Z - normal: Built to "D:\Git_rep\CocosTank\build\wechatgame" successfully
