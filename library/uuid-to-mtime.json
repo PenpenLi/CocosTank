@@ -40,7 +40,7 @@
     "relativePath": "prefab"
   },
   "8431b4ee-4683-4a39-a2f5-7f3a2ef5bbeb": {
-    "asset": 1537859031745,
+    "asset": 1537930024602,
     "meta": 1536114526567,
     "relativePath": "resources"
   },
@@ -95,8 +95,8 @@
     "relativePath": "Prefabs\\Page\\HomePagePanel.prefab"
   },
   "d8d4d2e1-4027-4988-aa59-41715d297310": {
-    "asset": 1537521783083,
-    "meta": 1537521783099,
+    "asset": 1538017478663,
+    "meta": 1538017478763,
     "relativePath": "Prefabs\\Page\\LobbyPanel.prefab"
   },
   "5d7c8cb7-9813-4f8a-bf5d-d5c025814ae8": {
@@ -555,8 +555,8 @@
     "relativePath": "Scripts\\Parts\\CellCtrl.ts"
   },
   "872014b1-f25c-4cde-a654-afda14dea66c": {
-    "asset": 1537947089283,
-    "meta": 1537947089297,
+    "asset": 1538017554494,
+    "meta": 1538017554503,
     "relativePath": "MainScenes.fire"
   },
   "3547cd03-9a5d-44d6-b390-a0a97fcc1bce": {
@@ -729,11 +729,6 @@
     "meta": 1537514817656,
     "relativePath": "Scripts\\Parts\\Buttle6Ctrl.ts"
   },
-  "8be5eb47-8f10-4527-ba32-e625e652adbc": {
-    "asset": 1537521673731,
-    "meta": 1537521675660,
-    "relativePath": "Scripts\\Page\\LobbyPageCtrl.ts"
-  },
   "1dbafb27-a8ee-41cd-a753-4f34d8a43569": {
     "asset": 1537845201017,
     "meta": 1537845259747,
@@ -820,8 +815,58 @@
     "relativePath": "Scripts\\Parts\\Buttle3Ctrl.ts"
   },
   "b0f884d1-389d-47fd-a3c8-7f64958700c0": {
-    "asset": 1537948002230,
-    "meta": 1537955398382,
+    "asset": 1538016003967,
+    "meta": 1538016013893,
     "relativePath": "Scripts\\Parts\\PlayerOperationCtrl.ts"
+  },
+  "475c4f5e-4f43-44ac-8e88-143081766698": {
+    "asset": 1538016313891,
+    "meta": 1538016313912,
+    "relativePath": "resources\\line.png"
+  },
+  "8d219e27-f83a-4149-8243-7fae07cb7a19": {
+    "asset": 1538016322110,
+    "meta": 1538016322123,
+    "relativePath": "resources\\button_7.png"
+  },
+  "f5f63f80-2957-41c6-9446-0ba9c4d7cff6": {
+    "asset": 1538016332449,
+    "meta": 1538016332459,
+    "relativePath": "resources\\button_8.png"
+  },
+  "d4f36b8a-bbb2-4a3d-b409-e60fbc05a9c6": {
+    "asset": 1538016342979,
+    "meta": 1538016342990,
+    "relativePath": "resources\\button_4.png"
+  },
+  "100dbef7-4562-4db5-964e-a074050cb72a": {
+    "asset": 1538016406185,
+    "meta": 1538016406196,
+    "relativePath": "resources\\icon_vs.png"
+  },
+  "c5f5c7b8-965d-4e09-b4e3-5fcc4462d9a2": {
+    "asset": 1538016458843,
+    "meta": 1538016458867,
+    "relativePath": "resources\\head_portrait_3_2.png"
+  },
+  "1e72b113-1217-4d8f-b06d-5c31095d12a2": {
+    "asset": 1538016524204,
+    "meta": 1538016524226,
+    "relativePath": "resources\\icon_time.png"
+  },
+  "be216670-7045-476f-a69f-466871d3e497": {
+    "asset": 1538017232254,
+    "meta": 1538017233259,
+    "relativePath": "Scripts\\Page\\FriendPageCtrl.ts"
+  },
+  "4fce9afd-87db-4dfc-a327-ee595379756c": {
+    "asset": 1538017576400,
+    "meta": 1538017576425,
+    "relativePath": "Prefabs\\Page\\FriendPagePanel.prefab"
+  },
+  "8be5eb47-8f10-4527-ba32-e625e652adbc": {
+    "asset": 1538017427845,
+    "meta": 1538017428661,
+    "relativePath": "Scripts\\Page\\LobbyPageCtrl.ts"
   }
 }

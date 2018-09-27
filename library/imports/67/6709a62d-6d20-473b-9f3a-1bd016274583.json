@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "head_portrait_3_2",
+    "texture": "c5f5c7b8-965d-4e09-b4e3-5fcc4462d9a2",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      370,
+      97
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      370,
+      97
+    ]
+  }
+}
