@@ -1,4 +1,5 @@
 import PlayerOperationCtrl from './PlayerOperationCtrl';
+import WebSocketManage from '../Unit/WebSocketManage';
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -13,9 +14,13 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class NewClass extends cc.Component {
+    private WebSocket: WebSocketManage = null;
     private bullet: cc.RigidBody;
     private OperationCtrl: PlayerOperationCtrl = null;
     start () {
+        var manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        this.WebSocket = cc.find('WebScoket').getComponent(WebSocketManage);
         var _self = this;
         this.OperationCtrl = cc.find('Canvas/BattlePagePanel/BattleBox/operation').getComponent(PlayerOperationCtrl);
         this.bullet = this.node.getComponent(cc.RigidBody);
@@ -23,6 +28,17 @@ export default class NewClass extends cc.Component {
         var x = speed * Math.sin(Math.PI * this.node.rotation / 180)
         var y = speed * Math.cos(Math.PI * this.node.rotation / 180)
         this.bullet.linearVelocity = new cc.Vec2(x, y);
+    }
+    onCollisionEnter(other, self) {
+        var scoreType = 0;
+        if(other.node.name === 'tank_1') scoreType = 1;
+        this.WebSocket.sendMessage({
+            msg: 25,
+            data: {
+                scoreType: scoreType,
+                buttleName: this.node.name
+            }
+        })
     }
     onBeginContact(contact, selfCollider, otherCollider) {
     }

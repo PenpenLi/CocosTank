@@ -121,7 +121,7 @@
     "_type": 2,
     "_allowSleep": false,
     "_gravityScale": 1,
-    "_linearDamping": 0,
+    "_linearDamping": 1000,
     "_angularDamping": 0,
     "_linearVelocity": {
       "__type__": "cc.Vec2",
@@ -170,22 +170,22 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 19.4,
-        "y": 44.6
+        "x": 21.6,
+        "y": 44.3
       },
       {
         "__type__": "cc.Vec2",
-        "x": 4,
-        "y": 30.5
+        "x": 4.9,
+        "y": 24.9
       },
       {
         "__type__": "cc.Vec2",
-        "x": -4,
-        "y": 30.7
+        "x": -4.9,
+        "y": 24.8
       },
       {
         "__type__": "cc.Vec2",
-        "x": -15.7,
+        "x": -17.9,
         "y": 44.8
       },
       {
@@ -212,8 +212,8 @@
     "points": [
       {
         "__type__": "cc.Vec2",
-        "x": -3.5,
-        "y": 45
+        "x": -3.8,
+        "y": 27.5
       },
       {
         "__type__": "cc.Vec2",
@@ -342,8 +342,8 @@
       },
       {
         "__type__": "cc.Vec2",
-        "x": 3.5,
-        "y": 45
+        "x": 3.8,
+        "y": 26.9
       }
     ]
   },

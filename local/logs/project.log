@@ -1,84 +1,56 @@
-2018-09-27T02:23:40.039Z - normal: Load ~/.CocosCreator/settings.json
-2018-09-27T02:23:40.042Z - normal: checking language setting...
-2018-09-27T02:23:40.042Z - normal: Language: zh
-2018-09-27T02:23:51.609Z - success: protocol editor-framework registered
-2018-09-27T02:23:51.609Z - success: protocol app registered
-2018-09-27T02:23:51.609Z - success: protocol theme registered
-2018-09-27T02:23:51.609Z - success: protocol packages registered
-2018-09-27T02:23:51.609Z - success: protocol unpack registerred
-2018-09-27T02:23:51.609Z - success: protocol disable-commonjs registerred
-2018-09-27T02:23:51.899Z - normal: connected!
-2018-09-27T02:23:51.899Z - normal: Check project D:\Git_rep\CocosTank
-2018-09-27T02:23:51.899Z - normal: Initializing Cocos2d
-2018-09-27T02:23:52.669Z - normal: Initializing Asset Database
-2018-09-27T02:23:52.749Z - success: protocol uuid registerred
-2018-09-27T02:23:52.749Z - success: protocol db registerred
-2018-09-27T02:23:52.749Z - success: protocol thumbnail registerred
-2018-09-27T02:23:52.749Z - normal: Loading editor/builtin packages
-2018-09-27T02:23:52.849Z - success: anysdk loaded
-2018-09-27T02:23:52.969Z - success: assets loaded
-2018-09-27T02:23:52.979Z - success: builder loaded
-2018-09-27T02:23:52.979Z - success: cocos-analytics loaded
-2018-09-27T02:23:52.979Z - success: console loaded
-2018-09-27T02:23:53.009Z - success: fb-instant-games loaded
-2018-09-27T02:23:53.019Z - success: hierarchy loaded
-2018-09-27T02:23:53.039Z - success: inspector loaded
-2018-09-27T02:23:53.039Z - success: keystore loaded
-2018-09-27T02:23:53.039Z - success: node-library loaded
-2018-09-27T02:23:53.039Z - success: package-asset loaded
-2018-09-27T02:23:53.039Z - success: preferences loaded
-2018-09-27T02:23:53.039Z - success: project-exporter loaded
-2018-09-27T02:23:53.049Z - success: project-importer loaded
-2018-09-27T02:23:53.059Z - success: project-settings loaded
-2018-09-27T02:23:53.059Z - success: ui-kit loaded
-2018-09-27T02:23:53.089Z - success: ui-grid loaded
-2018-09-27T02:23:53.089Z - success: scene loaded
-2018-09-27T02:23:53.089Z - success: sprite-editor loaded
-2018-09-27T02:23:53.089Z - success: store loaded
-2018-09-27T02:23:53.099Z - success: timeline loaded
-2018-09-27T02:23:53.099Z - normal: Loading builtin packages
-2018-09-27T02:23:53.099Z - success: asset-db-debugger loaded
-2018-09-27T02:23:53.099Z - success: code-editor loaded
-2018-09-27T02:23:53.099Z - success: color-picker loaded
-2018-09-27T02:23:53.099Z - success: package-manager loaded
-2018-09-27T02:23:53.109Z - success: sdkbox loaded
-2018-09-27T02:23:53.119Z - success: tester loaded
-2018-09-27T02:23:53.119Z - success: ui-kit-preview-extra loaded
-2018-09-27T02:23:53.119Z - success: ui-kit-preview loaded
-2018-09-27T02:23:53.119Z - success: ui-tree loaded
-2018-09-27T02:23:54.919Z - normal: Initializing project D:\Git_rep\CocosTank
-2018-09-27T02:23:54.929Z - normal: Loading packages
-2018-09-27T02:23:54.939Z - normal: Watching packages
-2018-09-27T02:23:54.949Z - normal: Run Application
-2018-09-27T02:23:57.279Z - success: preview server running at http://localhost:7456
-2018-09-27T02:24:07.180Z - normal: 1.9.1
-2018-09-27T02:54:09.212Z - error: Error: spawn C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe ENOENT
-    at exports._errnoException (util.js:1050:11)
-    at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32)
-    at onErrorNT (internal/child_process.js:367:16)
-    at _combinedTickCallback (internal/process/next_tick.js:80:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:128:9)
-    at process.on.t (D:\CocosCreator\resources\app.asar\editor\core\editor-init.js:1:1068)
-    at emitOne (events.js:101:20)
-    at process.emit (events.js:191:7)
-    at process._fatalException (bootstrap_node.js:308:26)
-2018-09-27T02:54:17.100Z - error: Error: spawn C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe ENOENT
-    at exports._errnoException (util.js:1050:11)
-    at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32)
-    at onErrorNT (internal/child_process.js:367:16)
-    at _combinedTickCallback (internal/process/next_tick.js:80:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:128:9)
-    at process.on.t (D:\CocosCreator\resources\app.asar\editor\core\editor-init.js:1:1068)
-    at emitOne (events.js:101:20)
-    at process.emit (events.js:191:7)
-    at process._fatalException (bootstrap_node.js:308:26)
-2018-09-27T02:54:18.364Z - error: Error: spawn C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv.exe ENOENT
-    at exports._errnoException (util.js:1050:11)
-    at Process.ChildProcess._handle.onexit (internal/child_process.js:193:32)
-    at onErrorNT (internal/child_process.js:367:16)
-    at _combinedTickCallback (internal/process/next_tick.js:80:11)
-    at process._tickDomainCallback (internal/process/next_tick.js:128:9)
-    at process.on.t (D:\CocosCreator\resources\app.asar\editor\core\editor-init.js:1:1068)
-    at emitOne (events.js:101:20)
-    at process.emit (events.js:191:7)
-    at process._fatalException (bootstrap_node.js:308:26)
+2018-10-19T09:25:49.037Z - normal: Load ~/.CocosCreator/settings.json
+2018-10-19T09:25:49.041Z - normal: checking language setting...
+2018-10-19T09:25:49.042Z - normal: Language: zh
+2018-10-19T09:25:50.707Z - success: protocol editor-framework registered
+2018-10-19T09:25:50.707Z - success: protocol app registered
+2018-10-19T09:25:50.707Z - success: protocol theme registered
+2018-10-19T09:25:50.708Z - success: protocol packages registered
+2018-10-19T09:25:50.708Z - success: protocol unpack registerred
+2018-10-19T09:25:50.708Z - success: protocol disable-commonjs registerred
+2018-10-19T09:25:50.983Z - normal: connected!
+2018-10-19T09:25:50.990Z - normal: Check project D:\Code\Git\CocosTank
+2018-10-19T09:25:51.004Z - normal: Initializing project D:\Code\Git\CocosTank
+2018-10-19T09:25:51.025Z - normal: Initializing Cocos2d
+2018-10-19T09:25:51.681Z - normal: Initializing Asset Database
+2018-10-19T09:25:51.743Z - success: protocol uuid registerred
+2018-10-19T09:25:51.743Z - success: protocol db registerred
+2018-10-19T09:25:51.743Z - success: protocol thumbnail registerred
+2018-10-19T09:25:51.744Z - normal: Loading editor/builtin packages
+2018-10-19T09:25:51.910Z - success: assets loaded
+2018-10-19T09:25:51.912Z - success: builder loaded
+2018-10-19T09:25:51.915Z - success: cocos-analytics loaded
+2018-10-19T09:25:51.917Z - success: console loaded
+2018-10-19T09:25:51.948Z - success: fb-instant-games loaded
+2018-10-19T09:25:51.953Z - success: hierarchy loaded
+2018-10-19T09:25:51.955Z - success: inspector loaded
+2018-10-19T09:25:51.957Z - success: keystore loaded
+2018-10-19T09:25:51.961Z - success: node-library loaded
+2018-10-19T09:25:51.962Z - success: package-asset loaded
+2018-10-19T09:25:51.963Z - success: preferences loaded
+2018-10-19T09:25:51.965Z - success: project-exporter loaded
+2018-10-19T09:25:51.981Z - success: project-importer loaded
+2018-10-19T09:25:51.983Z - success: project-settings loaded
+2018-10-19T09:25:51.986Z - success: ui-kit loaded
+2018-10-19T09:25:51.989Z - success: scene loaded
+2018-10-19T09:25:51.990Z - success: sprite-editor loaded
+2018-10-19T09:25:51.994Z - success: store loaded
+2018-10-19T09:25:51.997Z - success: timeline loaded
+2018-10-19T09:25:51.997Z - normal: Loading builtin packages
+2018-10-19T09:25:52.001Z - success: asset-db-debugger loaded
+2018-10-19T09:25:52.002Z - success: code-editor loaded
+2018-10-19T09:25:52.003Z - success: color-picker loaded
+2018-10-19T09:25:52.003Z - success: jsb-adapter loaded
+2018-10-19T09:25:52.006Z - success: package-manager loaded
+2018-10-19T09:25:52.121Z - success: qqplay-adapter loaded
+2018-10-19T09:25:52.127Z - success: sdkbox loaded
+2018-10-19T09:25:52.130Z - success: tester loaded
+2018-10-19T09:25:52.132Z - success: ui-grid loaded
+2018-10-19T09:25:52.134Z - success: ui-kit-preview-extra loaded
+2018-10-19T09:25:52.135Z - success: ui-kit-preview loaded
+2018-10-19T09:25:52.136Z - success: ui-tree loaded
+2018-10-19T09:25:52.137Z - success: weapp-adapter loaded
+2018-10-19T09:25:53.369Z - normal: Loading packages
+2018-10-19T09:25:53.375Z - normal: Watching packages
+2018-10-19T09:25:53.864Z - normal: Run Application
+2018-10-19T09:25:56.038Z - success: preview server running at http://localhost:7458
+2018-10-19T10:02:23.742Z - info: shutdown preview server

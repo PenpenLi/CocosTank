@@ -26,9 +26,10 @@ export default class NewClass extends cc.Component {
         }, 3000)
     }
     onCollisionEnter(other, self) {
+        var _self = this;
         var scoreType = 0;
         if (other.node.name === 'tank_1') scoreType = 1;
-        this.WebScoket.sendMessage({
+        _self.WebScoket.sendMessage({
             msg: 25,
             data: {
                 scoreType: scoreType,
@@ -36,5 +37,4 @@ export default class NewClass extends cc.Component {
             }
         })
     }
-    // update (dt) {}
 }

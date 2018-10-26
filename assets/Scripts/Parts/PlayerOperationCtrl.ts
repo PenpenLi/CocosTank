@@ -39,6 +39,7 @@ export default class NewClass extends cc.Component {
         bottom: false,
         left: false
     }
+    private bullet6num = 0;
     start() {
         this.BattleRegion = this.node.parent.getChildByName('BattleRegion');
         this.WebSocket = cc.find('WebScoket').getComponent(WebSocketManage);
@@ -109,9 +110,19 @@ export default class NewClass extends cc.Component {
                 this.player.vice.actionList.splice(0, 1);
             }
             if (this.player.vice.actionList[0] && this.player.vice.actionList[0].type === 1) {
-                var bullet = this.generateBullet(this.player.vice.actionList[0], 1)
-                this.player.vice.node.parent.addChild(bullet);
-                this.player.vice.actionList.splice(0, 1);
+                if (this.player.vice.actionList[0].bulletType === 31) {
+                    var _self = this;
+                    this.currentSpecialBullet.boom();
+                    this.player.vice.actionList.splice(0, 1);
+                    cc.loader.loadRes(_self.player.vice.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.vice.buttleType = 0;
+                        _self.player.vice.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    })
+                } else {
+                    var bullet = this.generateBullet(this.player.vice.actionList[0], 1)
+                    this.player.vice.node.parent.addChild(bullet);
+                    this.player.vice.actionList.splice(0, 1);
+                }
             }
         }
     }
@@ -167,8 +178,9 @@ export default class NewClass extends cc.Component {
             } else if (_self.player.current.buttleType === 1) { // 加特林道具
                 _self.player.current.fireStatus = 2;
             } else if (_self.player.current.buttleType === 6) { // 地雷
+
                 var bullet = _self.generateBullet({
-                    name: `tank_buttle_${_self.player.current.node.name.substring(5, 6)}_${_self.player.current.bulletLimit}`,
+                    name: `buttle6`,
                     bulletType: 6,
                     scale: _self.player.current.node.scale,
                     rotation: _self.player.current.node.rotation,
@@ -185,7 +197,7 @@ export default class NewClass extends cc.Component {
                     rotation: bullet.rotation
                 });
                 _self.player.current.node.parent.addChild(bullet);
-            } else if(_self.player.current.buttleType === 3) { // 重弹
+            } else if (_self.player.current.buttleType === 3) { // 重弹
                 var point = _self.bulletLocation();
                 var bullet = _self.generateBullet({
                     name: `tank_buttle3`,
@@ -195,7 +207,6 @@ export default class NewClass extends cc.Component {
                     x: point.x,
                     y: point.y
                 }, 0)
-                _self.currentSpecialBullet = bullet.getComponent(Bullet3);
                 _self.player.current.buttleType = 31;
                 _self.sendOperationData({
                     type: 1,
@@ -207,8 +218,16 @@ export default class NewClass extends cc.Component {
                     rotation: bullet.rotation
                 });
                 _self.player.current.node.parent.addChild(bullet);
-            } else if(_self.player.current.buttleType === 31) {
+            } else if (_self.player.current.buttleType === 31) {
                 _self.currentSpecialBullet.boom();
+                _self.sendOperationData({
+                    type: 1,
+                    bulletType: 31
+                })
+                cc.loader.loadRes(_self.player.current.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                    _self.player.current.buttleType = 0;
+                    _self.player.current.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                })
             }
         })
         node.on(cc.Node.EventType.TOUCH_END, function (event) {
@@ -236,12 +255,28 @@ export default class NewClass extends cc.Component {
      * type: 0为我方生成否则为敌方生成
      */
     public generateBullet(data, type) {
+        var _self = this;
         var bullet: cc.Node;
         if (data.bulletType === 1 || data.bulletType === 0) {
             bullet = cc.instantiate(this.bullet);
             bullet.setPosition(data.x, data.y);
         }
         if (data.bulletType === 6) {
+            this.bullet6num++;
+            if (this.bullet6num === 5) {
+                if (type === 0) {
+                    cc.loader.loadRes(_self.player.current.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.current.buttleType = 0;
+                        _self.player.current.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    })
+                } else {
+                    cc.loader.loadRes(_self.player.vice.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.vice.buttleType = 0;
+                        _self.player.vice.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    })
+                }
+                _self.bullet6num = 0;
+            }
             if (type === 0) {
                 bullet = cc.instantiate(this.bullet6);
                 bullet.setPosition(this.player.current.node.x, this.player.current.node.y);
@@ -250,8 +285,9 @@ export default class NewClass extends cc.Component {
                 bullet.setPosition(this.player.vice.node.x, this.player.vice.node.y);
             }
         }
-        if(data.bulletType === 3) {
+        if (data.bulletType === 3) {
             bullet = cc.instantiate(this.bullet3);
+            this.currentSpecialBullet = bullet.getComponent(Bullet3);
             bullet.setPosition(data.x, data.y);
         }
         bullet.name = data.name;

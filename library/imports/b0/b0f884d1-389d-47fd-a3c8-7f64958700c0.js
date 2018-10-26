@@ -41,6 +41,7 @@ var NewClass = /** @class */ (function (_super) {
             bottom: false,
             left: false
         };
+        _this.bullet6num = 0;
         return _this;
     }
     NewClass.prototype.start = function () {
@@ -118,9 +119,20 @@ var NewClass = /** @class */ (function (_super) {
                 this.player.vice.actionList.splice(0, 1);
             }
             if (this.player.vice.actionList[0] && this.player.vice.actionList[0].type === 1) {
-                var bullet = this.generateBullet(this.player.vice.actionList[0], 1);
-                this.player.vice.node.parent.addChild(bullet);
-                this.player.vice.actionList.splice(0, 1);
+                if (this.player.vice.actionList[0].bulletType === 31) {
+                    var _self = this;
+                    this.currentSpecialBullet.boom();
+                    this.player.vice.actionList.splice(0, 1);
+                    cc.loader.loadRes(_self.player.vice.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.vice.buttleType = 0;
+                        _self.player.vice.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    });
+                }
+                else {
+                    var bullet = this.generateBullet(this.player.vice.actionList[0], 1);
+                    this.player.vice.node.parent.addChild(bullet);
+                    this.player.vice.actionList.splice(0, 1);
+                }
             }
         }
     };
@@ -180,7 +192,7 @@ var NewClass = /** @class */ (function (_super) {
             }
             else if (_self.player.current.buttleType === 6) { // 地雷
                 var bullet = _self.generateBullet({
-                    name: "tank_buttle_" + _self.player.current.node.name.substring(5, 6) + "_" + _self.player.current.bulletLimit,
+                    name: "buttle6",
                     bulletType: 6,
                     scale: _self.player.current.node.scale,
                     rotation: _self.player.current.node.rotation,
@@ -208,7 +220,6 @@ var NewClass = /** @class */ (function (_super) {
                     x: point.x,
                     y: point.y
                 }, 0);
-                _self.currentSpecialBullet = bullet.getComponent(Buttle3Ctrl_1.default);
                 _self.player.current.buttleType = 31;
                 _self.sendOperationData({
                     type: 1,
@@ -223,6 +234,14 @@ var NewClass = /** @class */ (function (_super) {
             }
             else if (_self.player.current.buttleType === 31) {
                 _self.currentSpecialBullet.boom();
+                _self.sendOperationData({
+                    type: 1,
+                    bulletType: 31
+                });
+                cc.loader.loadRes(_self.player.current.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                    _self.player.current.buttleType = 0;
+                    _self.player.current.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                });
             }
         });
         node.on(cc.Node.EventType.TOUCH_END, function (event) {
@@ -250,12 +269,29 @@ var NewClass = /** @class */ (function (_super) {
      * type: 0为我方生成否则为敌方生成
      */
     NewClass.prototype.generateBullet = function (data, type) {
+        var _self = this;
         var bullet;
         if (data.bulletType === 1 || data.bulletType === 0) {
             bullet = cc.instantiate(this.bullet);
             bullet.setPosition(data.x, data.y);
         }
         if (data.bulletType === 6) {
+            this.bullet6num++;
+            if (this.bullet6num === 5) {
+                if (type === 0) {
+                    cc.loader.loadRes(_self.player.current.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.current.buttleType = 0;
+                        _self.player.current.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    });
+                }
+                else {
+                    cc.loader.loadRes(_self.player.vice.node.name, cc.SpriteFrame, function (err, spriteFrame) {
+                        _self.player.vice.buttleType = 0;
+                        _self.player.vice.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+                    });
+                }
+                _self.bullet6num = 0;
+            }
             if (type === 0) {
                 bullet = cc.instantiate(this.bullet6);
                 bullet.setPosition(this.player.current.node.x, this.player.current.node.y);
@@ -267,6 +303,7 @@ var NewClass = /** @class */ (function (_super) {
         }
         if (data.bulletType === 3) {
             bullet = cc.instantiate(this.bullet3);
+            this.currentSpecialBullet = bullet.getComponent(Buttle3Ctrl_1.default);
             bullet.setPosition(data.x, data.y);
         }
         bullet.name = data.name;

@@ -4,6 +4,7 @@ cc._RF.push(module, 'c4966pl/QZBX5VLCYhF85CV', 'Buttle3Ctrl', __filename);
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var PlayerOperationCtrl_1 = require("./PlayerOperationCtrl");
+var WebSocketManage_1 = require("../Unit/WebSocketManage");
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -18,10 +19,14 @@ var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
     function NewClass() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.WebSocket = null;
         _this.OperationCtrl = null;
         return _this;
     }
     NewClass.prototype.start = function () {
+        var manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        this.WebSocket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         var _self = this;
         this.OperationCtrl = cc.find('Canvas/BattlePagePanel/BattleBox/operation').getComponent(PlayerOperationCtrl_1.default);
         this.bullet = this.node.getComponent(cc.RigidBody);
@@ -29,6 +34,18 @@ var NewClass = /** @class */ (function (_super) {
         var x = speed * Math.sin(Math.PI * this.node.rotation / 180);
         var y = speed * Math.cos(Math.PI * this.node.rotation / 180);
         this.bullet.linearVelocity = new cc.Vec2(x, y);
+    };
+    NewClass.prototype.onCollisionEnter = function (other, self) {
+        var scoreType = 0;
+        if (other.node.name === 'tank_1')
+            scoreType = 1;
+        this.WebSocket.sendMessage({
+            msg: 25,
+            data: {
+                scoreType: scoreType,
+                buttleName: this.node.name
+            }
+        });
     };
     NewClass.prototype.onBeginContact = function (contact, selfCollider, otherCollider) {
     };

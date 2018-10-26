@@ -5,11 +5,14 @@ export default class WebSocketManage extends cc.Component {
     public ws: WebSocket;
     // 事件处理中转对象
     private TransferClass = new Transfer();
-
+    // private websocketUrl = 'ws://172.17.0.13:8080/tankWar/echo.do';
+    private websocketUrl = 'ws://app.ei-marketing.net/tankWar/echo.do';
     start() {
+        this.init();
+    }
+    init() {
         let self = this;
-        this.ws = new WebSocket("ws://172.17.0.13:8080/tankWar/echo.do");
-        // this.ws = new WebSocket("ws://app.ei-marketing.net/tankWar/echo.do");
+        this.ws = new WebSocket(this.websocketUrl);
         // this.ws = new WebSocket("ws://app.i-mineral.cn/tankWar/echo.do");
         this.ws.onopen = function (event) {
             console.log("服务器已打开");
@@ -18,7 +21,8 @@ export default class WebSocketManage extends cc.Component {
             console.log("连接服务器失败", event);
         };
         this.ws.onclose = function (event) {
-            console.log("服务器关闭", event);
+            console.log("服务器已断开!", event);
+            self.init();
         };
         // 监听消息接收
         this.ws.onmessage = function (event) {
@@ -36,6 +40,7 @@ export default class WebSocketManage extends cc.Component {
             }
             // 传输地图
             if(response.dataMessage === '1') {
+                console.log('接收地图')
                 self.TransferClass.getMapForBattlePageCtrl(response);
             }
             // 位置联机
@@ -56,11 +61,21 @@ export default class WebSocketManage extends cc.Component {
             }
             // 对方离开房间
             if(response.dataMessage === '6') {
+                console.log('对方离开房间!')
                 self.TransferClass.leaveForBattleCtrl(response);
             }
             // 收到道具生成信息
             if(response.dataMessage === '7') {
                 self.TransferClass.genteraPropsForBattleCtrl(response);
+            }
+            if(response.dataMessage === '8') {
+                self.TransferClass.getRoomNumberForFriendCtrl(response);
+            }
+            if(response.dataMessage === '9') {
+                self.TransferClass.getFriendForHomePageCtrl(response);
+            }
+            if(response.dataMessage === '211') {
+                self.TransferClass.getOnClickStart();
             }
         };
     }

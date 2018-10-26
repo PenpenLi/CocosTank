@@ -803,7 +803,12 @@
     "closeSoundSprite": {
       "__uuid__": "cf29c677-bb4d-475f-9051-3d20c10c1f4a"
     },
-    "webSocketManage": null
+    "bgSound": null,
+    "FriendPage": {
+      "__uuid__": "4fce9afd-87db-4dfc-a327-ee595379756c"
+    },
+    "ping": null,
+    "WebScoketNode": null
   },
   {
     "__type__": "cc.PrefabInfo",

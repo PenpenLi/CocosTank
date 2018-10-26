@@ -42,11 +42,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.operation = null;
         _this.webScoket = null;
         // 战斗数据
-        _this.battleData = [
-            { row: 3, column: 7, scale: 1 },
-            { row: 4, column: 9, scale: 0.775 },
-            { row: 5, column: 11, scale: 0.645 },
-        ];
+        _this.battleData = [];
         _this.activeBattleData = null;
         _this.cells = 0;
         _this.externalResources = [];
@@ -79,18 +75,25 @@ var BattleCtrl = /** @class */ (function (_super) {
         _this.propsTime = null;
         // 道具图标列表
         _this.propsList = ['prop_1', 'prop_3', 'prop_6'];
+        _this.reGameOverStatus = false;
         return _this;
     }
     BattleCtrl.prototype.start = function () {
-        this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
         this.initBattleData();
     };
     BattleCtrl.prototype.initBattleData = function () {
+        this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage_1.default);
+        console.log('initBattleData');
         var self = this;
         this.externalResources = [
             { cellColumn: this.wall_column_1, cellRow: this.wall_row_1, flower: this.fllower_1, horn: this.horn_1, bg: 'floor_1' },
             { cellColumn: this.wall_column_2, cellRow: this.wall_row_2, flower: this.fllower_2, horn: this.horn_2, bg: 'floor_2' },
             { cellColumn: this.wall_column_3, cellRow: this.wall_row_3, flower: this.fllower_3, horn: this.horn_3, bg: 'floor_3' },
+        ];
+        this.battleData = [
+            { row: 3, column: 7, scale: 1 },
+            { row: 4, column: 9, scale: 0.775 },
+            { row: 5, column: 11, scale: 0.645 },
         ];
         // 地图尺寸随机
         var random = Math.random() * this.battleData.length >> 0;
@@ -245,10 +248,10 @@ var BattleCtrl = /** @class */ (function (_super) {
     };
     // 返回大厅
     BattleCtrl.prototype.onBack = function () {
-        this.node.destroy();
         this.webScoket.sendMessage({
             msg: 28
         });
+        this.node.destroy();
         clearInterval(this.propsTime);
     };
     // 生成道具
@@ -319,7 +322,7 @@ var BattleCtrl = /** @class */ (function (_super) {
         var self = this;
         var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl_1.default);
         var userData = homePageCtrl.userInfo;
-        var enemyUserData = homePageCtrl.enemyUserData;
+        var enemyUserData = homePageCtrl.viceUserInfo;
         // 该玩家是主玩家
         if (type === 0) {
             cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
@@ -382,7 +385,10 @@ var BattleCtrl = /** @class */ (function (_super) {
     };
     // 生成地图
     BattleCtrl.prototype.generateMap = function () {
+        this.reGameOverStatus = true;
+        this.initBattleData();
         var self = this;
+        console.log(self.activeBattleData, 'column');
         var mapClass = new LinkedMap_1.default(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point);
         self.linkedMap = mapClass.generate();
         this.setArray = mapClass.setArray;
@@ -411,6 +417,8 @@ var BattleCtrl = /** @class */ (function (_super) {
     };
     // 获取地图信息
     BattleCtrl.prototype.getMap = function (response) {
+        this.reGameOverStatus = true;
+        this.initBattleData();
         this._onRemoveNode();
         var self = this;
         self.playerName = 'tank_2';
@@ -429,6 +437,8 @@ var BattleCtrl = /** @class */ (function (_super) {
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
     };
     BattleCtrl.prototype.viceLeave = function () {
+        clearInterval(this.propsTime);
+        this.ready.active = true;
         this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！';
     };
     __decorate([

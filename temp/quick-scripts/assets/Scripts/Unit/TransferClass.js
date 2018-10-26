@@ -8,6 +8,7 @@ var MatchingCtrl_1 = require("../Page/MatchingCtrl");
 var BattleCtrl_1 = require("../Page/BattleCtrl");
 var PlayerOperationCtrl_1 = require("../Parts/PlayerOperationCtrl");
 var TankCtrl_1 = require("../Parts/TankCtrl");
+var FriendPageCtrl_1 = require("../Page/FriendPageCtrl");
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
 //  - [English] http://www.cocos2d-x.org/docs/creator/manual/en/scripting/typescript.html
@@ -42,10 +43,11 @@ var Transfer = /** @class */ (function (_super) {
     };
     // 切换匹配状态
     Transfer.prototype.generateMapForHomePageCtrl = function (res) {
+        console.log(res, '64');
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
-        homePageCtrl.enemyUserData = res.enemyData;
+        homePageCtrl.viceUserInfo = res.enemyData;
         var matchPageCtrl = null;
         this.MatchPage = cc.find('Canvas/MatchingPagePanel');
         matchPageCtrl = this.MatchPage.getComponent(MatchingCtrl_1.default);
@@ -74,6 +76,9 @@ var Transfer = /** @class */ (function (_super) {
     };
     // 死亡
     Transfer.prototype.dieForTankCtrl = function (res) {
+        if (!cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).reGameOverStatus)
+            return;
+        cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl_1.default).reGameOverStatus = false;
         // 0代表副玩家
         var player = null;
         var children = cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').children;
@@ -135,6 +140,31 @@ var Transfer = /** @class */ (function (_super) {
         this.BattlePage = cc.find('Canvas/BattlePagePanel');
         battlePageCtrl = this.BattlePage.getComponent(BattleCtrl_1.default);
         battlePageCtrl.genearteProp(res.data.point, res.data.rotation, res.data.propType);
+    };
+    Transfer.prototype.getRoomNumberForFriendCtrl = function (res) {
+        var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendPageCtrl_1.default);
+        friendCtrl.getRoomNumber(res);
+    };
+    Transfer.prototype.getFriendForHomePageCtrl = function (res) {
+        console.log(res);
+        if (res.palyNum === 2) {
+            var homePageCtrl = null;
+            this.HomePage = cc.find('Canvas/HomePagePanel');
+            homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
+            homePageCtrl.setViceUserInfoForFriend(res.data.nickname, res.data.headimgurl);
+            var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendPageCtrl_1.default);
+            friendCtrl.init(1);
+        }
+        else if (res.palyNum === 1) {
+            var homePageCtrl = null;
+            this.HomePage = cc.find('Canvas/HomePagePanel');
+            homePageCtrl = this.HomePage.getComponent(HomePageCtrl_1.default);
+            homePageCtrl.linkForFriend(res);
+        }
+    };
+    Transfer.prototype.getOnClickStart = function () {
+        var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendPageCtrl_1.default);
+        friendCtrl.getOnClickStart();
     };
     Transfer = __decorate([
         ccclass

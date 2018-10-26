@@ -3,6 +3,7 @@ import MatchingPage from '../Page/MatchingCtrl';
 import BattleCtrl from '../Page/BattleCtrl';
 import PlayerOperationCtrl from '../Parts/PlayerOperationCtrl';
 import TankCtrl from '../Parts/TankCtrl';
+import FriendCtrl from '../Page/FriendPageCtrl';
 
 // Learn TypeScript:
 //  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/typescript.html
@@ -38,10 +39,11 @@ export default class Transfer extends cc.Component {
     }
     // 切换匹配状态
     public generateMapForHomePageCtrl(res) {
+        console.log(res, '64')
         var homePageCtrl = null;
         this.HomePage = cc.find('Canvas/HomePagePanel');
         homePageCtrl = this.HomePage.getComponent(HomePageCtrl);
-        homePageCtrl.enemyUserData = res.enemyData;
+        homePageCtrl.viceUserInfo = res.enemyData;
         var matchPageCtrl = null;
         this.MatchPage = cc.find('Canvas/MatchingPagePanel');
         matchPageCtrl = this.MatchPage.getComponent(MatchingPage);
@@ -70,6 +72,9 @@ export default class Transfer extends cc.Component {
     }
     // 死亡
     public dieForTankCtrl(res) {
+        if(!cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).reGameOverStatus) return;
+        
+        cc.find('Canvas/BattlePagePanel').getComponent(BattleCtrl).reGameOverStatus = false;
         // 0代表副玩家
         var player: cc.Node = null;
         var children = cc.find('Canvas/BattlePagePanel/BattleBox/BattleRegion').children;
@@ -130,5 +135,33 @@ export default class Transfer extends cc.Component {
         this.BattlePage = cc.find('Canvas/BattlePagePanel');
         battlePageCtrl = this.BattlePage.getComponent(BattleCtrl);
         battlePageCtrl.genearteProp(res.data.point, res.data.rotation, res.data.propType);
+    }
+
+    public getRoomNumberForFriendCtrl(res) {
+        var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendCtrl);
+        friendCtrl.getRoomNumber(res);
+    }
+
+    public getFriendForHomePageCtrl(res) {
+        console.log(res);
+        if(res.palyNum === 2) {
+            var homePageCtrl: HomePageCtrl = null;
+            this.HomePage = cc.find('Canvas/HomePagePanel');
+            homePageCtrl = this.HomePage.getComponent(HomePageCtrl);
+            homePageCtrl.setViceUserInfoForFriend(res.data.nickname, res.data.headimgurl);
+            var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendCtrl);
+            friendCtrl.init(1);
+        } else if (res.palyNum === 1) {
+            var homePageCtrl: HomePageCtrl = null;
+            this.HomePage = cc.find('Canvas/HomePagePanel');
+            homePageCtrl = this.HomePage.getComponent(HomePageCtrl);
+            homePageCtrl.linkForFriend(res);
+        }
+        
+    }
+
+    public getOnClickStart() {
+        var friendCtrl = cc.find('Canvas/FriendPagePanel').getComponent(FriendCtrl);
+        friendCtrl.getOnClickStart();
     }
 }

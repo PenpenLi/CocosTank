@@ -1,15 +1,6 @@
 import HomePageCtrl from './HomePageCtrl'
+import FriendPageCtrl from './FriendPageCtrl'
 import { SpriteFrame } from '../../../creator';
-// Learn TypeScript:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
-
 const { ccclass, property } = cc._decorator;
 
 @ccclass
@@ -29,15 +20,17 @@ export default class NewClass extends cc.Component {
         this.HomePage = cc.find('Canvas/HomePagePanel');
         var homePage = this.HomePage.getComponent(HomePageCtrl);
         this.userName.getComponent(cc.Label).string = homePage.userInfo.nickname;
-        cc.loader.load({url: homePage.userInfo.headimgurl, type: 'png'}, function(err, texture){
+        cc.loader.load({ url: homePage.userInfo.headimgurl, type: 'png' }, function (err, texture) {
             self.headImg.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
         })
     }
     /**
      * 点击返回按钮
      */
-    onClickBackButton() {
-        this.node.destroy()
+    onBackButton() {
+        this.node.destroy();
+        this.HomePage.getComponent(HomePageCtrl).status = true;
+        this.HomePage.getComponent(HomePageCtrl).enabled = true;
     }
     /**
      * 点击在线匹配
@@ -53,6 +46,7 @@ export default class NewClass extends cc.Component {
     onClickFriend() {
         var friendPanel = cc.instantiate(this.friendPanel);
         friendPanel.parent = this.node.parent;
+        friendPanel.getComponent(FriendPageCtrl).init(0);
         this.enabled = false;
     }
 }

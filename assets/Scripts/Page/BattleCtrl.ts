@@ -55,13 +55,7 @@ export default class BattleCtrl extends cc.Component {
     private operation: cc.Prefab = null;
     private webScoket: WebSocketManage = null;
     // 战斗数据
-    private battleData = [
-        { row: 3, column: 7, scale: 1 },
-        { row: 4, column: 9, scale: 0.775 },
-        { row: 5, column: 11, scale: 0.645 },
-        // { row: 6, column: 13, scale: 0.539 },
-        // { row: 7, column: 15, scale: 0.484 }
-    ]
+    private battleData = []
     private activeBattleData = null;
     private cells = 0;
     private externalResources = [];
@@ -106,17 +100,27 @@ export default class BattleCtrl extends cc.Component {
     // 道具图标列表
     private propsList = ['prop_1', 'prop_3', 'prop_6'];
 
+    public reGameOverStatus = false;
+
     start() {
-        this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
         this.initBattleData();
     }
 
     initBattleData() {
+        this.webScoket = cc.find('WebScoket').getComponent(WebSocketManage);
+        console.log('initBattleData');
         let self = this;
         this.externalResources = [
             { cellColumn: this.wall_column_1, cellRow: this.wall_row_1, flower: this.fllower_1, horn: this.horn_1, bg: 'floor_1' },
             { cellColumn: this.wall_column_2, cellRow: this.wall_row_2, flower: this.fllower_2, horn: this.horn_2, bg: 'floor_2' },
             { cellColumn: this.wall_column_3, cellRow: this.wall_row_3, flower: this.fllower_3, horn: this.horn_3, bg: 'floor_3' },
+        ]
+        this.battleData = [
+            { row: 3, column: 7, scale: 1 },
+            { row: 4, column: 9, scale: 0.775 },
+            { row: 5, column: 11, scale: 0.645 },
+            // { row: 6, column: 13, scale: 0.539 },
+            // { row: 7, column: 15, scale: 0.484 }
         ]
         // 地图尺寸随机
         var random = Math.random() * this.battleData.length >> 0;
@@ -273,10 +277,10 @@ export default class BattleCtrl extends cc.Component {
     }
     // 返回大厅
     onBack() {
-        this.node.destroy();
         this.webScoket.sendMessage({
             msg: 28
         })
+        this.node.destroy();
         clearInterval(this.propsTime);
     }
     // 生成道具
@@ -345,7 +349,7 @@ export default class BattleCtrl extends cc.Component {
         var self = this;
         var homePageCtrl = cc.find('Canvas/HomePagePanel').getComponent(HomePageCtrl);
         var userData = homePageCtrl.userInfo;
-        var enemyUserData = homePageCtrl.enemyUserData;
+        var enemyUserData = homePageCtrl.viceUserInfo;
         // 该玩家是主玩家
         if (type === 0) {
             cc.loader.load({ url: userData.headimgurl, type: 'png' }, function (err, texture) {
@@ -406,7 +410,10 @@ export default class BattleCtrl extends cc.Component {
     }
     // 生成地图
     public generateMap() {
+        this.reGameOverStatus = true;
+        this.initBattleData();
         var self = this;
+        console.log(self.activeBattleData, 'column')
         var mapClass = new LinkedMap(self.activeBattleData.column, self.activeBattleData.row, self.player[0].point, self.player[1].point);
         self.linkedMap = mapClass.generate();
         this.setArray = mapClass.setArray;
@@ -435,6 +442,8 @@ export default class BattleCtrl extends cc.Component {
     }
     // 获取地图信息
     public getMap(response) {
+        this.reGameOverStatus = true;
+        this.initBattleData();
         this._onRemoveNode();
         var self = this
         self.playerName = 'tank_2'
@@ -453,6 +462,8 @@ export default class BattleCtrl extends cc.Component {
         this.BattleRegion.parent.addChild(cc.instantiate(this.operation));
     }
     public viceLeave() {
+        clearInterval(this.propsTime)
+        this.ready.active = true;
         this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！'
     }
 }

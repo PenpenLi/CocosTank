@@ -21,7 +21,6 @@ var NewClass = /** @class */ (function (_super) {
         // webScoket脚本
         _this.WebScoket = null;
         return _this;
-        // update (dt) {}
     }
     NewClass.prototype.start = function () {
         var _self = this;
@@ -34,10 +33,11 @@ var NewClass = /** @class */ (function (_super) {
         }, 3000);
     };
     NewClass.prototype.onCollisionEnter = function (other, self) {
+        var _self = this;
         var scoreType = 0;
         if (other.node.name === 'tank_1')
             scoreType = 1;
-        this.WebScoket.sendMessage({
+        _self.WebScoket.sendMessage({
             msg: 25,
             data: {
                 scoreType: scoreType,

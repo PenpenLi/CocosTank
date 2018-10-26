@@ -4,15 +4,7 @@ cc._RF.push(module, '8be5etHjxBFJ7oy5iXmUq28', 'LobbyPageCtrl');
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var HomePageCtrl_1 = require("./HomePageCtrl");
-// Learn TypeScript:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/typescript.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/typescript/index.html
-// Learn Attribute:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/reference/attributes/index.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://www.cocos.com/docs/creator/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/editors_and_tools/creator-chapters/scripting/life-cycle-callbacks/index.html
+var FriendPageCtrl_1 = require("./FriendPageCtrl");
 var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
 var NewClass = /** @class */ (function (_super) {
     __extends(NewClass, _super);
@@ -37,8 +29,10 @@ var NewClass = /** @class */ (function (_super) {
     /**
      * 点击返回按钮
      */
-    NewClass.prototype.onClickBackButton = function () {
+    NewClass.prototype.onBackButton = function () {
         this.node.destroy();
+        this.HomePage.getComponent(HomePageCtrl_1.default).status = true;
+        this.HomePage.getComponent(HomePageCtrl_1.default).enabled = true;
     };
     /**
      * 点击在线匹配
@@ -54,6 +48,7 @@ var NewClass = /** @class */ (function (_super) {
     NewClass.prototype.onClickFriend = function () {
         var friendPanel = cc.instantiate(this.friendPanel);
         friendPanel.parent = this.node.parent;
+        friendPanel.getComponent(FriendPageCtrl_1.default).init(0);
         this.enabled = false;
     };
     __decorate([

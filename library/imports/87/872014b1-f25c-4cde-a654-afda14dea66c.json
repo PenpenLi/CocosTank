@@ -1116,6 +1116,9 @@
     "bgSound": {
       "__id__": 3
     },
+    "FriendPage": {
+      "__uuid__": "4fce9afd-87db-4dfc-a327-ee595379756c"
+    },
     "ping": {
       "__id__": 7
     },
