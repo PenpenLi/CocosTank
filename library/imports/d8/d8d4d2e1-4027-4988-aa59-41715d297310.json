@@ -41,11 +41,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 47
+        "__id__": 48
       }
     ],
     "_prefab": {
-      "__id__": 48
+      "__id__": 49
     },
     "_id": "",
     "_opacity": 255,
@@ -928,7 +928,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -450,
+      "x": -380,
       "y": 0
     },
     "_skewX": 0,
@@ -1102,7 +1102,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -150,
+      "x": 20,
       "y": 0
     },
     "_skewX": 0,
@@ -1287,7 +1287,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 40
@@ -1455,7 +1455,7 @@
       }
     ],
     "_prefab": {
-      "__id__": 46
+      "__id__": 47
     },
     "_id": "",
     "_opacity": 255,
@@ -1483,7 +1483,7 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 450,
+      "x": 419,
       "y": 0
     },
     "_skewX": 0,
@@ -1544,7 +1544,11 @@
     },
     "duration": 0.1,
     "zoomScale": 1.2,
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 46
+      }
+    ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
     "_N$normalColor": {
@@ -1584,6 +1588,15 @@
     }
   },
   {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "LobbyPageCtrl",
+    "handler": "onClickLeague",
+    "customEventData": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -1607,6 +1620,9 @@
     },
     "friendPanel": {
       "__uuid__": "4fce9afd-87db-4dfc-a327-ee595379756c"
+    },
+    "leaguePanel": {
+      "__uuid__": "e87d8f6d-de04-451f-9d0c-ef58ff33a205"
     },
     "headImg": {
       "__id__": 13

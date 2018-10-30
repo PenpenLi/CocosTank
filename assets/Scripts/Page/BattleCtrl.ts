@@ -464,6 +464,7 @@ export default class BattleCtrl extends cc.Component {
     public viceLeave() {
         clearInterval(this.propsTime)
         this.ready.active = true;
-        this.ready.getChildByName('labelStatus').getComponent(cc.Label).string = '对方已退出房间！'
+        this.ready.getChildByName('waiting_1').active = false;
+        this.ready.getChildByName('waiting_2').active = true;
     }
 }

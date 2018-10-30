@@ -75,19 +75,20 @@
         "type": "dock-h"
       },
       "panels": [
-        "hierarchy",
         "console",
-        "timeline",
         "inspector",
+        "hierarchy",
         "assets",
-        "scene"
+        "scene",
+        "timeline"
       ]
-    }
+    },
+    "window-1540883268856": {}
   },
   "panels": {
     "builder": {
-      "x": -975,
-      "y": 103,
+      "x": -1222,
+      "y": 124,
       "width": 516,
       "height": 739
     }

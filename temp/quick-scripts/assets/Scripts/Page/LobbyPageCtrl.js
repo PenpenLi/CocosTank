@@ -12,6 +12,7 @@ var NewClass = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.matchingPanel = null;
         _this.friendPanel = null;
+        _this.leaguePanel = null;
         _this.headImg = null;
         _this.userName = null;
         _this.HomePage = null;
@@ -51,12 +52,23 @@ var NewClass = /** @class */ (function (_super) {
         friendPanel.getComponent(FriendPageCtrl_1.default).init(0);
         this.enabled = false;
     };
+    /**
+     * 点击联赛
+     */
+    NewClass.prototype.onClickLeague = function () {
+        var leaguePanel = cc.instantiate(this.leaguePanel);
+        leaguePanel.parent = this.node.parent;
+        this.enabled = false;
+    };
     __decorate([
         property(cc.Prefab)
     ], NewClass.prototype, "matchingPanel", void 0);
     __decorate([
         property(cc.Prefab)
     ], NewClass.prototype, "friendPanel", void 0);
+    __decorate([
+        property(cc.Prefab)
+    ], NewClass.prototype, "leaguePanel", void 0);
     __decorate([
         property(cc.Node)
     ], NewClass.prototype, "headImg", void 0);

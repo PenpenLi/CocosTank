@@ -151,6 +151,9 @@ var NewClass = /** @class */ (function (_super) {
      * 获取网络延迟信息
      */
     NewClass.prototype.getPing = function () {
+        var net_1 = cc.find('Canvas/Ping/net_1');
+        var net_2 = cc.find('Canvas/Ping/net_2');
+        var net_3 = cc.find('Canvas/Ping/net_3');
         var pingNode = this.node.parent.getChildByName('Ping');
         pingNode.zIndex = 9999;
         var self = this;
@@ -169,6 +172,21 @@ var NewClass = /** @class */ (function (_super) {
             if (xmlHttp.readyState === 4) {
                 if (xmlHttp.status === 200) {
                     var end = new Date().getTime();
+                    if ((end - start) < 50) {
+                        net_1.active = true;
+                        net_2.active = false;
+                        net_3.active = false;
+                    }
+                    else if ((end - start) < 100) {
+                        net_1.active = false;
+                        net_2.active = true;
+                        net_3.active = false;
+                    }
+                    else {
+                        net_1.active = false;
+                        net_2.active = false;
+                        net_3.active = true;
+                    }
                     pingNode.getComponent(cc.Label).string = (end - start) + 'ms';
                 }
             }

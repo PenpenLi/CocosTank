@@ -1,28 +1,22 @@
 {
   "__type__": "cc.SpriteFrame",
   "content": {
-    "name": "atom",
-    "texture": "8a96b965-2dc0-4e03-aa90-3b79cb93b5b4",
+    "name": "frame_4",
+    "texture": "c9b3d8a0-f270-445a-b669-49782e224acc",
     "atlas": "",
     "rect": [
       0,
       0,
-      31,
-      31
+      1288,
+      696
     ],
     "offset": [
       0,
       0
     ],
     "originalSize": [
-      31,
-      31
-    ],
-    "capInsets": [
-      0,
-      0,
-      0,
-      0
+      1288,
+      696
     ]
   }
 }

@@ -425,7 +425,8 @@ require = function() {
       BattleCtrl.prototype.viceLeave = function() {
         clearInterval(this.propsTime);
         this.ready.active = true;
-        this.ready.getChildByName("labelStatus").getComponent(cc.Label).string = "对方已退出房间！";
+        this.ready.getChildByName("waiting_1").active = false;
+        this.ready.getChildByName("waiting_2").active = true;
       };
       __decorate([ property(cc.Prefab) ], BattleCtrl.prototype, "wall_column_1", void 0);
       __decorate([ property(cc.Prefab) ], BattleCtrl.prototype, "wall_row_1", void 0);
@@ -901,6 +902,9 @@ require = function() {
         this.bgSound.pause());
       };
       NewClass.prototype.getPing = function() {
+        var net_1 = cc.find("Canvas/Ping/net_1");
+        var net_2 = cc.find("Canvas/Ping/net_2");
+        var net_3 = cc.find("Canvas/Ping/net_3");
         var pingNode = this.node.parent.getChildByName("Ping");
         pingNode.zIndex = 9999;
         var self = this;
@@ -917,6 +921,19 @@ require = function() {
         function state_Change() {
           if (4 === xmlHttp.readyState && 200 === xmlHttp.status) {
             var end = new Date().getTime();
+            if (end - start < 50) {
+              net_1.active = true;
+              net_2.active = false;
+              net_3.active = false;
+            } else if (end - start < 100) {
+              net_1.active = false;
+              net_2.active = true;
+              net_3.active = false;
+            } else {
+              net_1.active = false;
+              net_2.active = false;
+              net_3.active = true;
+            }
             pingNode.getComponent(cc.Label).string = end - start + "ms";
           }
         }
@@ -956,6 +973,28 @@ require = function() {
     "../Page/FriendPageCtrl": "FriendPageCtrl",
     "../Unit/WebSocketManage": "WebSocketManage"
   } ],
+  LeaguePageCtrl: [ function(require, module, exports) {
+    "use strict";
+    cc._RF.push(module, "02d17/9jONKbb7nMuEI4Zmm", "LeaguePageCtrl");
+    Object.defineProperty(exports, "__esModule", {
+      value: true
+    });
+    var _a = cc._decorator, ccclass = _a.ccclass, property = _a.property;
+    var NewClass = function(_super) {
+      __extends(NewClass, _super);
+      function NewClass() {
+        return null !== _super && _super.apply(this, arguments) || this;
+      }
+      NewClass.prototype.start = function() {};
+      NewClass.prototype.onBack = function() {
+        this.node.destroy();
+      };
+      NewClass = __decorate([ ccclass ], NewClass);
+      return NewClass;
+    }(cc.Component);
+    exports.default = NewClass;
+    cc._RF.pop();
+  }, {} ],
   LinkedMap: [ function(require, module, exports) {
     "use strict";
     cc._RF.push(module, "2422a/26gRHUKNZEy4tBNpQ", "LinkedMap");
@@ -1054,6 +1093,7 @@ require = function() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.matchingPanel = null;
         _this.friendPanel = null;
+        _this.leaguePanel = null;
         _this.headImg = null;
         _this.userName = null;
         _this.HomePage = null;
@@ -1087,8 +1127,14 @@ require = function() {
         friendPanel.getComponent(FriendPageCtrl_1.default).init(0);
         this.enabled = false;
       };
+      NewClass.prototype.onClickLeague = function() {
+        var leaguePanel = cc.instantiate(this.leaguePanel);
+        leaguePanel.parent = this.node.parent;
+        this.enabled = false;
+      };
       __decorate([ property(cc.Prefab) ], NewClass.prototype, "matchingPanel", void 0);
       __decorate([ property(cc.Prefab) ], NewClass.prototype, "friendPanel", void 0);
+      __decorate([ property(cc.Prefab) ], NewClass.prototype, "leaguePanel", void 0);
       __decorate([ property(cc.Node) ], NewClass.prototype, "headImg", void 0);
       __decorate([ property(cc.Node) ], NewClass.prototype, "userName", void 0);
       NewClass = __decorate([ ccclass ], NewClass);
@@ -1812,7 +1858,7 @@ require = function() {
       function WebSocketManage() {
         var _this = null !== _super && _super.apply(this, arguments) || this;
         _this.TransferClass = new TransferClass_1.default();
-        _this.websocketUrl = "ws://172.17.0.13:8080/tankWar/echo.do";
+        _this.websocketUrl = "ws://app.ei-marketing.net/tankWar/echo.do";
         return _this;
       }
       WebSocketManage.prototype.start = function() {
@@ -1871,4 +1917,4 @@ require = function() {
     cc.director.getPhysicsManager().gravity = cc.v2();
     cc._RF.pop();
   }, {} ]
-}, {}, [ "BattleCtrl", "FriendPageCtrl", "HomePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "Buttle3Ctrl", "Buttle6Ctrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);
+}, {}, [ "BattleCtrl", "FriendPageCtrl", "HomePageCtrl", "LeaguePageCtrl", "LobbyPageCtrl", "LoginPageCtrl", "MatchingCtrl", "BulletCtrl", "Buttle3Ctrl", "Buttle6Ctrl", "CellCtrl", "PlayerOperationCtrl", "PropsCtrl", "TankCtrl", "LinkedMap", "TransferClass", "WebSocketManage", "init" ]);

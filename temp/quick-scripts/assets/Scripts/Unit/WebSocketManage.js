@@ -11,10 +11,10 @@ var WebSocketManage = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         // 事件处理中转对象
         _this.TransferClass = new TransferClass_1.default();
-        _this.websocketUrl = 'ws://172.17.0.13:8080/tankWar/echo.do';
+        // private websocketUrl = 'ws://172.17.0.13:8080/tankWar/echo.do';
+        _this.websocketUrl = 'ws://app.ei-marketing.net/tankWar/echo.do';
         return _this;
     }
-    // private websocketUrl = 'ws://app.ei-marketing.net/tankWar/echo.do';
     WebSocketManage.prototype.start = function () {
         this.init();
     };

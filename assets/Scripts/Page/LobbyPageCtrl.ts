@@ -9,6 +9,9 @@ export default class NewClass extends cc.Component {
     matchingPanel: cc.Prefab = null;
     @property(cc.Prefab)
     friendPanel: cc.Prefab = null;
+    @property(cc.Prefab)
+    leaguePanel: cc.Prefab = null;
+
     @property(cc.Node)
     headImg: cc.Node = null;
     @property(cc.Node)
@@ -47,6 +50,14 @@ export default class NewClass extends cc.Component {
         var friendPanel = cc.instantiate(this.friendPanel);
         friendPanel.parent = this.node.parent;
         friendPanel.getComponent(FriendPageCtrl).init(0);
+        this.enabled = false;
+    }
+    /**
+     * 点击联赛
+     */
+    onClickLeague() {
+        var leaguePanel = cc.instantiate(this.leaguePanel);
+        leaguePanel.parent = this.node.parent;
         this.enabled = false;
     }
 }
