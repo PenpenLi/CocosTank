@@ -18,5 +18,11 @@ export default class NewClass extends cc.Component {
     onBack() {
         this.node.destroy();
     }
+    onClickEvery() {
+        this.node.getChildByName('mask').active = true;
+    }
+    onClickReEvery() {
+        this.node.getChildByName('mask').active = false;
+    }
     // update (dt) {}
 }

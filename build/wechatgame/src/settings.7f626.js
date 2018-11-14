@@ -417,6 +417,15 @@ window._CCSettings = {
                 "resources/icon_8.png",
                 "cc.Texture2D"
             ],
+            deLauJXwJErbMLItNxuMMW: [
+                "resources/icon_expectancy",
+                "cc.SpriteFrame",
+                1
+            ],
+            aaU0KIvXlPNKrFdNvY4LzY: [
+                "resources/icon_expectancy.png",
+                "cc.Texture2D"
+            ],
             "2dsbzyiXBLvIywLhfiZVN3": [
                 "resources/icon_time",
                 "cc.SpriteFrame",
@@ -921,7 +930,7 @@ window._CCSettings = {
         }
     ],
     packedAssets: {
-        "02c298d87": [
+        "02ee75d25": [
             "05rPMycf9OyKhNwEPoSIoE",
             "07djK+W+BB9a9DuZlxP8sz",
             "09E1+u/VpM2p0a9CDZBI00",
@@ -995,6 +1004,7 @@ window._CCSettings = {
             "d81NLhQCdJiKpZQXFdKXMQ",
             "d9nOKACwxKu6wrmuOqYcVq",
             "ddrDnyKhFD+bDxKVgRJY/u",
+            "deLauJXwJErbMLItNxuMMW",
             "dftBzIBDpCq4jzvp+V/29F",
             "e1lQhF6l9AG6qqqXZWSXwr",
             "e29cEqzoVKzrZuwrty2on4",
@@ -1017,7 +1027,7 @@ window._CCSettings = {
     orientation: "landscape",
     debug: true,
     md5AssetsMap: {
-        "02/02c298d87.json": "747da",
+        "02/02ee75d25.json": "dd704",
         "06/0602441d-3d2e-40c3-924a-e3ff8932d1c2.json": "a6722",
         "0a/0a24c0e5-10bd-4341-9974-7ed401eb691e.json": "c9a0d",
         "13/13e33cb4-91e9-4114-95c7-ae09791f0918.json": "35650",
@@ -1086,15 +1096,16 @@ window._CCSettings = {
         "assets/resources/icon_1.png": "11d31",
         "assets/resources/icon_2.png": "6105f",
         "assets/resources/icon_3.png": "f4a51",
-        "assets/resources/icon_4.png": "5fb53",
+        "assets/resources/icon_4.png": "2c20f",
         "assets/resources/icon_5.png": "134b8",
-        "assets/resources/icon_8.png": "73a2b",
+        "assets/resources/icon_8.png": "8fe24",
+        "assets/resources/icon_expectancy.png": "1ac28",
         "assets/resources/icon_time.png": "fa40c",
         "assets/resources/icon_vs.png": "6a353",
         "assets/resources/line_4_2.png": "787d9",
         "assets/resources/line.png": "a2142",
-        "assets/resources/logo_1.png": "ab70f",
-        "assets/resources/logo_3.png": "26831",
+        "assets/resources/logo_1.png": "a3256",
+        "assets/resources/logo_3.png": "0047d",
         "assets/resources/net_1.png": "14414",
         "assets/resources/net_2.png": "0113c",
         "assets/resources/net_3.png": "72c2d",

@@ -1,22 +1,22 @@
 {
   "__type__": "cc.SpriteFrame",
   "content": {
-    "name": "logo_1",
-    "texture": "50b02b04-0913-4399-afd1-ce56e2f26f05",
+    "name": "icon_expectancy",
+    "texture": "aa534288-bd79-4f34-aac5-74dbd8e0bcd8",
     "atlas": "",
     "rect": [
-      0,
-      0,
-      419,
-      327
+      13,
+      12,
+      545,
+      272
     ],
     "offset": [
       0,
       0
     ],
     "originalSize": [
-      419,
-      327
+      571,
+      296
     ]
   }
 }

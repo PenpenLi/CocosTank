@@ -989,6 +989,12 @@ require = function() {
       NewClass.prototype.onBack = function() {
         this.node.destroy();
       };
+      NewClass.prototype.onClickEvery = function() {
+        this.node.getChildByName("mask").active = true;
+      };
+      NewClass.prototype.onClickReEvery = function() {
+        this.node.getChildByName("mask").active = false;
+      };
       NewClass = __decorate([ ccclass ], NewClass);
       return NewClass;
     }(cc.Component);

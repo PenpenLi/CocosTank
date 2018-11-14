@@ -64,11 +64,6 @@
     "meta": 1540869244297,
     "relativePath": "resources\\tree.png"
   },
-  "50b02b04-0913-4399-afd1-ce56e2f26f05": {
-    "asset": 1538024203025,
-    "meta": 1540869244130,
-    "relativePath": "resources\\logo_1.png"
-  },
   "f352f171-1b65-4346-bd5d-8494791c49a2": {
     "asset": 1538024203030,
     "meta": 1540869244183,
@@ -98,16 +93,6 @@
     "asset": 1540871854588,
     "meta": 1540871854597,
     "relativePath": "Prefabs\\Page\\LobbyPanel.prefab"
-  },
-  "5d7c8cb7-9813-4f8a-bf5d-d5c025814ae8": {
-    "asset": 1538024203023,
-    "meta": 1540869244100,
-    "relativePath": "resources\\icon_4.png"
-  },
-  "df479bf8-df22-44fc-a9bf-db7d3b0d4172": {
-    "asset": 1538024203025,
-    "meta": 1540869244128,
-    "relativePath": "resources\\logo_3.png"
   },
   "c1073807-c80f-46d8-84f7-361fa2c63c12": {
     "asset": 1538024203037,
@@ -874,11 +859,6 @@
     "meta": 1540870916865,
     "relativePath": "Scripts\\Page\\HomePageCtrl.ts"
   },
-  "61e159b7-6976-449a-8da4-6bc5aebbe92f": {
-    "asset": 1540871438842,
-    "meta": 1540871438861,
-    "relativePath": "resources\\icon_8.png"
-  },
   "c8c5e646-fd77-46ab-8442-bb937651e6d2": {
     "asset": 1540871450373,
     "meta": 1540871450384,
@@ -900,19 +880,14 @@
     "relativePath": "resources\\frame_4.png"
   },
   "e87d8f6d-de04-451f-9d0c-ef58ff33a205": {
-    "asset": 1540883255973,
-    "meta": 1540883255984,
+    "asset": 1540886717213,
+    "meta": 1540886717222,
     "relativePath": "Prefabs\\Page\\LeaguePagePanel.prefab"
   },
   "8be5eb47-8f10-4527-ba32-e625e652adbc": {
     "asset": 1540871811994,
     "meta": 1540871816726,
     "relativePath": "Scripts\\Page\\LobbyPageCtrl.ts"
-  },
-  "02d17ffd-8ce3-4a6d-bee7-32e108e199a6": {
-    "asset": 1540871957421,
-    "meta": 1540882909014,
-    "relativePath": "Scripts\\Page\\LeaguePageCtrl.ts"
   },
   "8aac3ff9-da93-432b-8dfe-a89664bfa993": {
     "asset": 1540882915097,
@@ -928,5 +903,35 @@
     "asset": 1540883108376,
     "meta": 1540883114384,
     "relativePath": "Scripts\\Page\\BattleCtrl.ts"
+  },
+  "50b02b04-0913-4399-afd1-ce56e2f26f05": {
+    "asset": 1540886049914,
+    "meta": 1540886049956,
+    "relativePath": "resources\\logo_1.png"
+  },
+  "df479bf8-df22-44fc-a9bf-db7d3b0d4172": {
+    "asset": 1540886071467,
+    "meta": 1540886071492,
+    "relativePath": "resources\\logo_3.png"
+  },
+  "61e159b7-6976-449a-8da4-6bc5aebbe92f": {
+    "asset": 1540886084863,
+    "meta": 1540886084887,
+    "relativePath": "resources\\icon_8.png"
+  },
+  "aa534288-bd79-4f34-aac5-74dbd8e0bcd8": {
+    "asset": 1540886144645,
+    "meta": 1540886144665,
+    "relativePath": "resources\\icon_expectancy.png"
+  },
+  "02d17ffd-8ce3-4a6d-bee7-32e108e199a6": {
+    "asset": 1540886278753,
+    "meta": 1540886280707,
+    "relativePath": "Scripts\\Page\\LeaguePageCtrl.ts"
+  },
+  "5d7c8cb7-9813-4f8a-bf5d-d5c025814ae8": {
+    "asset": 1540886442979,
+    "meta": 1540886443016,
+    "relativePath": "resources\\icon_4.png"
   }
 }
